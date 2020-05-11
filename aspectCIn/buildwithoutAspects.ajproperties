@@ -1,0 +1,7 @@
+src.includes = src/
+src.excludes = src/aspectcin/namingservice/NamingServiceCommAspect.aj,\
+			   src/aspectcin/orb/CinORBCommAspect.aj,\
+			   src/aspectcin/log/*,\
+			   src/aspectcin/orb/aspectStub/*,\
+			   src/aspectcin/billing/,\
+			   src/aspectcin/timing/

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<project name="project" default="default">
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" description="--> description">
+        <exec executable="orbd"><arg value="-ORBInitialPort"/><arg value="1050" /><arg value="-ORBInitialHost"/><arg value="localhost"/></exec>
+    </target>
+
+</project>
+
+<!--
+orbd -ORBInitialPort 1050 -ORBInitialHost localhost
+-->

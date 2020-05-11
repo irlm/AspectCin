@@ -1,0 +1,431 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+
+<!--[if IE]>
+<link href='css/style_ms.css' rel='stylesheet' type='text/css'>
+<![endif]-->
+<![if !IE]>
+<link href='css/style.css' rel='stylesheet' type='text/css'>
+<![endif]>
+
+<script type='text/javascript' src='dwr/interface/ConnectionHelper.js'></script>
+<script type='text/javascript' src='js/Base.js'></script>
+<script type='text/javascript' src='js/Logging.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type='text/javascript' src='dwr/util.js'></script>
+<script type='text/javascript' src='js/overlib.js'></script>
+<script type='text/javascript' src='js/overlib_crossframe.js'></script>
+<script type='text/javascript' src='js/troubleshooter.js'></script>
+<script type='text/javascript'>
+    
+/*********************************************************************
+*Variables for the page.
+*
+*/
+
+var backgroundColorActive = "#88d088";
+var backgroundColorDisconnected = "red";
+var backgroundColorNotViewing = "#d0d088";
+
+var hints = { "unview"     :  "Now Monitoring : click to stop viewing",
+	      "view"       :  "Not Being Viewed: click to start viewing",
+	      "abandon"    :  "Could not connect to server : click to turn off monitoring attempts",
+	      "resetConnection"      :  "Warning: Reset this server's statistics for all users",
+	      "configure"  :  "Edit Connection" };
+
+
+/*********************************************************************
+*Starts up the polling service, initializes.
+*
+*/
+function startup() {
+   DWREngine.setErrorHandler(errorHandler);
+   ConnectionHelper.getConnections(loadRowInfo);
+   startTimer(5000, update);   
+   configureHint("closeConnectionWindow", "Close Connection Configuration Panel");   
+   configureHint("helpConnectionPanel", "Help Topic: Connection Panel"); 
+   configureHint("helpConnectionConfig", "Help Topic: Connection Configuration"); 
+}
+
+/*********************************************************************
+*Resets the displayed data.
+*
+*/
+function reset() {
+    DWRUtil.removeAllRows('connectionTable');
+   $("connectionName").value = "";
+   //$("connectionURL").value  = "";
+   $("connectionHostName").value  = "";
+   $("connectionPort").value  = "";
+   $("connectionProtocol").value  = "";
+   $("oldConnectionName").value  = "";
+   startup();
+}
+
+/*********************************************************************
+*Refresh the displayed data.
+*
+*/
+function refreshConnection() { 
+   ConnectionHelper.getConnections(loadRowInfo);
+}
+
+/*********************************************************************
+*Updates the rows, creating, updating, or deleting.
+*
+*/
+function updateRows(data) {
+    DWRUtil.removeAllRows('connectionTable');
+    var tbody = $("connectionTable");    
+    for(var i = 0; i < data.length; i++) {                
+        var row = document.createElement("tr");        
+        row.style.backgroundColor = 'white';
+        var col = document.createElement("td");        
+        var spanNode = document.createElement("span");
+        if(data[i].viewed) {
+            if (data[i].connected) {
+                spanNode.style.color=backgroundColorActive;
+            } else {
+                spanNode.style.color=backgroundColorDisconnected;
+            }
+        } else {
+            spanNode.style.color=backgroundColorNotViewing; 
+        }
+    
+        spanNode.appendChild(document.createTextNode(data[i].name));
+        col.appendChild(spanNode);
+        row.appendChild(col);
+
+        if(data[i].viewed) {
+            if (data[i].connected) {
+                row.appendChild(createClickImageCol('unview', 'green-dot16', data[i].name));
+            } else {
+                row.appendChild(createClickImageCol('abandon', 'red-dot16', data[i].name));
+            }
+        } else {
+            row.appendChild(createClickImageCol('view', 'yellow-dot16', data[i].name));
+        }
+        row.appendChild(createClickImageCol('resetConnection', 'resetConnection', data[i].name));
+        row.appendChild(createClickImageCol('configure', 'configure', data[i].name));
+        tbody.appendChild(row);        
+    }
+}
+
+/*********************************************************************
+*Handles view
+*
+*/
+function view(obj) {
+   parent.tablebody.refreshTable();
+   ConnectionHelper.setVisibility(this.id, true, refreshConnection);
+   update();
+}
+
+/*********************************************************************
+*Handles un-view
+*
+*/
+function unview(obj) {
+   parent.tablebody.refreshTable();
+   ConnectionHelper.setVisibility(this.id, false, refreshConnection);
+   update();
+}
+
+/** alias for un-view when can't connect */
+function abandon(obj) {
+   unview(obj);
+}
+
+/*********************************************************************
+*Handles connecting.
+*
+*/
+function connect(obj) {
+   ConnectionHelper.connect(refreshConnection, this.id);
+   update();
+}
+
+
+/*********************************************************************
+*Handles disconnecting.
+*
+*/
+function disconnect(obj) {
+   ConnectionHelper.disconnect(refreshConnection, this.id);
+   update();
+}
+
+/*********************************************************************
+*Resets the connections data
+*
+*/
+function resetConnection(obj) {
+   ConnectionHelper.reset(refreshConnection, this.id);
+}
+
+
+/*********************************************************************
+*Handles configuration.
+*
+*/
+function configure(obj) {
+   ConnectionHelper.getConnection(this.id, showConfigureBox);
+}
+
+/*********************************************************************
+*The callback for getting the configure box.
+*
+*/
+function showConfigureBox(data) {
+   DWRUtil.setValue("connectionName", data.name);	
+   DWRUtil.setValue("connectionHostName", data.hostName);
+   DWRUtil.setValue("connectionPort", data.port);
+   DWRUtil.setValue("connectionProtocol", data.protocol);
+   DWRUtil.setValue("oldConnectionName", data.name);
+   showBox("deleteConnection");
+   showBox("connectionEdit");
+}
+
+/*********************************************************************
+*Generic column creator.
+*
+*/
+function createClickImageCol(action, image, id) {
+  var col = document.createElement("td");
+  var a = document.createElement("a");
+  var img = document.createElement("img");
+  img.id = id;
+  img.src = 'images/' + image + '.jpg';
+  img.onclick=this[action];
+  img.onmouseover = function(event) {return overlib(hints[action]);};
+  img.onmouseout = function(event) {return nd();};  
+  a.appendChild(img);
+  col.appendChild(a);
+  return col;  
+}
+
+/*********************************************************************
+*Hides the edit connection field.
+*
+*/
+function hideEditConnection() {
+    hideEditConnectionNoReset();
+    reset();
+}
+
+function hideEditConnectionNoReset() {
+    var editBox = $("connectionEdit");
+    editBox.style.visibility = 'hidden';
+    editBox.style.height = '0px';
+    editBox.style.width  =  '0px';
+    hideBox("deleteConnection");   
+}
+
+function completedDeleteConnection(ignore) {
+    hideEditConnection();
+}
+
+function completedEditConnection(msg) {
+    if (msg == "ok") {
+        hideEditConnection();
+        return;
+    } 
+    if (msg == "duplicate.name") {
+        err = "Can't create two connections with the same name";
+    } else if (msg == "duplicate.endpoint") {
+        err = "Can't create two connections with the same protocol and port.";
+    } else if (msg == "invalid.name") {
+        err = "Invalid name (can\'t be empty)";
+    } else {
+        err = "Error: "+msg;
+    }
+    alert(err);
+}
+
+/*********************************************************************
+*Save connection callback.
+*
+*/
+function saveConnection(id) {
+   var connectionName = $("connectionName").value;
+   var port = $("connectionPort").value;
+   var hostName = $("connectionHostName").value;
+   var protocol = $("connectionProtocol").value;
+   var oldName = $("oldConnectionName").value;
+   
+   var errors = '';
+   if (connectionName == "") {
+       errors = errors + 'Display name is required.\n';
+   }
+   if (hostName == "") {
+       errors = errors + 'Host name is required.\n';
+   }
+   if (protocol != "local" && (port<=0 || port>65535)) {
+       errors = error + 'Invalid port: '+port;
+   }
+   if (errors == "") {
+       ConnectionHelper.buildAndAddConnection(connectionName, oldName, hostName, protocol, port, completedEditConnection);
+       update();
+   } else {
+       alert("Can't save because\n"+errors);
+   }
+}
+
+/*********************************************************************
+*Delete connection callback.
+*
+*/
+function deleteConnection(id) {
+   var oldName = $("oldConnectionName").value;
+   
+   ConnectionHelper.deleteConnection(oldName, completedDeleteConnection);
+   update();
+}
+
+/*********************************************************************
+*Displays the add box.
+*
+*/
+function showAddBox() {
+   DWRUtil.setValue("connectionName", "");
+   DWRUtil.setValue("connectionPort", "7232");
+   DWRUtil.setValue("connectionHostName", "");
+   DWRUtil.setValue("connectionProtocol", "jmx/rmi");
+   DWRUtil.setValue("oldConnectionName", "");
+   hideBox("deleteConnection");   
+   showBox('connectionEdit');
+}
+
+function update() {
+  if (top.isLeftBoxVisible()) {
+    try {
+       refreshConnection();
+    } catch (error) {
+       //not connecting. die silently. should be handled above by event handler.
+    }
+  }
+}
+
+top.updateConnectionPanel = update;
+</script>
+</head>
+<body onload="javascript:startup();">
+<div id="overDiv"
+	style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<table class="connectionTable">
+	<thead>
+		<tr class="connectionHead">
+			<td align="center">
+			<table class="connectionTable">
+				<tr>
+					<td align="left"><b>Connections</b></td>
+					<td align="right"><img src="images/red-failure.jpg"
+						id="closeConnectionWindow"
+						onclick="javascript:parent.hideLeftBox()">
+						</td>					
+			    <td align="right">
+				    <a href="http://www.glassbox.com/glassbox/HelpSimple.html#CONNECTIONPANEL" target="_blank">
+			        <img src="images/help16.jpg" id="helpConnectionPanel">
+					</a>
+			    </td>	
+						
+						
+					</td>
+				</tr>
+			</table>
+			</td>
+		</tr>
+		<tr class="troubleshooterTableRow">
+			<td class="divider"></td>
+		</tr>
+	</thead>
+
+	<tbody height="100%">
+		<tr class="connectionTopRow">
+			<td>
+			<table class="connectionTable">
+				<tbody id="connectionTable">
+				</tbody>
+			</table>
+			</td>
+		</tr>
+
+		<tr class="connectionTopRow">
+			<td align="center">
+			<div id="connectionEdit" class="connectionFormBox">
+
+			<table>
+				<tr class="troubleshooterTableDividerRow">
+					<td class="divider" colspan="2"></td>
+				</tr>
+				<tr>
+				<td>&nbsp;</td>
+				</tr>
+				<tr>
+				<td colspan="2"><b>Configure Connection</b></td>
+			    
+			    <td><a href="http://www.glassbox.com/glassbox/HelpSimple.html#CONNECTIONCONFIG" target="_blank">
+			            <img src="images/help16.jpg" id="helpConnectionConfig">
+					    </a>
+	            </td>
+				</tr>
+				<tr>
+					<td>Display Name</td>
+					<td><input type="text" class="connectionField"
+						id="connectionName" name="connectionName"></td>
+				</tr>
+				
+
+				
+				<tr>
+					<td>Host</td>
+					<td><input type="text" class="connectionField"
+						id="connectionHostName" name="connectionHostName"></td>
+				</tr>
+
+				<tr>
+					<td>Port</td>
+					<td><input type="text" class="connectionField"
+						id="connectionPort" name="connectionPort"></td>
+				</tr>
+				
+				<tr>
+					<td>Protocol Used</td>
+					<td><select id="connectionProtocol" name="connectionProtocol">
+						<option value="jmx/rmi">JMX on RMI</option>
+						<option value="rmi">Direct RMI</option>
+						<option value="local">Local VM</option>
+					</select></td>
+				</tr>
+				
+				
+				<tr>
+					<td colspan="2"><a href="javascript:saveConnection()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
+					<a href="javascript:hideEditConnectionNoReset()"><b>Cancel</b></a>&nbsp;&nbsp;&nbsp;
+					<span id="deleteConnection"><a href="javascript:deleteConnection()"><b>Delete</b></a></span></td>
+				</tr>
+				<input type="hidden" id="oldConnectionName" name="oldConnectionName"></input>
+			</table>
+			</div>
+			</td>
+		</tr>
+
+		<tr class="troubleshooterTableDividerRow">
+			<td class="divider"></td>
+		</tr>
+
+		<tr class="connectionAddBox">
+			<td align="center">
+			<table class="connectionTable">
+				<tr>
+					<td><a href="javascript:showAddBox();"><b>Add</b></a></td>
+				</tr>
+			</table>
+			</td>
+		</tr>
+
+	</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: @@TOOLS_MAIN_CLASS@@
+Class-Path: @@TOOLS_MANIFEST_CLASSPATH@@
+

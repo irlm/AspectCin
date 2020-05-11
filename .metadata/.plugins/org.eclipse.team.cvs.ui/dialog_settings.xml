@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="TagConfigurationDialog">
+		<item value="511" key="AllowRefreshWidth"/>
+		<item value="569" key="AllowRefreshHeight"/>
+	</section>
+	<section name="CommitWizard">
+		<item value="509" key="height"/>
+		<item value="400" key="width"/>
+	</section>
+	<section name="CheckoutAsWizard">
+	</section>
+	<section name="NewLocationWizard">
+	</section>
+</section>

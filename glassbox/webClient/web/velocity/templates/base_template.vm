@@ -1,0 +1,70 @@
+<html>
+<head>
+<link href="css/content.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script type='text/javascript' src='js/Base.js'></script>
+    <script type='text/javascript' src='js/Logging.js'></script>
+    <script type='text/javascript' src='dwr/engine.js'></script>
+    <script type='text/javascript' src='dwr/util.js'></script>
+    <script type='text/javascript' src='js/overlib.js'></script>
+    <script type='text/javascript' src='js/overlib_crossframe.js'></script>
+    <script type='text/javascript' src='js/troubleshooter.js'></script>
+    <script type='text/javascript'>
+    
+/*********************************************************************
+*Variables for the page.
+*
+*/
+#set( $simpleCounter = 0 )
+
+/*********************************************************************
+*Starts up the polling service, initializes.
+*
+*/
+function startup() {
+   DWREngine.setErrorHandler(errorHandler);
+}
+
+/*********************************************************************
+*Calls the parent reset.
+*
+*/
+function reset() {
+    this.location.href="welcome.html";
+}
+</script>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+</head>
+
+<body>
+<div class="main">
+
+<div id="executiveSummary" name="executiveSummary"> 
+    #parse($display.executiveSummaryPanel)
+</div>
+
+<div id="technologySummary" name="technologySummary"> 
+    #parse($display.technologySummaryPanel)
+</div>
+    
+<div id="technologyDetails" name="technologyDetails"> 
+    #parse($display.technologyDetailsPanel)
+</div>
+
+<div id="commonSolutions" name="commonSolutions"> 
+    #parse($display.commonSolutionsPanel)
+</div>
+
+<div id="ruledOut" name="ruledOut"> 
+    #parse($display.ruledOutPanel)
+</div>
+<H4 align="center"> Analysis by Glassbox Open Source <br/> www.glassbox.com </H4>
+</div>
+</body>
+<!-- see http://www.htmlgoodies.com/beyond/reference/article.php/3472881 -->
+<head>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+</head>
+</html>

@@ -1,0 +1,14 @@
+/ChainedExceptionListener.java/1.1/Sat Sep 16 17:39:05 2006//
+/ConnectionFactoryUtils.java/1.7/Sat Mar 17 01:11:13 2007//
+/DelegatingConnectionFactory.java/1.1/Fri Jan  5 08:30:31 2007//
+/JmsResourceHolder.java/1.5/Sat Mar 17 01:11:13 2007//
+/JmsTransactionManager.java/1.16/Mon Jul  9 12:12:39 2007//
+/JmsTransactionManager102.java/1.6/Mon Jul  9 13:01:17 2007//
+/SessionProxy.java/1.1/Sun Mar 18 16:42:43 2007//
+/SingleConnectionFactory.java/1.15/Mon Jul  9 11:44:30 2007//
+/SingleConnectionFactory102.java/1.7/Mon Jul  9 13:01:17 2007//
+/SmartConnectionFactory.java/1.1/Fri Jan  5 08:30:31 2007//
+/SynchedLocalTransactionFailedException.java/1.1/Fri Sep 15 20:08:55 2006//
+/TransactionAwareConnectionFactoryProxy.java/1.4/Sun Mar 18 16:42:42 2007//
+/UserCredentialsConnectionFactoryAdapter.java/1.4/Sun Mar  4 00:35:31 2007//
+/package.html/1.1/Mon Jul 26 09:00:54 2004//

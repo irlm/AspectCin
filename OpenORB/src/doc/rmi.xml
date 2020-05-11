@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+<!DOCTYPE book SYSTEM "@docbook-dtd@" [
+<!ENTITY intro SYSTEM "@intro@">
+]>
+
+<book>
+    <bookinfo>
+        <title>The Community OpenORB - RMIoverIIOP</title>
+        <authorgroup>
+            <author><firstname>Chris</firstname><surname>Wood</surname></author>            
+            <author><firstname>Jerome</firstname><surname>Daniel</surname></author>
+            <author><firstname>Michael</firstname><surname>Rumpf</surname></author>
+        </authorgroup>
+    </bookinfo>
+
+
+    &intro;
+
+
+    <chapter id="ch_overview">
+        <title>Overview</title>
+            <para>This document provides all information to run RMI over IIOP for OpenORB. In particular, it explains how to install, configure
+			and test RMI over IIOP for OpenORB.</para>
+
+			<para>Then, this document provides a reference for the tools provided with this OpenORB extension. Finally, this document
+			also explains how to develop an RMI application using RMI/IIOP.</para>
+
+			<para>To get the lastest information about OpenORB, its extensions and services, don't hesitate to frequently visit the OpenORB web
+			site (openorb.sf.net) and/or to subscribe to the OpenORB mailing list.</para>
+			<para>This OpenORB extension is a fully compliant implementation of the RMI/IIOP OMG specification. Extension means that
+			all existing applications could use this extension without having to be rebuilt !</para>
+
+			<para>Thanks to this extension, it could be possible to run any RMI application over CORBA in a completely transparent way. It
+			means that your RMI applications exchange messages through IIOP, take advantage of CORBA scalability and reliability.
+			Moreover, by using IIOP your RMI applications could be invoked from any programming language ( compliant with CORBA ) :
+			for example a C++ applications !</para>
+
+			<para>This extension provides an utility called <classname>JavaToIdl</classname> which has the ability to generate an IDL description from
+			a Java class and to generate stubs and skeletons for Java classes. This extension also provides a JNDI connector
+			to bind your RMI object into the CORBA naming service.</para>
+    </chapter>
+
+
+
+    <chapter id="ch_compile">
+        <title>Compilation</title>
+        <para>  It is assumed that OpenORB is previously installed on your system.
+  The OpenORB ( openorb-{version}.jar ) and Tool ( openorb_tools-{version}.jar ) jar files must be added into your classpath.</para>
+
+  <para>Then, to build OpenORB RMI over IIOP :</para>
+   <itemizedlist>
+    <listitem><para>set the JAVA_HOME env variable</para></listitem>
+    <listitem><para>start 'build.bat' ( for Windows ) or 'build.sh' ( for Unix )</para></listitem>
+    </itemizedlist>
+
+  <para>if you want to see all build options, enter 'build help' ( 'build.sh help' for Unix ).</para>
+
+    <para>OpenORB RMI over IIOP is then built. The build process creates the Jar files, the examples and the
+      tests. All of these elements are created in the 'dist' directory ( itself created by the build process ).  </para>
+    </chapter>
+
+
+
+	<chapter id="ch_install">
+		<title>Installation</title>
+            <para>This chapter explains how to install RMI over IIOP for OpenORB. We remind you that OpenORB is required and must
+			be previously installed before you proceed to the next steps.</para>
+
+			<para>How to get RMI over IIOP for OpenORB ?</para>
+
+			<para>To get this OpenORB extension, please visit the Community OpenORB web site ( openorb.sf.net ). Then, go to the download
+			section. Follow the instructions to download the RMIoverIIOP extension.</para>
+
+			<para>How to compile RMI over IIOP for OpenORB ?</para>
+
+			<para>The RMI over IIOP distribution contains an Ant script that can be used to generate it. Several dependances are required
+			and located in the <filename>lib</filename> directory. If you use the <filename>build.bat</filename> ( for windows ) or <filename>build.sh</filename> ( for unix )
+			all dependances and required classpath are directly used.</para>
+
+			<para>Thus, to compile RMI over IIOP for OpenORB, we advise
+            you to enter the following command from the command line:
+            <filename>build</filename> or <filename>build.sh</filename></para>
+
+			<para>How to configure RMI over IIOP for OpenORB ?</para>
+
+			<para>You have just to add in your classpath the OpenORB RMI over IIOP Jar file : <filename>openorb_rmi-x.y.z.jar</filename>.</para>
+
+			<para>The configuration file named <filename>rmi.xml</filename> is embedded in the Jar file. It is automatically used by the RMI over IIOP engine.
+		   It means that you have no special configuration to set in order to run an RMI application with OpenORB.</para>
+
+			<para>In addition, all required IDL files are also embedded in the Jar file. It means that the RMI over IIOP compiler will be able
+			to retrieve all needed descriptions without any other configuration.</para>
+
+		   <para>How to complete the configuration ?</para>
+
+   			<para>To complete the configuration, we are going to replace the embedded OpenORB configuration by the new one. For that purpose, please
+   			refer to the OpenORB Programmer Guide.</para>
+
+			<para>How to configure the JDK to use RMI over IIOP for OpenORB ?</para>
+
+			<para>For using OpenORB with JDK 1.2.x or 1.3.x you have to provide an <filename>ORB.properties</filename> file that contains some
+			information to load OpenORB.</para>
+
+			<para>For using RMI over IIOP for OpenORB, you have to provide some additional information into <filename>ORB.properties</filename>.
+			More precisely, you have three additional properties to set :
+
+			<programlisting>javax.rmi.CORBA.StubClass=org.openorb.orb.rmi.StubDelegateImpl
+			javax.rmi.CORBA.UtilClass=org.openorb.orb.rmi.UtilDelegateImpl
+			javax.rmi.CORBA.PortableRemoteObjectClass=org.openorb.orb.rmi.PortableRemoteObjectDelegateImpl</programlisting></para>
+	</chapter>
+
+
+
+	<chapter id="ch_config">
+		<title>Configuration</title>
+        <para></para>
+	</chapter>
+
+
+
+	<chapter id="ch_deploy">
+        <title>Deployment</title>
+        <section>
+		    <title>RMI over IIOP Tutorial</title>
+            <para> This tutorial is divived into several steps that provide an overview of what is important to know to write RMI
+			applications. All source code used for this tutorial is available in the <filename>examples</filename> directory of the
+			distribution.</para>
+
+			<para>A first application : Hello world !</para>
+
+			<para>The source code of this first example is available in <filename>examples/hello</filename>. First, let's have a look at the remote interface
+			description in the <filename>RemoteEcho.java</filename> file.
+
+			<programlisting>
+            package hello;
+
+			interface RemoteHello extends java.rmi.Remote
+			{
+	  		    public void print( String message )
+			    throws java.rmi.RemoteException;
+			}
+            </programlisting></para>
+
+			<para>RMI over IIOP does not require additional rules to define remote interfaces:</para>
+			<itemizedlist>
+			  <listitem>Each remote interface has to inherit directly or indirectly from <classname>java.rmi.Remote</classname></listitem>
+			  <listitem>Each method has to throw the <classname>java.rmi.RemoteException</classname></listitem>
+			</itemizedlist>
+
+			<para>To implement a remote interface there is no specific requirement from RMI over IIOP. However, the server class which
+			starts the application has to inherit from <classname>javax.rmi.PortableRemoteObject</classname>. Moreover, JNDI must be
+			used to bind and to resolve an object reference.</para>
+
+			<para>The following source code implements the above interface.
+
+			<programlisting>
+            package hello;
+
+			import javax.naming.InitialContext;
+
+			public class HelloServer
+			    extends javax.rmi.PortableRemoteObject
+			    implements RemoteHello
+			{
+			    public HelloServer()
+                    throws java.rmi.RemoteException
+			    { }
+			    public void print( String message )
+			        throws java.rmi.RemoteException
+			    {
+			        System.out.println( message );
+			    }
+			    public static void main(String args[])
+			    {
+        	        try
+			        {
+                        java.util.Properties env =
+			                new java.util.Properties ();
+         	            InitialContext context = new InitialContext(env);
+			            HelloServer helloObj = new HelloServer();
+			            context.bind("hello", helloObj );
+			        }
+			        catch ( Exception ex )
+			        {
+			            ex.printStackTrace();
+			            System.out.println(ex.getMessage());
+			        }
+			    }
+			}
+            </programlisting></para>
+
+			<para>Now, we have to compile this application :
+
+			<command>javac *.java</command></para>
+
+			<para>To be used with RMI over IIOP, the RMI object needs to have a skeleton ( for the server side ) and a stub ( for the
+			client side ). To generate the skeleton and the stub, we have to use a dedicated tool provided with RMIoverIIOP for OpenORB.</para>
+
+			<para>This tool named <classname>JavaToIdl</classname>, provides the following features :</para>
+			<itemizedlist>
+			  <listitem>create a stub and a skeleton for a remote interface</listitem>
+			  <listitem>create an IDL description for a remote interface</listitem>
+			</itemizedlist>
+
+			<para>For this example, we are going to generate the stub, the skeleton and no IDL description ( see the next example to know how
+			to generate and how to use an IDL interface for a remote interface ). To generate these artifacts, use the following
+			command line:
+
+			<command>java org.openorb.rmi.compiler.JavaToIdl -tie -stub -noidl hello.RemoteHello</command></para>
+
+			<note>
+			To be able to run the above command, don't forget to set into the classpath a way to find the <classname>hello.RemoteHello</classname>
+			interface.</note>
+
+			<para>Now, two files have been generated:</para>
+			<itemizedlist>
+			  <listitem><classname>_RemoteHelloTie.java</classname> which is the skeleton</listitem>
+			  <listitem><classname>_RemoteHelloStub.java</classname> which is the stub</listitem>
+			</itemizedlist>
+
+			<para>Now, we have to compile these files... <command>javac *.java</command>
+
+			The last step of this example is to write a client application.
+
+			<programlisting>
+            package hello;
+
+			import javax.naming.InitialContext;
+
+			public class HelloClient
+			{
+			    public static void main(String args[])
+			    {
+			        try
+			        {
+			            InitialContext context = new InitialContext();
+			            Object obj = context.lookup ("hello");
+			            RemoteHello hello = ( RemoteHello ) javax.rmi.PortableRemoteObject.narrow(obj, RemoteHello.class);
+			            hello.print("Hello world !");
+			        }
+			        catch ( java.lang.Exception ex )
+			        {
+			            ex.printStackTrace();
+			        }
+			    }
+			}
+			</programlisting></para>
+
+			<para>The above bold line is a very important rule in the RMI over IIOP specification :</para>
+
+			<para>All casts must be replaced by a call to the
+
+			<function>javax.rmi.PortableRemoteObject.narrow(...)</function></para>
+
+			<para>After the compilation of the previous class, we have to run the example. First, the CORBA Naming Service must be
+			started ( see your OpenORB documentation ).</para>
+
+			<para>To run this application, several elements must be taken into account :</para>
+			<itemizedlist>
+			  <listitem>to supply the OpenORB profile name that contains the RMI configuration parameters</listitem>
+			  <listitem>to supply the system property to specify the JNDI SPI to use</listitem>
+			</itemizedlist>
+
+			<para>Indeed, the RMI applications use JNDI to bind the provided object. For RMI over IIOP, a special JNDI SPI must be
+			used in order to bind supplied objects in the CORBA naming service. To specify such a JNDI SPI, the system
+			property to set is <envar>java.naming.factory.initial</envar>. In the case of RMI over IIOP for OpenORB, the value
+			to supply is <option>org.openorb.rmi.jndi.CtxFactory</option>. Thus, the command line is :</para>
+
+			<para>To start the server:
+
+			<command>java -Djava.naming.factory.initial=org.openorb.rmi.jndi.CtxFactory hello.HelloServer</command></para>
+
+			<para>To start the client:
+
+			<command>java -Djava.naming.factory.initial=org.openorb.rmi.jndi.CtxFactory hello.HelloClient</command></para>
+
+			<para>A CORBA client for the previous RMI object
+
+			The first step is to generate the IDL description for the RMI object :
+			<command>java org.openorb.rmi.compiler.JavaToIdl hello.RemoteHello</command></para>
+
+			<note>Please, consult the Java To IDL specification to get the rules used to generate an IDL description from
+			a RMI remote interface.
+			</note>
+
+			<para>The CORBA client application is very simple :</para>
+			<itemizedlist>
+			  <listitem>it creates an ORB instance,</listitem>
+			  <listitem>it resolves the remote object from the naming service,</listitem>
+			  <listitem>it narrows the remote reference to the <classname>hello.RemoteHello</classname> IDL interface,</listitem>
+			  <listitem>then it uses the remote object.</listitem>
+			</itemizedlist>
+
+			<para>Here is the source code :
+
+			<programlisting>
+            public class HelloClient
+
+			{
+			    public static void main( String [] args )
+			    {
+			        System.out.println("Hello from CORBA...");
+			        org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
+			        org.omg.CosNaming.NamingContext naming = null;
+			        try
+			        {
+			            org.omg.CORBA.Object obj =
+			                orb.resolve_initial_references("NameService");
+			            naming = org.omg.CosNaming.NamingContextHelper.narrow( obj );
+			        }
+			        catch ( org.omg.CORBA.ORBPackage.InvalidName ex )
+			        { }
+			        try
+			        {
+			            org.omg.CosNaming.NameComponent [] name = new
+			            org.omg.CosNaming.NameComponent[ 1 ];
+			            name[0] = new org.omg.CosNaming.NameComponent("hello","");
+			            org.omg.CORBA.Object obj = naming.resolve( name );
+			            hello.RemoteHello rmi = hello.RemoteHelloHelper.narrow( obj );
+			            rmi.print("Hello World !");
+			        }
+			        catch ( java.lang.Exception ex )
+			        {
+			            System.out.println("Exception : " + ex.toString() );
+			            System.exit(0);
+			        }
+			    }
+			}
+            </programlisting></para>
+        </section>
+
+        <section>
+            <title>Testing RMI over IIOP for OpenORB</title>
+            <para>To test RMI over IIOP, you have to compile the test scripts provided with the distribution, it means to run the Ant
+            script with the <option>test</option> keyword.</para>
+
+            <para>The tests provided with the distribution are developed to be run with JUnit. These tests check
+            several aspects of the specification :</para>
+
+            <itemizedlist>
+              <listitem>the exchange of primitive data types ( boolean, char, byte, .... ) and array of these primitive data types,</listitem>
+              <listitem>the exchange of complex data types ( string, vector, object, class, ... ),</listitem>
+              <listitem>the usage of special methods : serialization, ...</listitem>
+            </itemizedlist>
+
+            <para>To apply the tests, please enter the following command :
+            <command>java org.openorb.rmi.test.RMIoverIIOPTest -execute</command></para>
+            <note>The xxxx must be replaced by your profile name that
+            includes the 'rmi' module. In addition, the CORBA
+            naming service must be running.
+            </note>
+        </section>
+
+	    <section>
+		<title>RMI over IIOP survival notes !</title>
+            <para>To be able to use RMI over IIOP, there are few rules to know but they are very important.</para>
+
+			<para>How to cast an object reference ?</para>
+
+			<para>It is not possible to directly use a java cast to cast a remote reference to an interface type. The RMI over IIOP
+			specification requires to use the <function>javax.rmi.PortableRemoteObject.narrow</function> operation to cast a reference.</para>
+
+			<para>How to activate or deactivate a RMI object ?</para>
+
+			<para>To activate an object, it means to export a RMI object to RMI over IIOP ( as a CORBA object ), you have to use the
+			<function>javax.rmi.PortableRemoteObject.exportObject</function> operation.</para>
+
+			<para>In the same way, to deactivate an object, i.e. to un-export a RMI object, you have to use the
+			<function>javax.rmi.PortableRemoteObject.unexportObject</function> operation.</para>
+	    </section>
+
+	    <section>
+		<title>Java to IDL Tool reference</title>
+            <para>The <classname>JavaToIdl</classname> tool is a very important piece of the RMI over IIOP extension. This tool provides two main
+			features :</para>
+			<itemizedlist>
+			 <listitem>generates an IDL description for a Java class</listitem>
+			 <listitem>generates the stub and the skeleton for a Java class</listitem>
+			</itemizedlist>
+
+			<para>It is very important to understand how to use this tool, because its usage is a mandatory step in the development process
+			of a RMI application over IIOP.</para>
+
+			<para>To run this tool, please enter the following command :
+			<command>java org.openorb.rmi.compiler.JavaToIdl</command></para>
+
+			<note>
+			To be able to correctly run this tool, your OpenORB.xml file must be configured with RMI over IIOP information as
+			explained in the 'How to configure OpenORB for using RMI over IIOP' chapter.</note>
+
+			<para>The Java To IDL options can be seen by executing the tool without parameters.</para>
+        </section>
+	</chapter>
+
+
+
+    <chapter id="ch_faq">
+        <title>Frequently Asked Questions</title>
+        <qandaset defaultlabel=''>
+            <title>Set</title>
+            <qandaentry>
+                <question><para>
+                    ?
+                </para></question>
+                <answer><para>
+                    !
+                </para></answer>
+            </qandaentry>
+        </qandaset>
+    </chapter>
+
+
+
+    <appendix>
+        <title>Appendix</title>
+        <para></para>
+    </appendix>
+
+</book>
+

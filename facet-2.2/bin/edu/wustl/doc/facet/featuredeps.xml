@@ -1,0 +1,279 @@
+<!-- Feature dependencies -->
+<!--+
+    | THIS IS AN AUTOMATICALLY GENERATED FILE.
+    | USE "ant featuredeps" TO UPDATE.
+    +-->
+
+<!-- Include the FACET configuration description. -->
+<property name="facet.properties.file"
+          value="${facetsrc}/facet.properties"/>
+<property file="${facet.properties.file}"/>
+
+<target name="feature.selector" depends="Check.use_feature_ttl,Check.use_feature_tracing,Check.use_feature_timestamp,Check.use_feature_throughput_test,Check.use_feature_supplier_dispatch,Check.use_feature_rtec_correlation_filter,Check.use_feature_realtime_dispatcher,Check.use_feature_consumer_dispatch,Check.use_feature_mutex_dispatchertype,Check.use_feature_source_filter,Check.use_feature_eventbody_string,Check.use_feature_eventbody_octetseq,Check.use_feature_eventbody_object,Check.use_feature_eventbody_any,Check.use_feature_mutex_payloadtype,Check.use_feature_event_pull,Check.use_feature_event_object,Check.use_feature_disable_corba,Check.use_feature_event_any,Check.use_feature_enable_corba,Check.use_feature_mutex_transporttype,Check.use_feature_correlation_filter,Check.use_feature_mutex_filtertype,Check.use_feature_eventtype_filter,Check.use_feature_eventtype,Check.use_feature_dependency,Check.use_feature_consumer_qos,Check.use_feature_eventvector,Check.use_feature_eventsource,Check.use_feature_eventheader,Check.use_feature_event_struct,Check.use_feature_mutex_eventtype">
+<patternset id="aspect.introduction.srcfiles">
+<include name="${facetsrc}/feature/*.java"/>
+<include name="${facetsrc}/Event*/*.java"/>
+<include name="${facetsrc}/feature_consumer_dispatch/*IntroAspect.java" if="use_feature_consumer_dispatch"/>
+<include name="${facetsrc}/feature_eventtype_filter/*IntroAspect.java" if="use_feature_eventtype_filter"/>
+<include name="${facetsrc}/feature_consumer_qos/*IntroAspect.java" if="use_feature_consumer_qos"/>
+<include name="${facetsrc}/feature_correlation_filter/*IntroAspect.java" if="use_feature_correlation_filter"/>
+<include name="${facetsrc}/feature_mutex_filtertype/*IntroAspect.java" if="use_feature_mutex_filtertype"/>
+<include name="${facetsrc}/feature_eventvector/*IntroAspect.java" if="use_feature_eventvector"/>
+<include name="${facetsrc}/feature_eventsource/*IntroAspect.java" if="use_feature_eventsource"/>
+<include name="${facetsrc}/feature_dependency/*IntroAspect.java" if="use_feature_dependency"/>
+<include name="${facetsrc}/feature_eventheader/*IntroAspect.java" if="use_feature_eventheader"/>
+<include name="${facetsrc}/feature_disable_corba/*IntroAspect.java" if="use_feature_disable_corba"/>
+<include name="${facetsrc}/feature_mutex_transporttype/*IntroAspect.java" if="use_feature_mutex_transporttype"/>
+<include name="${facetsrc}/feature_enable_corba/*IntroAspect.java" if="use_feature_enable_corba"/>
+<include name="${facetsrc}/feature_event_any/*IntroAspect.java" if="use_feature_event_any"/>
+<include name="${facetsrc}/feature_mutex_eventtype/*IntroAspect.java" if="use_feature_mutex_eventtype"/>
+<include name="${facetsrc}/feature_event_object/*IntroAspect.java" if="use_feature_event_object"/>
+<include name="${facetsrc}/feature_event_pull/*IntroAspect.java" if="use_feature_event_pull"/>
+<include name="${facetsrc}/feature_event_struct/*IntroAspect.java" if="use_feature_event_struct"/>
+<include name="${facetsrc}/feature_eventbody_any/*IntroAspect.java" if="use_feature_eventbody_any"/>
+<include name="${facetsrc}/feature_mutex_payloadtype/*IntroAspect.java" if="use_feature_mutex_payloadtype"/>
+<include name="${facetsrc}/feature_eventbody_object/*IntroAspect.java" if="use_feature_eventbody_object"/>
+<include name="${facetsrc}/feature_eventbody_octetseq/*IntroAspect.java" if="use_feature_eventbody_octetseq"/>
+<include name="${facetsrc}/feature_eventbody_string/*IntroAspect.java" if="use_feature_eventbody_string"/>
+<include name="${facetsrc}/feature_eventtype/*IntroAspect.java" if="use_feature_eventtype"/>
+<include name="${facetsrc}/feature_mutex_dispatchertype/*IntroAspect.java" if="use_feature_mutex_dispatchertype"/>
+<include name="${facetsrc}/feature_realtime_dispatcher/*IntroAspect.java" if="use_feature_realtime_dispatcher"/>
+<include name="${facetsrc}/feature_source_filter/*IntroAspect.java" if="use_feature_source_filter"/>
+<include name="${facetsrc}/feature_rtec_correlation_filter/*IntroAspect.java" if="use_feature_rtec_correlation_filter"/>
+<include name="${facetsrc}/feature_supplier_dispatch/*IntroAspect.java" if="use_feature_supplier_dispatch"/>
+<include name="${facetsrc}/feature_throughput_test/*IntroAspect.java" if="use_feature_throughput_test"/>
+<include name="${facetsrc}/feature_timestamp/*IntroAspect.java" if="use_feature_timestamp"/>
+<include name="${facetsrc}/feature_tracing/*IntroAspect.java" if="use_feature_tracing"/>
+<include name="${facetsrc}/feature_ttl/*IntroAspect.java" if="use_feature_ttl"/>
+<exclude name="${facetsrc}/feature*/*Test*" if="no_unittests"/>
+<exclude name="${facetsrc}/feature/Test*" if="no_unittests"/>
+<exclude name="${facetsrc}/*Test*" if="no_unittests"/>
+<exclude name="${facetsrc}/feature_eventvector/EventVecHackAspect.java" if="use_feature_disable_corba"/>
+</patternset>
+<patternset id="feature.validator.srcfiles">
+<include name="${facetsrc}/feature/*.java"/>
+<include name="${facetsrc}/feature_consumer_dispatch/*Feature.java" if="use_feature_consumer_dispatch"/>
+<include name="${facetsrc}/feature_eventtype_filter/*Feature.java" if="use_feature_eventtype_filter"/>
+<include name="${facetsrc}/feature_consumer_qos/*Feature.java" if="use_feature_consumer_qos"/>
+<include name="${facetsrc}/feature_correlation_filter/*Feature.java" if="use_feature_correlation_filter"/>
+<include name="${facetsrc}/feature_mutex_filtertype/*Feature.java" if="use_feature_mutex_filtertype"/>
+<include name="${facetsrc}/feature_eventvector/*Feature.java" if="use_feature_eventvector"/>
+<include name="${facetsrc}/feature_eventsource/*Feature.java" if="use_feature_eventsource"/>
+<include name="${facetsrc}/feature_dependency/*Feature.java" if="use_feature_dependency"/>
+<include name="${facetsrc}/feature_eventheader/*Feature.java" if="use_feature_eventheader"/>
+<include name="${facetsrc}/feature_disable_corba/*Feature.java" if="use_feature_disable_corba"/>
+<include name="${facetsrc}/feature_mutex_transporttype/*Feature.java" if="use_feature_mutex_transporttype"/>
+<include name="${facetsrc}/feature_enable_corba/*Feature.java" if="use_feature_enable_corba"/>
+<include name="${facetsrc}/feature_event_any/*Feature.java" if="use_feature_event_any"/>
+<include name="${facetsrc}/feature_mutex_eventtype/*Feature.java" if="use_feature_mutex_eventtype"/>
+<include name="${facetsrc}/feature_event_object/*Feature.java" if="use_feature_event_object"/>
+<include name="${facetsrc}/feature_event_pull/*Feature.java" if="use_feature_event_pull"/>
+<include name="${facetsrc}/feature_event_struct/*Feature.java" if="use_feature_event_struct"/>
+<include name="${facetsrc}/feature_eventbody_any/*Feature.java" if="use_feature_eventbody_any"/>
+<include name="${facetsrc}/feature_mutex_payloadtype/*Feature.java" if="use_feature_mutex_payloadtype"/>
+<include name="${facetsrc}/feature_eventbody_object/*Feature.java" if="use_feature_eventbody_object"/>
+<include name="${facetsrc}/feature_eventbody_octetseq/*Feature.java" if="use_feature_eventbody_octetseq"/>
+<include name="${facetsrc}/feature_eventbody_string/*Feature.java" if="use_feature_eventbody_string"/>
+<include name="${facetsrc}/feature_eventtype/*Feature.java" if="use_feature_eventtype"/>
+<include name="${facetsrc}/feature_mutex_dispatchertype/*Feature.java" if="use_feature_mutex_dispatchertype"/>
+<include name="${facetsrc}/feature_realtime_dispatcher/*Feature.java" if="use_feature_realtime_dispatcher"/>
+<include name="${facetsrc}/feature_source_filter/*Feature.java" if="use_feature_source_filter"/>
+<include name="${facetsrc}/feature_rtec_correlation_filter/*Feature.java" if="use_feature_rtec_correlation_filter"/>
+<include name="${facetsrc}/feature_supplier_dispatch/*Feature.java" if="use_feature_supplier_dispatch"/>
+<include name="${facetsrc}/feature_throughput_test/*Feature.java" if="use_feature_throughput_test"/>
+<include name="${facetsrc}/feature_timestamp/*Feature.java" if="use_feature_timestamp"/>
+<include name="${facetsrc}/feature_tracing/*Feature.java" if="use_feature_tracing"/>
+<include name="${facetsrc}/feature_ttl/*Feature.java" if="use_feature_ttl"/>
+<exclude name="${facetsrc}/feature*/*Test*" if="no_unittests"/>
+<exclude name="${facetsrc}/feature/Test*" if="no_unittests"/>
+<exclude name="${facetsrc}/*Test*" if="no_unittests"/>
+<exclude name="${facetsrc}/feature_eventvector/EventVecHackAspect.java" if="use_feature_disable_corba"/>
+</patternset>
+<patternset id="facet.srcfiles">
+<include name="${facetsrc}/utils/*.java" unless="no_unittests"/>
+<include name="${facetsrc}/utils/concurrent/*.java"/>
+<include name="${facetsrc}/*.java"/>
+<include name="${facetsrc}/feature/*.java"/>
+<include name="src/generated/edu/wustl/doc/facet/Event*/**.java" if="use_feature_enable_corba" />
+<include name="${facetsrc}/Event*/*.java" if="use_feature_disable_corba" />
+<exclude name="${facetsrc}/feature_*/*IntroAspect.java" if="use_feature_enable_corba" />
+<exclude name="${facetsrc}/utils/EventChannelCorbaTestCase.java" if="use_feature_disable_corba" />
+<exclude name="${facetsrc}/utils/EventChannelTestCase.java" if="use_feature_enable_corba" />
+<include name="${facetsrc}/feature_consumer_dispatch/*.java" if="use_feature_consumer_dispatch"/>
+<include name="${facetsrc}/feature_eventtype_filter/*.java" if="use_feature_eventtype_filter"/>
+<include name="${facetsrc}/feature_consumer_qos/*.java" if="use_feature_consumer_qos"/>
+<include name="${facetsrc}/feature_correlation_filter/*.java" if="use_feature_correlation_filter"/>
+<include name="${facetsrc}/feature_mutex_filtertype/*.java" if="use_feature_mutex_filtertype"/>
+<include name="${facetsrc}/feature_eventvector/*.java" if="use_feature_eventvector"/>
+<include name="${facetsrc}/feature_eventsource/*.java" if="use_feature_eventsource"/>
+<include name="${facetsrc}/feature_dependency/*.java" if="use_feature_dependency"/>
+<include name="${facetsrc}/feature_eventheader/*.java" if="use_feature_eventheader"/>
+<include name="${facetsrc}/feature_disable_corba/*.java" if="use_feature_disable_corba"/>
+<include name="${facetsrc}/feature_mutex_transporttype/*.java" if="use_feature_mutex_transporttype"/>
+<include name="${facetsrc}/feature_enable_corba/*.java" if="use_feature_enable_corba"/>
+<include name="${facetsrc}/feature_event_any/*.java" if="use_feature_event_any"/>
+<include name="${facetsrc}/feature_mutex_eventtype/*.java" if="use_feature_mutex_eventtype"/>
+<include name="${facetsrc}/feature_event_object/*.java" if="use_feature_event_object"/>
+<include name="${facetsrc}/feature_event_pull/*.java" if="use_feature_event_pull"/>
+<include name="${facetsrc}/feature_event_struct/*.java" if="use_feature_event_struct"/>
+<include name="${facetsrc}/feature_eventbody_any/*.java" if="use_feature_eventbody_any"/>
+<include name="${facetsrc}/feature_mutex_payloadtype/*.java" if="use_feature_mutex_payloadtype"/>
+<include name="${facetsrc}/feature_eventbody_object/*.java" if="use_feature_eventbody_object"/>
+<include name="${facetsrc}/feature_eventbody_octetseq/*.java" if="use_feature_eventbody_octetseq"/>
+<include name="${facetsrc}/feature_eventbody_string/*.java" if="use_feature_eventbody_string"/>
+<include name="${facetsrc}/feature_eventtype/*.java" if="use_feature_eventtype"/>
+<include name="${facetsrc}/feature_mutex_dispatchertype/*.java" if="use_feature_mutex_dispatchertype"/>
+<include name="${facetsrc}/feature_realtime_dispatcher/*.java" if="use_feature_realtime_dispatcher"/>
+<include name="${facetsrc}/feature_source_filter/*.java" if="use_feature_source_filter"/>
+<include name="${facetsrc}/feature_rtec_correlation_filter/*.java" if="use_feature_rtec_correlation_filter"/>
+<include name="${facetsrc}/feature_supplier_dispatch/*.java" if="use_feature_supplier_dispatch"/>
+<include name="${facetsrc}/feature_throughput_test/*.java" if="use_feature_throughput_test"/>
+<include name="${facetsrc}/feature_timestamp/*.java" if="use_feature_timestamp"/>
+<include name="${facetsrc}/feature_tracing/*.java" if="use_feature_tracing"/>
+<include name="${facetsrc}/feature_ttl/*.java" if="use_feature_ttl"/>
+<exclude name="${facetsrc}/feature*/*Test*" if="no_unittests"/>
+<exclude name="${facetsrc}/feature/Test*" if="no_unittests"/>
+<exclude name="${facetsrc}/*Test*" if="no_unittests"/>
+<exclude name="${facetsrc}/feature_eventvector/EventVecHackAspect.java" if="use_feature_disable_corba"/>
+</patternset>
+</target>
+<target name="Check.use_feature_consumer_dispatch" if="use_feature_consumer_dispatch">
+<property name="use_feature_eventtype_filter" value="t"/>
+<echo message="--> ConsumerDispatchFeature selected."/>
+</target>
+<target name="Check.use_feature_eventtype_filter" if="use_feature_eventtype_filter">
+<property name="use_feature_dependency" value="t"/>
+<property name="use_feature_eventtype" value="t"/>
+<echo message="--> EventTypeFilterFeature selected."/>
+</target>
+<target name="Check.use_feature_consumer_qos" if="use_feature_consumer_qos">
+<echo message="--> ConsumerQosFeature selected."/>
+</target>
+<target name="Check.use_feature_correlation_filter" if="use_feature_correlation_filter">
+<property name="use_feature_eventsource" value="t"/>
+<property name="use_feature_eventvector" value="t"/>
+<property name="use_feature_eventtype_filter" value="t"/>
+<property name="use_feature_mutex_filtertype" value="t"/>
+<echo message="--> CorrelationFilterFeature selected."/>
+</target>
+<target name="Check.use_feature_mutex_filtertype" if="use_feature_mutex_filtertype">
+<echo message="--> FilterTypeMutexFeature selected."/>
+</target>
+<target name="Check.use_feature_eventvector" if="use_feature_eventvector">
+<property name="use_feature_event_struct" value="t"/>
+<echo message="--> EventVectorFeature selected."/>
+</target>
+<target name="Check.use_feature_eventsource" if="use_feature_eventsource">
+<property name="use_feature_eventheader" value="t"/>
+<echo message="--> EventSourceFeature selected."/>
+</target>
+<target name="Check.use_feature_dependency" if="use_feature_dependency">
+<property name="use_feature_eventheader" value="t"/>
+<property name="use_feature_consumer_qos" value="t"/>
+<echo message="--> DependencyFeature selected."/>
+</target>
+<target name="Check.use_feature_eventheader" if="use_feature_eventheader">
+<property name="use_feature_event_struct" value="t"/>
+<echo message="--> EventHeaderFeature selected."/>
+</target>
+<target name="Check.use_feature_disable_corba" if="use_feature_disable_corba">
+<property name="use_feature_mutex_transporttype" value="t"/>
+<echo message="--> DisableCorbaFeature selected."/>
+</target>
+<target name="Check.use_feature_mutex_transporttype" if="use_feature_mutex_transporttype">
+<echo message="--> TransportTypeMutexFeature selected."/>
+</target>
+<target name="Check.use_feature_enable_corba" if="use_feature_enable_corba">
+<property name="use_feature_mutex_transporttype" value="t"/>
+<echo message="--> EnableCorbaFeature selected."/>
+</target>
+<target name="Check.use_feature_event_any" if="use_feature_event_any">
+<property name="use_feature_mutex_eventtype" value="t"/>
+<property name="use_feature_enable_corba" value="t"/>
+<echo message="--> EventAnyFeature selected."/>
+</target>
+<target name="Check.use_feature_mutex_eventtype" if="use_feature_mutex_eventtype">
+<echo message="--> EventTypeMutexFeature selected."/>
+</target>
+<target name="Check.use_feature_event_object" if="use_feature_event_object">
+<property name="use_feature_disable_corba" value="t"/>
+<property name="use_feature_mutex_eventtype" value="t"/>
+<echo message="--> EventObjectFeature selected."/>
+</target>
+<target name="Check.use_feature_event_pull" if="use_feature_event_pull">
+<property name="use_feature_event_struct" value="t"/>
+<echo message="--> EventPullFeature selected."/>
+</target>
+<target name="Check.use_feature_event_struct" if="use_feature_event_struct">
+<property name="use_feature_mutex_eventtype" value="t"/>
+<echo message="--> EventStructFeature selected."/>
+</target>
+<target name="Check.use_feature_eventbody_any" if="use_feature_eventbody_any">
+<property name="use_feature_enable_corba" value="t"/>
+<property name="use_feature_mutex_payloadtype" value="t"/>
+<property name="use_feature_event_struct" value="t"/>
+<echo message="--> EventBodyAnyFeature selected."/>
+</target>
+<target name="Check.use_feature_mutex_payloadtype" if="use_feature_mutex_payloadtype">
+<echo message="--> PayloadTypeMutexFeature selected."/>
+</target>
+<target name="Check.use_feature_eventbody_object" if="use_feature_eventbody_object">
+<property name="use_feature_mutex_payloadtype" value="t"/>
+<property name="use_feature_disable_corba" value="t"/>
+<property name="use_feature_event_struct" value="t"/>
+<echo message="--> EventBodyObjectFeature selected."/>
+</target>
+<target name="Check.use_feature_eventbody_octetseq" if="use_feature_eventbody_octetseq">
+<property name="use_feature_mutex_payloadtype" value="t"/>
+<property name="use_feature_event_struct" value="t"/>
+<echo message="--> EventBodyOctetSeqFeature selected."/>
+</target>
+<target name="Check.use_feature_eventbody_string" if="use_feature_eventbody_string">
+<property name="use_feature_mutex_payloadtype" value="t"/>
+<property name="use_feature_event_struct" value="t"/>
+<echo message="--> EventBodyStringFeature selected."/>
+</target>
+<target name="Check.use_feature_eventtype" if="use_feature_eventtype">
+<property name="use_feature_eventheader" value="t"/>
+<echo message="--> EventTypeFeature selected."/>
+</target>
+<target name="Check.use_feature_mutex_dispatchertype" if="use_feature_mutex_dispatchertype">
+<echo message="--> DispatcherTypeMutexFeature selected."/>
+</target>
+<target name="Check.use_feature_realtime_dispatcher" if="use_feature_realtime_dispatcher">
+<property name="use_feature_source_filter" value="t"/>
+<property name="use_feature_mutex_dispatchertype" value="t"/>
+<property name="use_feature_consumer_dispatch" value="t"/>
+<echo message="--> RealtimeDispatcherFeature selected."/>
+</target>
+<target name="Check.use_feature_source_filter" if="use_feature_source_filter">
+<property name="use_feature_dependency" value="t"/>
+<property name="use_feature_eventsource" value="t"/>
+<echo message="--> SourceFilterFeature selected."/>
+</target>
+<target name="Check.use_feature_rtec_correlation_filter" if="use_feature_rtec_correlation_filter">
+<property name="use_feature_eventsource" value="t"/>
+<property name="use_feature_eventvector" value="t"/>
+<property name="use_feature_eventtype_filter" value="t"/>
+<property name="use_feature_mutex_filtertype" value="t"/>
+<echo message="--> RtecCorrelationFilterFeature selected."/>
+</target>
+<target name="Check.use_feature_supplier_dispatch" if="use_feature_supplier_dispatch">
+<property name="use_feature_eventtype_filter" value="t"/>
+<property name="use_feature_mutex_dispatchertype" value="t"/>
+<echo message="--> SupplierDispatchFeature selected."/>
+</target>
+<target name="Check.use_feature_throughput_test" if="use_feature_throughput_test">
+<echo message="--> ThroughputTestFeature selected."/>
+</target>
+<target name="Check.use_feature_timestamp" if="use_feature_timestamp">
+<property name="use_feature_eventheader" value="t"/>
+<echo message="--> TimestampFeature selected."/>
+</target>
+<target name="Check.use_feature_tracing" if="use_feature_tracing">
+<echo message="--> EventChannelTraceFeature selected."/>
+</target>
+<target name="Check.use_feature_ttl" if="use_feature_ttl">
+<property name="use_feature_eventheader" value="t"/>
+<echo message="--> TtlFeature selected."/>
+</target>

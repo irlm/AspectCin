@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repositories-view>
+	<repository id=":pserver:irlm@localhost:/data/redis">
+		<module path="aspectCin Test Client Aspect" lastAcessTime="1190713767368">
+		</module>
+		<module path="aspectCin Test Server" lastAcessTime="1190713767368">
+		</module>
+		<module path="aspectCin Test Client" lastAcessTime="1190713767368">
+		</module>
+		<module path="aspectCin Test Common" lastAcessTime="1190713767368">
+		</module>
+		<module path="aspectCIn" lastAcessTime="1190713767368">
+		</module>
+	</repository>
+</repositories-view>

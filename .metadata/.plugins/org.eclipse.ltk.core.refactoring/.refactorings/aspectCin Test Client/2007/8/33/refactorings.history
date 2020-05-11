@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'aspectCin Test Client Aspect/src/hello'&#13;&#10;- Original project: 'aspectCin Test Client'&#13;&#10;- Destination element: 'aspectCin Test Client Aspect/src/hello'&#13;&#10;- Original element: 'hello.Primitive.java'" description="Copy compilation unit" destination="/src&lt;hello" element1="/src&lt;hello{Primitive.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="/src&lt;hello{Primitive.java&#9;true&#9;false" policy="org.eclipse.jdt.ui.copyResources" stamp="1187154466168" units="1" version="1.0"/>
+<refactoring accessors="true" comment="Delete 1 element(s) from project 'aspectCin Test Client'&#13;&#10;- Original project: 'aspectCin Test Client'&#13;&#10;- Original element: 'hello.Primitive.java'" description="Delete element" element1="/src&lt;hello{Primitive.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1187154542916" subPackages="false" version="1.0"/>
+</session>

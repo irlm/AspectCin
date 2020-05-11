@@ -1,0 +1,13 @@
+#Wed Jul 26 11:17:15 PDT 2006
+eclipse.preferences.version=1
+glassbox.debug.TraceRepositories=SAMPLE_13
+glassbox.monitor.thread.ThreadMonitorIntegrationTest.MultiThreadTestController=SAMPLE_14
+glassbox.test.EnforceContractsInTest=SAMPLE_14
+glassbox.test.TestMonitor=SAMPLE_14
+glassbox.test.TimingTestHelper.TraceTiming=SAMPLE_13
+glassbox.test.TraceTiming=SAMPLE_13
+glassbox.track.LogTimeSamples=SAMPLE_13
+glassbox.track.TraceAllocations=SAMPLE_13
+org.eclipse.ajdt.ui.aspectPath.contentKind1=BINARY
+org.eclipse.ajdt.ui.aspectPath.entryKind1=LIBRARY
+org.eclipse.ajdt.ui.aspectPath1=/monitor/bin

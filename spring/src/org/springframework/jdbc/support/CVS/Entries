@@ -1,0 +1,22 @@
+/CustomSQLErrorCodesTranslation.java/1.4/Fri Mar 25 09:27:10 2005//
+/DatabaseMetaDataCallback.java/1.4/Fri May 27 19:50:03 2005//
+/DatabaseStartupValidator.java/1.7/Sun Jun 18 14:23:42 2006//
+/GeneratedKeyHolder.java/1.7/Tue May  1 19:51:21 2007//
+/JdbcAccessor.java/1.13/Wed Jan 31 23:01:06 2007//
+/JdbcUtils.java/1.49/Sat Jun  2 15:28:52 2007//
+/KeyHolder.java/1.4/Sat Mar 26 20:14:16 2005//
+/MetaDataAccessException.java/1.6/Sun Sep 17 00:50:14 2006//
+/SQLErrorCodeSQLExceptionTranslator.java/1.29/Tue Jun 19 13:45:56 2007//
+/SQLErrorCodes.java/1.14/Wed Apr  5 08:07:51 2006//
+/SQLErrorCodesFactory.java/1.36/Tue Jun 19 18:39:09 2007//
+/SQLExceptionSubclassTranslator.java/1.1/Tue Jun 19 13:45:56 2007//
+/SQLExceptionTranslator.java/1.7/Wed Aug  2 16:16:33 2006//
+/SQLStateSQLExceptionTranslator.java/1.15/Tue Jun 19 13:45:56 2007//
+D/blob////
+D/incrementer////
+D/lob////
+D/native////
+D/nativejdbc////
+/package.html/1.2/Fri Oct 27 09:07:56 2006//
+D/rowset////
+/sql-error-codes.xml/1.23/Tue Feb 27 16:59:56 2007//

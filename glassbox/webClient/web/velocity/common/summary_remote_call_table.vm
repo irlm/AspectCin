@@ -1,0 +1,27 @@
+<div class="sqlin">
+     <div class="table">
+         <table class="sql" border="1" cellspacing="1" cellpadding="4" width="95%" ALIGN="center">
+             <tr class="sql">
+                <th class="sql">Mean Time per Operation (s)</th>
+            <th class="sql">Calls per Operation</th>
+            <th class="sql">Remote Call</th>
+         </tr>
+            
+	        #foreach($remote in $problemItem.problem.distinctCalls)
+	            <tr class="sql">
+	                #if($remote.operationCount>0)
+	                ## format me: this is a floating point time in seconds
+
+	                  <td class="sql">$display.formatTimeInSeconds($remote.meanTime)</td>
+                      <td class="sql">$remote.meanCount</td>
+	                  <td class="sql">$remote.call.summary</td>
+	                #else
+	                  ##could only happen if the stats were reset
+	                  <td class="sql"><warning: statistics reset during calculation></td><td class="sql"/><td class="sql"/>
+	                #end
+	            </tr>
+	        #end
+
+         </table>
+	</div>
+</div>

@@ -1,0 +1,17 @@
+/AbstractBeanFactoryBasedTargetSource.java/1.11/Mon Feb 12 21:38:56 2007//
+/AbstractLazyCreationTargetSource.java/1.4/Mon Feb 12 21:57:04 2007//
+/AbstractPoolingTargetSource.java/1.14/Sun Mar  4 21:11:04 2007//
+/AbstractPrototypeBasedTargetSource.java/1.12/Fri Jan 26 17:42:12 2007//
+/CommonsPoolTargetSource.java/1.22/Fri Jan 26 17:42:13 2007//
+/EmptyTargetSource.java/1.9/Mon Feb 12 21:38:56 2007//
+/HotSwappableTargetSource.java/1.17/Mon Feb 12 21:57:04 2007//
+/LazyInitTargetSource.java/1.7/Thu Jan  4 16:39:58 2007//
+/PoolingConfig.java/1.8/Fri May 27 19:49:54 2005//
+/PrototypeTargetSource.java/1.12/Fri Jan 26 17:44:13 2007//
+/SimpleBeanTargetSource.java/1.1/Fri Jan 26 17:44:43 2007//
+/SingletonTargetSource.java/1.16/Fri Feb  2 13:00:20 2007//
+/ThreadLocalTargetSource.java/1.21/Fri Jan 26 17:42:13 2007//
+/ThreadLocalTargetSourceStats.java/1.8/Fri May 27 19:49:54 2005//
+D/dynamic////
+/package.html/1.1/Thu Dec 11 10:58:12 2003//
+D/scope////

@@ -1,0 +1,50 @@
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
+    "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<dwr>
+  <allow>
+    <create creator="spring" javascript="OperationHelper">
+      <param name="beanName" value="operationHelper"/>
+      <include method="getConfigurationData"/>
+      <include method="getOperations"/>
+      <include method="reset"/>
+      <include method="updateCheck"/>
+    </create>
+
+    <create creator="spring" javascript="ColumnHelper">
+      <param name="beanName" value="columnHelper"/>      
+      <include method="getColumns"/>
+      <include method="setColumnSorter"/>
+    </create>
+
+   <create creator="spring" javascript="ConnectionHelper">
+      <param name="beanName" value="connectionHelper"/>
+      <include method="getConnections"/>
+      <include method="getConnection"/>
+      <include method="getAllConnections"/>
+      <include method="addConnection"/>
+      <include method="buildAndAddConnection"/>
+      <include method="deleteConnection"/>
+      <include method="reset"/>
+      <include method="disconnect"/>
+      <include method="connect"/>
+      <include method="setVisibility"/>
+    </create>
+
+  <create creator="spring" javascript="MailHelper">
+      <param name="beanName" value="mailHelper"/>
+      <include method="isMailConfigured"/>
+      <include method="configureMail"/>
+      <include method="sendMessageViaGlassbox"/>
+      <include method="sendMessage"/>
+  </create>
+
+    <convert converter="bean" match="glassbox.client.pojo.OperationData"></convert>
+    <convert converter="bean" match="glassbox.track.api.OperationDescriptionImpl"><param name="exclude" value="plugin"/></convert>
+    <convert converter="bean" match="glassbox.analysis.api.OperationSummaryImpl"></convert>
+    <convert converter="bean" match="glassbox.client.pojo.ConfigurationData"></convert>
+    <convert converter="bean" match="glassbox.client.pojo.ConnectionData"></convert>
+    <convert converter="bean" match="glassbox.client.pojo.MailData"></convert>  
+    <convert converter="bean" match="glassbox.client.pojo.UpdateResponse"/>
+  </allow>
+</dwr>

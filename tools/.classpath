@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/CVS/**" kind="src" path="src/main"/>
+	<classpathentry excluding="**/CVS/**" kind="src" path="src/compiler-override"/>
+	<classpathentry kind="lib" path="lib/ext/logkit.jar"/>
+	<classpathentry kind="lib" path="lib/ext/build/checkstyle-all.jar"/>
+	<classpathentry kind="lib" path="docbook/xsl/extensions/saxon644.jar"/>
+	<classpathentry kind="lib" path="lib/ext/build/ant-launcher.jar"/>
+	<classpathentry kind="lib" path="lib/ext/build/batik.jar"/>
+	<classpathentry kind="lib" path="lib/ext/build/fop.jar"/>
+	<classpathentry kind="lib" path="lib/ext/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="docbook/xsl/extensions/saxon65.jar"/>
+	<classpathentry kind="lib" path="docbook/xsl/extensions/xalan2.jar"/>
+	<classpathentry kind="lib" path="lib/launcher.jar"/>
+	<classpathentry kind="lib" path="lib/ext/avalon-framework.jar"/>
+	<classpathentry kind="lib" path="lib/ext/build/jfor.jar"/>
+	<classpathentry kind="lib" path="docbook/xsl/extensions/saxon643.jar"/>
+	<classpathentry kind="lib" path="lib/ext/xml-apis.jar"/>
+	<classpathentry kind="lib" path="build.jar"/>
+	<classpathentry kind="lib" path="docbook/xsl/extensions/saxon642.jar"/>
+	<classpathentry kind="lib" path="lib/ext/excalibur-configuration.jar"/>
+	<classpathentry kind="lib" path="lib/tools-1.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/ext/commons-cli.jar"/>
+	<classpathentry kind="lib" path="lib/ext/build/jimi.jar"/>
+	<classpathentry kind="lib" path="lib/ext/build/junit.jar"/>
+	<classpathentry kind="lib" path="lib/ext/build/ant.jar"/>
+	<classpathentry kind="lib" path="docbook/xsl/extensions/saxon651.jar"/>
+	<classpathentry kind="lib" path="lib/ext/build/xalan.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/ext/hsqldb.jar"/>
+	<classpathentry kind="output" path="build/main"/>
+</classpath>

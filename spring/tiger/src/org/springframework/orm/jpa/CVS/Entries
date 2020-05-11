@@ -1,0 +1,31 @@
+/AbstractEntityManagerFactoryBean.java/1.23/Wed May  2 22:02:36 2007//
+/DefaultJpaDialect.java/1.11/Tue Jul 17 21:09:48 2007//
+/EntityManagerFactoryAccessor.java/1.1/Fri Sep  8 13:49:28 2006//
+/EntityManagerFactoryInfo.java/1.10/Fri Nov 17 11:25:30 2006//
+/EntityManagerFactoryPlus.java/1.1/Wed May 24 13:43:24 2006//
+/EntityManagerFactoryPlusOperations.java/1.1/Wed May 24 13:43:24 2006//
+/EntityManagerFactoryUtils.java/1.17/Wed Jun 13 20:28:30 2007//
+/EntityManagerHolder.java/1.4/Wed Jun 13 20:27:32 2007//
+/EntityManagerPlus.java/1.1/Wed May 24 13:43:24 2006//
+/EntityManagerPlusOperations.java/1.1/Wed May 24 13:43:24 2006//
+/ExtendedEntityManagerCreator.java/1.14/Tue Jul 17 21:09:48 2007//
+/JpaAccessor.java/1.14/Mon Jan  1 17:14:50 2007//
+/JpaCallback.java/1.4/Thu Nov 30 12:30:58 2006//
+/JpaDialect.java/1.10/Wed Jun 13 20:28:30 2007//
+/JpaInterceptor.java/1.12/Fri Sep  8 11:58:43 2006//
+/JpaObjectRetrievalFailureException.java/1.2/Mon May 29 20:20:02 2006//
+/JpaOperations.java/1.6/Thu Nov 30 12:30:58 2006//
+/JpaOptimisticLockingFailureException.java/1.3/Mon May 29 20:20:02 2006//
+/JpaSystemException.java/1.4/Mon May 29 20:20:02 2006//
+/JpaTemplate.java/1.20/Sat Jul 21 21:34:31 2007//
+/JpaTransactionManager.java/1.25/Wed Jul 18 09:06:42 2007//
+/JpaVendorAdapter.java/1.3/Fri Nov 17 11:25:30 2006//
+/LocalContainerEntityManagerFactoryBean.java/1.15/Sat May 19 20:02:30 2007//
+/LocalEntityManagerFactoryBean.java/1.15/Mon Mar 26 21:44:18 2007//
+/SharedEntityManagerCreator.java/1.4/Mon Mar 26 21:32:17 2007//
+D/config////
+/package.html/1.3/Fri Jan  6 14:23:56 2006//
+D/persistenceunit////
+D/spi////
+D/support////
+D/vendor////

@@ -1,0 +1,45 @@
+<DIV class="section">
+    <DIV class="sectiontitle">Glassbox has ruled out other potential problems:
+    </DIV>
+    <DIV class="ruledout">
+        <UL class="ruledout">
+            
+## this assumes one primary problem.
+#set ($primaryProblem = "foo")
+#foreach($problemItem in $display.problems)
+  #if ($problemItem.problemTypeName != "Slow Java Method")
+    #set ($primaryProblem = $problemItem.problemKey)
+  #end
+#end
+            
+#foreach($ruledOut in $display.ruledOutProblems)
+
+#if ($ruledOut != $primaryProblem)
+<LI class="ruledout">
+<TABLE>
+<TBODY>
+  <TR>
+  <TD>
+  <IMG src="images/ok-checkmark-32x32.jpg">
+  </TD>
+  <TD>
+  <DIV class="ruledoutitem">$display.getRuledOutProblem($ruledOut)
+  </DIV>
+  </TD>
+  </TR>
+  <TR>
+  <TD>
+  </TD>
+  <TD>
+  <DIV class="ruledoutitem2">$display.getRuledOutProblemSummary($ruledOut)
+  </DIV>
+  </TD>
+  </TR>
+  </TBODY>
+  </TABLE>
+  </LI>
+#end
+#end
+  </UL>
+  </DIV>
+</DIV>

@@ -1,0 +1,62 @@
+<div class="section">
+
+<div class="sectiontitle">Technical Details</div>
+
+<div class="tech">
+<!-- Analysis List-->
+    #foreach($analysis in $display.operationData.analyses)
+        <div class="techtitle" align="center">$analysis</div>
+    #end
+    <div class="techstatline" align="center"><b>Operation:</b> $display.operationData.operationName</div>
+    <div class="techstatline" align="center"><b>Location:</b> $display.operationData.agentDescription</div>
+    <hr size="1" width="80%">
+    <table class="tech" align="center">
+    <tbody>
+        <tr class="tech">
+	    <td colspan="2" class="statheader">Executions</td>
+	    <td class="tech" width="1000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    <td colspan="2" class="statheader">Run Time (avg)</tr>
+	<tr class="tech">
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.normalOperations</td>
+	    <td class="techprompt" align="left" nowrap="nowrap"> &nbsp;OK</td>
+	    <td class="tech" width="1000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.normalOperationsAverageTime</td>
+	    <td class="techprompt" align="left" nowrap="nowrap"> for OK</td></tr>
+	<tr class="tech">
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.slowOperations</td>
+	    <td class="techprompt" align="left" nowrap="nowrap"> &nbsp;SLOW</td>
+	    <td class="tech" width="1000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.slowOperationsAverageTime</td>
+	    <td class="techprompt" align="left" nowrap="nowrap"> for SLOW</td>
+	</tr>
+	<tr class="tech"><td class="techdata" align="right" nowrap="nowrap">$display.analysisData.failingOperations</td>
+	    <td class="techprompt" align="left" nowrap="nowrap"> &nbsp;FAILING</td>
+	    <td class="tech" width="1000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.failingOperationsAverageTime</td>
+	    <td class="techprompt" align="left" nowrap="nowrap"> for FAILING</td>
+	</tr>
+    </tbody>
+    </table>
+</div>
+
+<!-- LIST THE PROBLEMS -->
+#foreach($problemItem in $display.problems)
+#if($problemItem.visible)
+    <div class="problemtype">
+        <table>
+	    <tbody>
+	        <tr>
+		    <td><img src="images/$problemItem.problemTypeIcon"></td>
+		    <td><div class="probtypehdr">$problemItem.problemTypeName</div></td>
+		</tr>
+	    </tbody>
+	</table>	
+	<br>
+	#parse($problemItem.problemDetailPanel)
+    </div>
+
+<hr size="1" width="97%">
+#end
+#end
+#parse($display.inputURLPanel)
+</div>

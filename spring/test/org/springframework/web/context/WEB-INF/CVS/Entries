@@ -1,0 +1,21 @@
+/applicationContext.xml/1.14/Sun Aug 20 19:08:43 2006//
+/context-addition.xml/1.6/Sun Aug 20 19:08:43 2006//
+/context-messages.properties/1.2/Thu Oct  9 18:10:45 2003//
+/context-messages_en_GB.properties/1.1.1.1/Thu Aug 14 16:21:23 2003//
+/context-messages_en_US.properties/1.1.1.1/Thu Aug 14 16:21:23 2003//
+/contextInclude.xml/1.1.1.1/Thu Aug 14 16:21:23 2003//
+/empty-servlet.xml/1.1/Tue Apr  3 12:22:53 2007//
+/fail.xml/1.4/Sun Aug 20 19:08:43 2006//
+/more-context-messages.properties/1.1/Thu Oct  9 18:10:45 2003//
+/myoverride.properties/1.1/Sat Oct  4 15:58:30 2003//
+/myplaceholder.properties/1.3/Sun Jul 10 15:12:44 2005//
+D/resources////
+/sessionContext.xml/1.4/Fri Apr 13 12:20:03 2007//
+/test-messages.properties/1.1.1.1/Thu Aug 14 16:21:23 2003//
+/test-servlet.xml/1.8/Sun Aug 20 19:08:43 2006//
+/test-theme.properties/1.1.1.1/Thu Aug 14 16:21:23 2003//
+/testNamespace.xml/1.6/Sun Aug 20 19:08:43 2006//
+/theme.properties/1.1.1.1/Thu Aug 14 16:21:24 2003//
+/theme_en_GB.properties/1.1.1.1/Thu Aug 14 16:21:24 2003//
+/theme_en_US.properties/1.1.1.1/Thu Aug 14 16:21:24 2003//
+/web.xml/1.1.1.1/Thu Aug 14 16:21:24 2003//

@@ -1,0 +1,15 @@
+org.omg.CORBA.Object
+org.omg.CORBA.portable.ObjectImpl
+org.omg.CORBA.portable.InputStream
+org.omg.CORBA.portable.OutputStream
+org.omg.CORBA.portable.ApplicationException
+org.omg.CORBA.MARSHAL
+org.omg.CORBA.portable.RemarshalException
+org.omg.CORBA.ORB
+org.omg.CORBA.portable.Delegate
+org.omg.CORBA.portable.IDLEntity
+org.omg.CORBA.Any
+org.omg.CORBA.TypeCode
+org.omg.CORBA.portable.Streamable
+org.omg.CORBA.portable.InvokeHandler
+org.omg.CORBA.portable.ResponseHandler

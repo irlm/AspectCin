@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<project name="default" basedir=".">
+
+	<fileset dir="${install.resource.dir}" id="lib.files">
+	    <include name="*.jar"/>
+	</fileset>
+	<property name="lib.files.prop" refid="lib.files"/>
+
+	<fileset dir="${install.resource.dir}/glassbox" id="resource.files">
+	    <include name="*.properties"/>
+	</fileset>
+	<property name="resource.files.prop" refid="resource.files"/>
+
+	<fileset dir="${install.resource.dir}/glassbox14" id="lib.files.14">
+	    <include name="*.jar"/>
+	</fileset>
+	<property name="lib.files.14.prop" refid="lib.files.14"/>
+
+	<fileset dir="${install.resource.dir}/glassbox14" id="resource.files.14">
+	    <exclude name="*.jar"/>
+	</fileset>
+	<property name="resource.files.14.prop" refid="resource.files.14"/>
+	
+	<fileset dir="${scripts.install.dir}" id="script.files">
+	    <include name="*"/>
+	</fileset>
+	<property name="script.files.prop" refid="script.files"/>
+
+	
+	<!-- TARGETS-->
+	<target name="install" depends="init, install.libs, install.resources, install.scripts, install.14.support"/>
+	
+	<target name="init">
+		<mkdir dir="${lib.dir}"/>
+		<mkdir dir="${bin.dir}"/>
+		<mkdir dir="${glassbox.home}"/>
+	</target>
+
+	<target name="filters">
+		<filter token="JAVA_OPTS" value="${java.opts.var}"/>
+		<filter token="TARGET_SYSTEM" value="${target.system}"/>
+    	<filter token="BIN_DIR" value="${bin.dir}"/>
+        <filter token="LIB_DIR" value="${lib.dir}"/>
+        <filter token="GLASSBOX_HOME" value="${glassbox.home}"/>
+        <filter token="HOST_URL" value="${host.url}"/>
+		<filter token="LAUNCH_COMMAND" value="${launch.command}"/>
+    </target>
+	
+	<target name="install.info">
+		<echo message="--- Installing Glassbox version: ${glassbox.version} ---" />
+		<echo message="target.system=${target.system}"/>
+		<echo message="install.resource.dir=${install.resource.dir}"/>
+		<echo message="scripts.install.dir=${scripts.install.dir}"/>
+		<echo message="host.url=${host.url}"/>
+		<echo message="glassbox.home=${glassbox.home}"/>
+		<echo message="bin.dir=${bin.dir}"/>
+		<echo message="lib.dir=${lib.dir}"/>
+		<echo message="launch.command=${launch.command}"/>
+		<echo message="java14=${java14}"/>
+		
+		<echo message=""/>
+		<echo message="lib.files=${lib.files.prop}"/>
+		<echo message="resource.files=${resource.files.prop}"/>
+		<echo message="script.files=${script.files.prop}"/>
+		
+		<echo message=""/>
+		<echo message="lib.files.14=${lib.files.14.prop}"/>
+		<echo message="resource.files.14=${resource.files.14.prop}"/>
+
+	</target>
+	
+	<target name="install.libs" depends="init">
+		<echo message="Installing Glassbox Libraries." />
+		<copy toDir="${lib.dir}" overwrite="true">
+			<fileset refid="lib.files"/>
+		</copy>
+	</target>
+	
+	<target name="install.resources" depends="init">
+		<echo message="Installing Glassbox Resources." />
+		<copy toDir="${glassbox.home}" overwrite="true">
+			<fileset refid="resource.files"/>
+		</copy>
+	</target>
+	
+	<target name="install.scripts" if="launch.command" depends="init, filters">
+		<echo message="Installing run Scripts." />
+		<copy file="${install.resource.dir}/java.policy" tofile="${bin.dir}/java.policy" overwrite="true"/>
+
+		<copy todir="${bin.dir}" filtering="true" overwrite="true">
+			<fileset refid="script.files"/>
+			<mapper type="glob" from="*" to="${script.prefix}*"/>
+		</copy>
+	
+		<chmod dir="${bin.dir}" perm="ug+rx" includes="*glassbox*"/>
+	</target>
+	
+	<target name="install.14.support" if="java14" depends="init, install.libs.14, install.resources.14, create.java14.adapter"/>
+	
+	<target name="install.libs.14" if="java14" depends="init">
+		<echo message="Installing Glassbox Libraries for Java 1.4." />
+		<copy toDir="${lib.dir}" overwrite="true">
+			<fileset refid="lib.files.14"/>
+		</copy>
+	</target>
+	
+	<target name="install.resources.14" if="java14" depends="init">
+		<echo message="Installing Glassbox Resources for Java 1.4." />
+		<copy toDir="${glassbox.home}" overwrite="true">
+			<fileset refid="resource.files.14"/>
+		</copy>
+	</target>
+	    
+	<target name="create.java14.adapter" if="java14">
+		<echo message="Creating Java 1.4 Adapter for AspectJ" />
+		<java jar="${lib.dir}/createJavaAdapter.jar" dir="${lib.dir}" fork="true" failonerror="true" />
+	</target>
+	
+</project>

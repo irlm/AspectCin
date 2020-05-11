@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+    
+<!--[if IE]>
+<link href='css/style_ms.css' rel='stylesheet' type='text/css'>
+<![endif]-->
+<![if !IE]>
+<link href='css/style.css' rel='stylesheet' type='text/css'>
+<![endif]>
+
+    <script type='text/javascript' src='dwr/interface/ColumnHelper.js'></script>
+	<script type='text/javascript' src='js/Base.js'></script>
+	<script type='text/javascript' src='js/Logging.js'></script>
+	<script type='text/javascript' src='dwr/engine.js'></script>
+	<script type='text/javascript' src='dwr/util.js'></script>
+	<script type='text/javascript' src='js/overlib.js'></script>
+	<script type='text/javascript' src='js/overlib_crossframe.js'></script>
+    <script type='text/javascript' src='js/troubleshooter.js'></script>    
+    <script type='text/javascript'>
+    
+/*********************************************************************
+*Variables for the page.
+*
+*/
+var colArray = null;
+
+var columnTitles = { "status"      :  "Status",
+	      	     "analysis"    :  "Analysis",
+	      	     "server"      :  "Server",
+		     "operation"   :  "Operation",
+		     "application" :  "Application",
+		     "averageTime" :  "Avg. Time",
+	      	     "executions"  :  "Executions" };
+
+
+/*********************************************************************
+*Starts up the polling service, initializes.
+*
+*/
+function startup() {
+   DWREngine.setErrorHandler(errorHandler);
+   ColumnHelper.getColumns(loadColInfo);
+}
+
+/*********************************************************************
+*Build a list of the header columns.
+*
+*/
+function buildHeadColumns() {
+   var tbody = $("operationTableHead");
+   var row = document.createElement("tr");
+   var descriptionArray = new Array(
+      "Operation status: FALING, SLOW, OK", 
+      "Analysis of operation's problem",
+      "Connection Nickname",
+      "Short name of the operation",
+      "Application containing this operation",
+      "Mean time to execute an operation",
+      "Number of times operation executed"
+   ); // TODO: put this in the colArray where it belongs  
+   
+   for(var i = 0; i < colArray.length; i++) {
+        var col = document.createElement("td");
+	col.appendChild(document.createTextNode(columnTitles[colArray[i]]));
+	col.className=colArray[i] + "Head";
+        col.id = colArray[i];
+        col.onclick = function(event) {return sortColumns(this);};
+        if(browser != 'Internet Explorer') {
+            col.description = descriptionArray[i];
+            col.onmouseover = function(event) {
+            	return window.parent.overlib(this.description);
+            };
+            col.onmouseout = function(event) {return window.parent.nd();}; 
+        }
+        row.appendChild(col);
+   }
+   tbody.appendChild(row);
+}
+
+
+
+/*********************************************************************
+*Callback for the col Ajax call.
+*
+*/
+function loadColInfo(data) {
+  try {     
+     colArray = data;
+     buildHeadColumns();
+ } catch (error) {
+     //not connecting. die silently. should be handled above by event handler.
+  }
+}
+
+/*********************************************************************
+*Sorts the columns
+*
+*/
+function sortColumns(col) {
+    ColumnHelper.setColumnSorter(col.id, parent.tablebody.refreshTable()); 
+}
+
+</script>
+</head>
+<body onload="javascript:startup();">
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<table class="operationTableHead">
+<tbody id="operationTableHead">
+</tbody>
+<tfoot height="0">
+	<tr class="operationTableRow" height="0">
+	    <th class="statusHead" height="0"></th> 
+	    <th class="analysisHead" height="0"></th>
+	    <th class="serverHead" height="0"></th>
+	    <th class="operationNameHead" height="0"></th>
+	    <th class="applicationNameHead" height="0"></th>	    
+	    <th class="averageTimeHead" height="0"></th>
+	    <th class="executionsHead" height="0"></th>
+	</tr>
+</tfoot>
+</table>
+</body>
+</html>

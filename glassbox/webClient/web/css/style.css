@@ -1,0 +1,315 @@
+body {
+   margin: 0px;
+   padding-top: 0px;
+}
+
+a {
+ border: 0;  
+}
+
+img {
+  border: 0;
+}
+
+table {
+  border: 0;
+  border-spacing:0;
+   padding:0px;
+}
+
+div {
+  border: 0;
+  border-spacing:0;
+}
+
+tr {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000000;
+    text-align: left;
+    padding:0px;
+}
+
+td {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000000;
+    text-align: left;
+}
+
+th {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000000;
+    text-align: left;
+}
+
+.clientMainDiv {
+   position:absolute;
+   top:5%; 
+   left:2%;
+   border:thin solid;
+   width:95%; 
+   height:90%;
+}
+
+.clientMainColumn {
+   padding:0px; 
+}
+
+.clientLeftDiv {
+   position:absolute;
+   top:5%; 
+   left:80%;
+   border:thin solid;
+   width:0%; 
+   height:0%;
+}
+
+.panelBar {
+   width:100%;
+   height:10px;
+   border-collapse: separate;
+   border-spacing: 0;
+   border: 0;
+   background-color: #00688f;
+}
+
+.divider {
+  height: 1px; 
+  background-color: #00688f; 
+  width: 100%;
+}
+
+.troubleshooterPanelTable {
+   width:100%;
+   height:100%;
+   border-collapse: separate;
+   border-spacing: 0;
+   border: 0;
+}
+
+.troubleshooterLeftPanel {
+   width:100%;
+   border-collapse: separate;
+   border-spacing: 0;
+   border: 0;
+}
+
+.troubleshooterLeftPanelTable {
+   width:100%;
+   height:100%;
+   vertical-align: top;
+   border-collapse: separate;
+   border-spacing: 0;
+   border: 0;
+}
+
+.troubleshooterLeftTableRow {
+   vertical-align: top;
+   width:100%;
+   height:100%;
+}
+
+.connectionTable {
+   vertical-align: top;
+   width:100%;
+   height:100%;
+}
+
+.connectionHead {
+   vertical-align: top;
+   width:100%;
+   height:5%;
+}
+
+.connectionTopRow {
+   vertical-align: top;
+   width:100%;
+   height:20%;
+}
+
+.connectionAddBox {
+   vertical-align: top;
+   width:100%;
+   height:10%;
+}
+
+.connectionFormBox {
+   vertical-align: top;
+   visibility: hidden; 
+   height: 0px; 
+   width: 0px;
+}
+
+.connectionField {     
+     font-size: 11px;
+     width: 100px;
+     margin-right: 6px;
+}
+
+.troubleshooterTableMenuRow {
+   width:100%;
+   height:5%;
+}
+
+.troubleshooterTableHeadRow {
+   width:100%;
+   height:2%;
+}
+
+.troubleshooterTableBodyRow {
+   width:100%;
+   height:40%;
+}
+
+.troubleshooterTableDividerRow {
+   width:100%;
+   height:1%;
+}
+
+.troubleshooterTableRow {
+   width:100%;
+}
+
+.troubleshooterContentTableRow {
+   width:100%;
+   height:100%;
+}
+
+.troubleshooterBodyTableCol {
+   width:100%;
+   height:40%;
+}
+
+.troubleshooterContentTableCol {
+   width:100%;
+   height:100%;
+}
+
+.menuBarIFrame {
+    top:0px; 
+    height:100%;
+    width:100%
+}
+
+.connectionPanelIFrame {
+    vertical-align: top; 
+    height:400px;
+    width:100%
+}
+
+.headIFrame {
+    width:100%;
+    height:15px;
+}
+
+.bodyIFrame {
+    height:100%;
+    width:100%;
+}
+
+.contentIFrame {
+    height:100%;
+    width:100%;
+}
+
+.dividingDiv {
+   border:thin solid;
+   width:100%; 
+   height:1px;
+}
+
+.headDiv {
+   width:100%; 
+   height:15px;
+}
+
+.menuTableHead {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+  width:100%;
+}
+
+.menuTablePanel {
+   position:absolute;
+   border: 0;
+   border-spacing: 0;
+  
+}
+.operationTableHead {
+     border-collapse: collapse;
+     border-spacing: 0;
+     width:100%;
+     height:100%;
+
+}
+
+.operationTableBody {
+     border-collapse: collapse;
+     border-spacing: 0;
+     width:100%;
+     height:100%;
+}
+
+.operationTableRow {
+     border-collapse: collapse;
+   border-spacing: 0;
+  width:100%;
+   height:100%;
+}
+
+th.serverHead {
+    width: 100px;    
+}
+
+th.viewedHead {
+    width: 100px;    
+}
+
+th.statusHead {
+    width: 50px;
+}
+
+th.analysisHead {
+    width: 150px;
+}
+
+th.operationNameHead {
+    width: 300px;
+}
+
+th.applicationNameHead {
+    width: 150px;
+}
+
+th.averageTimeHead {
+    width: 100px;
+}
+
+th.executionsHead {
+    width: 100px;
+}
+
+td.viewedColumn {
+    width: 100px;
+    text-align: center;    
+}
+
+td.statusColumn {
+    width: 50px;
+}
+
+td.analysisColumn {
+    width: 150px;
+}
+
+td.operationNameColumn {
+    width: 300px;
+}
+
+td.executionsColumn {
+    width: 100px;
+    text-align: center;
+}

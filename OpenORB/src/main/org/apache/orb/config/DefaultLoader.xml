@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<!--
+Copyright (C) The Apache Software Foundation. All rights reserved.
+
+This software is published under the terms of the Apache Software License
+version 1.1, a copy of which has been included with this distribution in
+the LICENSE.txt file.
+
+Original contribution OSM SARL 2001-2002, http://www.osm.net
+-->
+
+<config>
+      
+   <!--
+   The following initializer elements define the logging sub-catagory to be 
+   be assigned for the initalization object.
+   -->
+
+   <initializer class="org.openorb.orb.iiop.IIOPProtocolInitializer" name="iiop"/>
+   <initializer class="org.openorb.orb.adapter.poa.POAInitializer" name="poa"/>
+
+</config>

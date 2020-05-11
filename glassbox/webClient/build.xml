@@ -1,0 +1,223 @@
+<!--
+##
+##
+## BUILD FOR GLASSBOX WEB CLIENT
+##
+##
+-->
+<project name="webClient" basedir="." default="all">
+
+	<property name="project.jar" value="glassbox.war" />
+	<property name="build.dir" value="../build" />
+	<property file="${build.dir}/build/${user.name}.build.properties" />
+    <property file="${build.dir}/build.properties" />
+    <property name="runtimelib" value="web/WEB-INF/lib" />
+    <property name="redistribution.jar.lib" location="${user.home}/dl"/>
+	<property name="prodoutput.dir" value="../dist/output/${ant.project.name}/web/WEB-INF/classes" />
+	
+	<target name="redistributable.files">
+		<copy overwrite="false" 
+	          failonerror="false"
+	          verbose="false"
+	          file="${redistribution.jar.lib}/activation.jar" 
+	          todir="${runtimelib}"/>
+		<copy overwrite="false" 
+	          failonerror="false"
+	          verbose="false"
+	          file="${redistribution.jar.lib}/mail.jar" 
+	          todir="${runtimelib}"/>
+	</target>
+	
+	<target name="init" depends="common-init, redistributable.files">
+		<property name="conf.dir"           value="./conf"/>
+		<property name="servlet.jar"        value="../lib/buildtime/servlet-api-2.4.jar"/>
+		<property name="war.file"           value="glassbox"/>
+		<property name="war.file.name"      value="${war.file}.war"/>
+		<property name="tomcat.home"        value="${container.dir}"/>
+		<property name="deploy.dir"         value="${tomcat.home}/webapps"/>
+		<property name="install.web.dir"    value="${output.dir}/web"/>
+		<property name="install.dir"        value="${install.web.dir}/install"/>
+		<property name="installRes.dir"     value="${output.dir}/install"/>
+		<property name="glassbox.distribution.dir"  value="${basedir}/../dist/dist"/>
+		<property name="aspectj.distribution.dir"  value="${basedir}/../lib/aspectj/lib"/>
+        <property name="lib.dir"  value="${basedir}/../lib"/>
+		<property name="glassbox.14.lib.dir"           value="../ltw13"/>
+		<property name="project.title" value="Glassbox Corporation"/>
+		<property name="project.distname" value="Glassbox Web Client"/>
+		<property name="project.version" value="2.0"/>
+		<property name="junit.results" value="${output.dir}/reports/junit" />
+		
+		<path id="test.class.path">
+			<path refid="common.test.class.path"/>
+			<path refid="project.class.path" />
+            <pathelement path="${basedir}/web/" />
+            <pathelement path="${basedir}/web/WEB-INF" />
+            <pathelement path="${basedir}/web/WEB-INF/classes" />
+			<pathelement path="${conf.dir}"/>
+		</path>
+
+		<path id="project.class.path">
+			<fileset dir="${basedir}/web/WEB-INF/lib/" includes="**/*.jar" />
+			<pathelement path="${src.dir}"/>
+			<pathelement path="${servlet.jar}"/>
+            <pathelement path="${lib.dir}/spring/spring.jar"/>         
+            <path refid="included.modules"/>
+			<path refid="common.production.class.path" />
+		</path>   
+        <path id="included.modules">
+            <pathelement location="${dist.dir}/bootstrap.jar"/>
+            <pathelement location="${dist.dir}/glassboxMonitor.jar"/> <!-- many web client functions require monitor types in a shared loader -->
+            <pathelement location="${dist.dir}/agent.jar"/>
+        </path>
+	    
+		<!-- make sure this is maintained as a fully conservative up to date check -->
+		<uptodate property="project.jar.current" targetfile="${project.jar.path}">
+			<srcfiles dir="${src.dir}" includes="**/*" />
+			<srcfiles dir="${runtimelib}" includes="**/*" />
+			<srcfiles dir="${basedir}" includes="**/build*.xml" />
+		</uptodate>
+	</target>
+		
+	<target name="prepare" depends="init">
+		<tstamp/>
+		<mkdir  dir="${output.dir}"/>
+	</target>
+
+	<target name="resources" depends="init">
+		<copy todir="${prodoutput.dir}" includeEmptyDirs="yes">
+			<fileset dir="${src.dir}">
+				<patternset>
+					<include name="**/*.properties"/>
+					<include name="**/*.xml"/>
+				</patternset>
+			</fileset>
+		</copy>
+		<copy todir="${prodoutput.dir}" includeEmptyDirs="yes">
+			<fileset dir="${conf.dir}">
+				<patternset>
+					<include name="**/*.conf"/>
+					<include name="**/*.properties"/>
+					<include name="**/*.ccf"/>
+					<include name="**/*.xml"/>
+					<include name="**/testdir"/>
+					<include name="**/*.txt"/>
+					<include name="**/*.sql"/>
+				</patternset>
+			</fileset>
+		</copy>
+		<copy file="${src.dir}/glassbox/client/helper/performance.properties" todir="${output.dir}/glassbox/client/helper/"/>
+
+		<mkdir dir="${installRes.dir}"/>
+		<copy file="${glassbox.distribution.dir}/glassboxMonitor.jar" toDir="${installRes.dir}"/>
+		<copy file="${aspectj.distribution.dir}/aspectjweaver.jar" toDir="${installRes.dir}"/>
+		<!--<copy file="${aspectj.distribution.dir}/aspectjrt.jar" toDir="${installRes.dir}"/>-->
+		<copy todir="${installRes.dir}" includeEmptyDirs="yes">
+			<fileset dir="./web/install"/>
+		</copy>
+
+		<mkdir dir="${installRes.dir}/glassbox"/>
+		<copy file="${glassbox.distribution.dir}/glassbox.properties" toDir="${installRes.dir}/glassbox"/>
+        <copy file="${glassbox.distribution.dir}/runtime.properties" toDir="${installRes.dir}/glassbox"/>
+        <copy toDir="${installRes.dir}/glassbox">
+            <fileset dir="${glassbox.distribution.dir}" includes="sample*.*"/>
+        </copy>   
+
+		<mkdir dir="${installRes.dir}/glassbox14"/>
+		<copy file="${glassbox.14.lib.dir}/dist/createJavaAdapter.jar" toDir="${installRes.dir}/glassbox14"/>
+		<copy file="${glassbox.14.lib.dir}/dist/aspectj14Adapter.jar" toDir="${installRes.dir}/glassbox14" />
+		<copy file="${glassbox.distribution.dir}/glassbox.properties" toDir="${installRes.dir}/glassbox14"/>
+        <copy file="${glassbox.distribution.dir}/runtime.properties" toDir="${installRes.dir}/glassbox14"/>
+		
+		<mkdir dir="${install.web.dir}"/>
+		<copy todir="${install.web.dir}" includeEmptyDirs="no">
+			<fileset dir="./web">
+				<patternset>
+					<include name="**/*.jar"/>
+					<include name="**/*.jsp"/>
+					<include name="**/*.html"/>
+					<include name="**/*.txt"/>
+				</patternset>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="compile" depends="prepare,resources,ajccompile"/>
+
+	<target name="project" depends="prepare,resources,compile,test"/>
+	<target name="dist">
+		<fixcrlf srcdir="${installRes.dir}" includes="**/*.sh" eol="lf" eof="remove"/>
+		<touch>
+			<fileset dir="${install.web.dir}">
+				<patternset>
+					<include name="**/*.jsp"/>
+					<include name="**/*.html"/>
+					<include name="**/*.txt"/>
+				</patternset>
+			</fileset>
+		</touch>
+		<war warfile="${dist.dir}/${war.file.name}" duplicate="preserve" webxml="web/WEB-INF/web.xml">
+	        <fileset dir="${install.web.dir}" includes="**/*.jsp, **/*.html, **/*.txt"/>			
+			<fileset dir="./web" includes="**/*.*" excludes="**/*.class, **/*.jsp, **/*.html, **/*.txt, install/**
+			        **/dist/**, **/src/com/**, build.xml, **/*.nbattrs, web.xml, **/*.doc, WEB-INF/classes/**, WEB-INF/*.*, **/docs/*.*"/>
+			<fileset dir="${output.dir}" includes="install/**/*.*"/>
+			<webinf dir="web/WEB-INF"  includes="**/*" excludes="classes/**, web.xml, **/*.jar, **/*.class, **/*.properties, **/*.java, src, src/**/*, **/*.nbattrs, **/*.warContent, **/build/**"/>
+			<lib dir="${glassbox.distribution.dir}">
+				<include name="agent.jar"/>
+				<include name="bootstrap.jar"/>
+                <include name="glassboxApi.jar"/>   
+			</lib>
+            <lib dir="${lib.dir}/aspectj/lib" includes="aspectjrt.jar"/>
+            <lib dir="${lib.dir}/spring" includes="spring.jar"/>
+			<classes dir="${prodoutput.dir}">
+				<include name="**/*.class"/>
+				<include name="**/*.jar"/>
+				<include name="**/*.properties"/>
+				<include name="**/*.betwixt"/>
+				<include name="**/*.sql"/>
+			</classes>
+		</war>
+	</target>
+
+	<target name="deploy" depends="init">
+		<!-- zap the old exploded version: Tomcat typically doesn't notice the change -->
+		<delete dir="${deploy.dir}/${war.file}"/>
+        <delete dir="${tomcat.home}/work/Catalina/localhost/glassbox"/>
+		<copy overwrite="true" todir="${deploy.dir}">
+			<fileset dir="${dist.dir}" includes="${war.file.name}"/>
+		</copy>
+	</target>
+
+	<target name="jar-lib">
+		<jar destfile="${war.file}.jar">
+			<fileset dir="${prodoutput.dir}"
+	             includes="**/*.class"
+	    />
+		</jar>
+	</target>
+
+	<target name="all" depends="project,dist,deploy"/>
+
+	<target name="testcompile" depends="init">
+        <mkdir dir="${testoutput.dir}"/>
+		<iajc incremental="false" destdir="${testoutput.dir}" x="${ajc.testxOptions}" debuglevel="source"
+        	Xlintfile="../monitor/etc/META-INF/Xlint.properties" sourceRootCopyFilter="**/*.java,**/CVS/**,**/*~,**/*#*,**/.#*,**/%*%,**/.cvsignore">
+			<src location="${src.dir}" />
+			<src location="${testsrc.dir}" />
+			<exclude name="**/CVS/*" />
+			<classpath refid="test.class.path" />
+		</iajc>
+	</target>
+
+	<target name="test" depends="init,testcompile,junit" description="Executes the unit tests">
+		<junitreport todir="${report.tests.dir}">
+            <fileset dir="${junit.results}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report todir="${report.tests.dir}/html"/>
+        </junitreport>
+        <fail if="test.failure"/>
+	</target>   
+
+	<target name="jar" depends="compile,dist"/>
+	<import file="../build/common-tasks.xml" />
+</project>

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<project name="agent" basedir="." default="all">
+    <property name="aopxmlfile" value="aopltwtest.xml"/>      
+	<target name="init" depends="common-init">
+		<path id="test.class.path">
+			<path refid="common.test.class.path"/>
+			<path refid="project.class.path" />
+		</path>
+
+		<property name="test.jar" value="${output.dir}/agentTest.jar"/>
+		<path id="project.aspect.path">
+			<pathelement location="${dist.dir}/glassboxMonitor.jar"/>
+		</path>
+        <path id="included.modules">
+            <pathelement location="${dist.dir}/bootstrap.jar"/>
+        </path>
+		<path id="project.test.aspect.path">
+			<pathelement location="${output.dir}/../monitor/monitorTest.jar"/>
+		</path>
+		<!--<property name="myapatha" refid="project.aspect.path"/>
+        <echo message="set up paths: ${myapatha}"/>-->
+
+		<!-- XXX TODO: verify this is fully conservative up to date check -->
+		<uptodate property="project.jar.current" targetfile="${project.jar.path}">
+			<srcfiles dir="${src.dir}" includes="**/*" />
+			<srcfiles dir="${etc.dir}" includes="**/*" />
+			<srcfiles dir="${runtimelib}" includes="**/*" />
+			<srcfiles dir="${basedir}" includes="**/build*.xml" />
+		</uptodate>
+
+		<uptodate property="api.jar.current" targetfile="${api.jar}">
+			<srcfiles dir="${src.dir}" includes="**/api/*" />
+			<srcfiles dir="${basedir}" includes="**/build*.xml" />
+			<srcfiles dir="../monitor/${src.dir}" includes="**/api/*" />
+		</uptodate>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Creates deployable jars: the agent implementation and the API jar   -->
+	<!-- =================================================================== -->
+	<target name="jar" depends="agentjar,apijar" />
+	<target name="agentjar" depends="projectjar"/>
+    <target name="compile" depends="ajccompile">
+        <javac destdir="${prodoutput.dir}" source="1.5" target="1.5" debugLevel="source">
+            <src location="java5-src" />
+            <exclude name="**/CVS/*" />
+            <classpath refid="project.class.path" />
+        </javac>
+    </target>   
+	<target name="apijar" depends="compile" unless="api.jar.current">
+		<jar destfile="${api.jar}">
+			<fileset dir="${prodoutput.dir}" includes="**/api/*"/>
+			<fileset dir="${prodoutput.dir}" includes="**/version/InstanceID.class"/>
+			<fileset dir="${output.root.dir}/output/monitor/prod/classes" includes="**/api/*,edu/emory/**,glassbox/util/concurrent/**,glassbox/util/org/sl4j/**"/>
+		</jar>
+	</target>
+
+	<target name="dist" depends="jar"/>
+
+	<target name="all" depends="compile,test,jar,dist" />
+
+    <!-- convenience target for testing -->   
+	<target name="deployAgent" depends="init">
+        <property name="deploy.target" value="${container.dir}/common/lib" />
+		<copy todir="${deploy.target}">
+			<fileset dir="${aspectj.home}/lib" includes="aspectjweaver.jar"/>
+		</copy>
+	</target>
+
+	<target name="rundummyserver" depends="init,testcompile">
+		<java classname="glassbox.simulator.DummyServer">
+			<classpath>
+				<pathelement location="${test.jar}"/>
+				<path refid="test.class.path" />
+			</classpath>
+		</java>
+	</target>
+	<import file="../build/common-tasks.xml"/>
+</project>

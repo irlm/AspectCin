@@ -1,0 +1,246 @@
+
+<div class="section">  
+
+	    <table>	        
+		    <tr>
+		    <td>
+		    <img src="images/synchronize32.jpg">
+		    </td>
+		    <td>
+		    <div class="probtypehdr">Time Spent in this $display.operationData.status Operation</div>
+		    </td>
+		    </tr>
+    <tr>
+		    <td></td>
+		    <td>
+		    </table>
+
+  #set($notablePart = 0)
+			
+			  ## if the percentage of time used was over the high threshhold, we say that something dominated the operation.  over the low, and we say it was notable.
+		  #set($highThreshhold = 75)
+			  #set($lowThreshhold = 25)
+			
+			
+			  ##
+			  ## Components
+			  ##
+			
+				  ## Dispatch = 0.  NOT implemented yet. 
+				  #set($percent = $display.analysisData.operationAnalysis.getComponentTimePercent(0))
+				  #set($ms = $display.analysisData.operationAnalysis.getComponentTimeMS(0))
+				  #if($percent > $highThreshhold)
+				  								  					  															#if($display.operationData.status == "OK")
+				        <div class="probtypeinfo">Note: Initialization Dominated. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in dispatch code common to many operations. This is not necessarily a problem, but it is notable.</div>
+		      #else
+				        <div class="probtypeinfo">Note: Initialization Dominated. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in dispatch code common to many operations. This is not necessarily a problem, but it is almost certainly a contributor.</div>
+		      #end
+		      <br/>
+				      #set($notablePart = 1)
+							  #elseif($percent >= $lowThreshhold)
+							  								  					  														#if($display.operationData.status == "OK")
+				        <div class="probtypeinfo">Note: Initialization activity. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in dispatch code common to many operations.  This is not necessarily a problem, but it is notable.</div>
+      #else
+				        <div class="probtypeinfo">Note: Initialization activity. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in dispatch code common to many operations.  This is not necessarily the cause of your problem, but it is a likely contributor.</div>
+      #end
+      <br/>
+				      #set($notablePart = 1)
+						  #end
+			
+			
+				  ## OTHER PROCESSING = 1.  
+			 
+			 		 #*
+			 		 				#set($percent = $display.analysisData.operationAnalysis.getComponentTimePercent(1))
+				  				#set($ms = $display.analysisData.operationAnalysis.getComponentTimeMS(1))
+				  #if($percent > $highThreshhold)
+				      <div class="probtypeinfo">Note: Other Dominated. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in OTHER processing.  This is not necessarily a problem, but it is notable.</div>
+      <br/>
+				      #set($notablePart = 1)
+							  #elseif($percent >= $lowThreshhold)
+				      <div class="probtypeinfo">Note: Other activity. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in OTHER processing.  This is not necessarily a problem, but it is notable.</div>
+      <br/>
+				      #set($notablePart = 1)
+						  #end
+						  *#
+				
+				
+				  				  ## Database Access = 2
+				  #set($percent = $display.analysisData.operationAnalysis.getComponentTimePercent(2))
+				  				  				#set($ms = $display.analysisData.operationAnalysis.getComponentTimeMS(2))
+								  #if($percent > $highThreshhold) 
+								  					  					  										#if($display.operationData.status == "OK")
+				      <div class="probtypeinfo">Note: Database dominated. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in database processing.  This is not necessarily a problem, but it is notable.</div>
+ 					  					  					  					#else
+				      <div class="probtypeinfo">Note: Database dominated. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in database processing.  This is not necessarily the cause of your problem, but it is almost certainly a contributor.</div>
+      #end
+      <br/>
+				      #set($notablePart = 1)
+					  #elseif($percent >= $lowThreshhold)
+									  					  					  					#if($display.operationData.status == "OK")
+				      <div class="probtypeinfo">Note: Heavy Database activity. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in database processing.  This is not necessarily a problem, but it is notable.</div>
+					  					  					  					#else
+				      <div class="probtypeinfo">Note: Heavy Database activity. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in database processing.  This is not necessarily the cause of your problem, but it is a likely contributor.</div>
+			      #end
+      <br/>
+				      #set($notablePart = 1)
+						  #end
+				  
+				  
+				  						  ## Remote Calls = 3
+				  #set($percent = $display.analysisData.operationAnalysis.getComponentTimePercent(3))
+				  				#set($ms = $display.analysisData.operationAnalysis.getComponentTimeMS(3))
+					  #if($percent > $highThreshhold)
+					  					  					  					#if($display.operationData.status == "OK")
+			        <div class="probtypeinfo">Note: Remote Calls dominated. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent%  ($ms) of the time was spent accessing remote calls. This is not necessarily a problem, but it is notable.</div>
+  					  					  					#else
+			        <div class="probtypeinfo">Note: Remote Calls dominated. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent%  ($ms) of the time was spent accessing remote calls. This is not necessarily the cause of your problem, but it almost certainly a contributor.</div>
+      #end
+      <br/>
+				      #set($notablePart = 1)
+							  #elseif($percent >= $lowThreshhold)
+							  					  					  					#if($display.operationData.status == "OK")
+			  			      <div class="probtypeinfo">Note: Heavy Remote Calls activity. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent accessing remote calls.  This is not necessarily a problem, but it is notable.</div>
+   					  					 		#else
+			  			      <div class="probtypeinfo">Note: Heavy Remote Calls activity. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent accessing remote calls.  This is not necessarily the cause of your problem, but it is a likely contributor.</div>
+      #end
+      <br/>
+				      #set($notablePart = 1)
+						  #end
+				  
+			
+			
+			    ##
+			    ## RESOURCES
+			    ##
+			
+							  						  ## Resource RunnableJava = 0
+														  						#*  
+				  #set($percent = $display.analysisData.operationAnalysis.getResourceTimePercent(0))
+			  							#set($ms = $display.analysisData.operationAnalysis.getResourceTimeMS(0))
+					  #if($percent > $highThreshhold)
+			      <div class="probtypeinfo">Note: Runnable Java dominated. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in runnable java code. This is not necessarily a problem, but it is notable.</div>
+      <br/>
+				      #set($notablePart = 1)
+							  #elseif($percent >= $lowThreshhold)
+			  			    <div class="probtypeinfo">Note: Runnable Java activity. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in runnable java code.  This is not necessarily a problem, but it is notable.</div>
+      <br/>
+				      #set($notablePart = 1)
+						  #end
+						  *#
+			
+										  						  ## Resource Runnable Native = 1
+				  #set($percent = $display.analysisData.operationAnalysis.getResourceTimePercent(1))
+			  							#set($ms = $display.analysisData.operationAnalysis.getResourceTimeMS(1))
+					  #if($percent > $highThreshhold)
+					  
+					  					  					  #if($display.operationData.status == "OK")
+			            <div class="probtypeinfo">Note: Native Code dominated. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in native code and not in Java. This is not necessarily a problem, but it is notable.</div>
+			      #else
+			           <div class="probtypeinfo">Note: Native Code dominated. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in native code and not in Java. This is not necessarily the cause of your problem, but it almost certainly a contributor.</div>
+			      #end
+      <br/>
+				      #set($notablePart = 1)
+							  #elseif($percent >= $lowThreshhold)
+							    					  					#if($display.operationData.status == "OK")							    					  		  
+			        <div class="probtypeinfo">Note: Heavy Native Code Activity. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in native code and not in Java. This is not necessarily a problem, but it is notable.</div>
+					      #else   					  					  
+			        <div class="probtypeinfo">Note: Heavy Native Code Activity. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in native code and not in Java. This is not necessarily a problem, but it is a likely contributor.</div>		
+	      #end
+
+      <br/>
+				      #set($notablePart = 1)
+						  #end
+			
+												  						  ## THREAD Waiting = 2
+												  						#*
+				  #set($percent = $display.analysisData.operationAnalysis.getResourceTimePercent(2))
+			  							#set($ms = $display.analysisData.operationAnalysis.getResourceTimeMS(2))
+					  #if($percent > $highThreshhold)
+			      <div class="probtypeinfo">Note: Thead Waiting dominated. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent waiting in Java. This is not necessarily a problem, but it is notable.</div>
+      <br/>
+				      #set($notablePart = 1)
+							  #elseif($percent >= $lowThreshhold)
+			  			    <div class="probtypeinfo">Note: Thread Waiting activity. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent waiting in Java.  This is not necessarily a problem, but it is notable.</div>
+      <br/>
+				      #set($notablePart = 1)
+						  #end
+						  *#
+			
+												  						  ## BLOCKED = 3
+				  #set($percent = $display.analysisData.operationAnalysis.getResourceTimePercent(3))
+			  			  							#set($ms = $display.analysisData.operationAnalysis.getResourceTimeMS(3))
+					  #if($percent > $highThreshhold)
+					  
+					  					    #if($display.operationData.status == "OK")
+					      
+			      <div class="probtypeinfo">Note: Thread Blocking Dominated. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent blocked in Java. This is not necessarily a problem, but it is notable.</div>
+			 
+			 	     #else
+			      <div class="probtypeinfo">Note: Thread Blocking dominated. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent blocked in Java. This is not necessarily the cause of your problem, but it is a likely contributor.</div>
+			      
+			      #end
+      <br/>
+				      #set($notablePart = 1)
+							  #elseif($percent >= $lowThreshhold)
+			      
+			      #if($display.operationData.status == "OK")
+			      <div class="probtypeinfo">Note: Thread Blocking Activity. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent blocked in Java. This is not necessarily a problem, but it is notable.</div>
+			 
+			 	     #else
+			      <div class="probtypeinfo">Note: Thread Blocking Activity. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent blocked in Java. This is not necessarily the cause of your problem, but it is a likely contributor.</div>
+			      
+			      #end
+      <br/>
+				      #set($notablePart = 1)
+						  #end
+						  
+						  
+						  
+						    			## CPU bound
+				  #set($percent = $display.analysisData.operationAnalysis.CPUTimePercent)
+			  										#set($ms = $display.analysisData.operationAnalysis.FormatCPUTime) 							
+					  #if($percent > $highThreshhold)
+					      #if($display.operationData.status == "OK")
+						        <div class="probtypeinfo">Note: CPU dominated. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in CPU processing. This is not necessarily a problem, but it is notable.</div>
+						      #else			          
+			        <div class="probtypeinfo">Note: CPU dominated. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in CPU processing. This is not necessarily the cause of the problem, but it is a likely contributor.</div>	
+			      #end
+        <br/>
+				      #set($notablePart = 1)
+							  #elseif($percent >= $lowThreshhold)
+							      #if($display.operationData.status == "OK")
+									      			  			    <div class="probtypeinfo">Note: CPU heavy activity. Your operation ran within your performance threshold, but in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in CPU processing.  This is not necessarily a problem, but it is notable.</div>
+					      #else
+										      			  			    <div class="probtypeinfo">Note: CPU heavy activity. Your operation did not successfully run within your performance threshold, and in the process of sumarization, Glassbox found that $percent% ($ms) of the time was spent in CPU processing.  This is not necessarily the cause of the problem, but it is a likely contributor.</div>
+			      #end
+      <br/>
+				      #set($notablePart = 1)
+						  #end
+			
+			
+			  ## this is the catch-all.  Nothing was partciularly dominating.
+				  #if($notablePart == 0 && $display.operationData.status == "OK")
+			  			  			  <div class="probtypeinfo">Your operation ran within your performance threshold, and the time spent was not dominated by any particular activity (nothing over $lowThreshhold%).  Often an activity such as time spent waiting for a thread lock, or time spent in the database might be a sign or problems or a place to optimize, your system did not have examples of one dominant activity.</div>
+      <br/>
+				  #elseif($notablePart == 0)
+				  			  			  			  <div class="probtypeinfo">Your operation ran slower than your performance threshold, but the time spent was not dominated by any particular activity (nothing over $lowThreshhold%).  Often an activity such as time spent waiting for a thread lock, or time spent in the database might be a sign or problems or a place to optimize, your system did not have examples of one dominant activity.</div>
+      <br/>
+				  #end
+				  
+				  
+				  
+				  
+				
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+
+
+
+</div>
+

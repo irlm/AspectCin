@@ -1,0 +1,6 @@
+src.includes = src/
+src.excludes = src/aspectcin/log/CInLog.java,\
+			   src/aspectcin/log/CInLogComunication.java,\
+			   src/aspectcin/log/CInLogNamingService.java,\
+			   src/aspectcin/billing/,\
+			   src/aspectcin/timing/

@@ -1,0 +1,132 @@
+!Browser:IE5
+!Date : 2/1/2006
+Environment
+	Description ""
+	Mode		HTTP
+	Wait		UNIT MILLISECONDS
+
+Definitions
+	! Standard Defines
+	Include			"RESPONSE_CODES.INC"
+	Include			"GLOBAL_VARIABLES.INC"
+
+	CHARACTER*512	USER_AGENT
+	Integer			USE_PAGE_TIMERS
+	CHARACTER*256	MESSAGE
+
+	Timer			T_LDS_LOAD_1
+
+	CONSTANT		DEFAULT_HEADERS = "Host: 10.0.131.45:8080^J"	&
+		"User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)"
+
+Code
+	!Read in the default browser user agent field
+	Entry[USER_AGENT,USE_PAGE_TIMERS]
+
+	Start Timer T_LDS_LOAD_1
+	PRIMARY GET URI &
+		"http://10.0.131.45:8080/lds/" &
+			"leads?adt_aid=53&adt_ldsid=101a&Firstname=Fred&Lastname=Flintstone&address1=123%20B%20Street&ad" &
+			"dress2=&city=Hooterville&state=MS&postalCode=65656 HTTP/1.0" ON 1 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, " &
+				"application/msword, */*", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive"}
+
+	WAIT 10
+
+	PRIMARY GET URI &
+		"http://10.0.131.45:8080/lds/" &
+			"leads?adt_aid=53&Firstname=Wilma&Lastname=Flintstone&address1=123%20B%20Street&address2=&city=H" &
+			"ooterville&state=MS&postalCode=65656 HTTP/1.0" ON 1 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, " &
+				"application/msword, */*", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive"}
+
+	WAIT 10
+
+	PRIMARY GET URI &
+		"http://10.0.131.45:8080/lds/" &
+			"leads?adt_aid=3046&adt_ldsid=1&additional_cash_neede=t&home_prefix=555&home_suffix=5555&last=Fl" &
+			"intstone&loan_amount=1000000&loan_type=1a1&mail_addr_1=123%20B%20Street&mail_city=anytown&mail_" &
+			"postalcode=77777&mail_stateprov=MO&email=ff@dino.com&first=Fred HTTP/1.0" ON 1 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, " &
+				"application/msword, */*", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive"}
+
+	WAIT 10
+
+	PRIMARY GET URI &
+		"http://10.0.131.45:8080/lds/" &
+			"leads?adt_aid=3046&adt_ldsid=1&additional_cash_neede=t&home_prefix=555&home_suffix=5555&last=Fl" &
+			"intstone&loan_amount=1000000&loan_type=1a1&mail_addr_1=123%20B%20Street&mail_city=anytown&mail_" &
+			"postalcode=77777&mail_stateprov=MO&email=ff@dino.com&first=Fred HTTP/1.0" ON 1 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, " &
+				"application/msword, */*", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive"}
+
+	WAIT 10
+
+	PRIMARY GET URI &
+		"http://10.0.131.45:8080/lds/" &
+			"leads?adt_aid=1000&adt_ldsid=NewCenturyMortgageMulti&first=Jane&last=Jettson HTTP/1.0" ON 1 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, " &
+				"application/msword, */*", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive"}
+
+	WAIT 10
+
+	PRIMARY GET URI &
+		"http://10.0.131.45:8080/lds/" &
+			"leads?adt_aid=1000&adt_ldsid=NewCenturyMortgageMulti&first=Jane&last=Jettson HTTP/1.0" ON 1 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, " &
+				"application/msword, */*", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive"}
+
+	DISCONNECT FROM 1
+
+	WAIT 10
+
+	PRIMARY GET URI &
+		"http://10.0.131.45:8080/lds/" &
+			"leads?adt_aid=3046&adt_ldsid=3046&first=Jack&last=OLantern&mail_addr_1=999%20Pumpkin%20Patch%20" &
+			"Ln&mail_city=Haunted%20Garden&mail_stateprov=CA&mail_postalcode=66666&home_area_code=415&home_p" &
+			"refix=555&home_suffix=1212&bus~<CA>" &
+			"area_code=415&bus_prefix=555&bus_suffix=1212&email=test@test.com&loan_type=REFINANCE HTTP/1.0" &
+		ON 2 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, " &
+				"application/msword, */*", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive"}
+
+	SYNCHRONIZE REQUESTS
+
+	End Timer T_LDS_LOAD_1
+Exit
+
+ERR_LABEL:
+
+	If (MESSAGE <> "") Then
+		Report MESSAGE
+	Endif
+
+Exit

@@ -1,0 +1,17 @@
+/AbstractProblemEvent.java/1.1/Wed Sep  6 07:07:47 2006/-kk/
+/CallDescription.java/1.1/Wed Sep  6 07:07:47 2006/-kk/
+/CallList.java/1.1/Wed Sep  6 07:07:46 2006/-kk/
+/DefaultCallDescription.java/1.2/Wed Nov 15 08:16:57 2006/-kk/
+/DefaultFailureDetectionStrategy.java/1.2/Wed Nov 15 08:16:58 2006/-kk/
+/DefaultRequest.java/1.4/Wed Mar 21 04:59:04 2007/-kk/
+/FailureDescription.java/1.1/Wed Sep  6 07:07:47 2006/-kk/
+/FailureDescriptionImpl.java/1.2/Wed Nov 15 08:16:58 2006/-kk/
+/FailureDetectionStrategy.java/1.1/Wed Sep  6 07:07:47 2006/-kk/
+/OperationDescription.java/1.2/Wed Nov 15 08:16:58 2006/-kk/
+/OperationDescriptionImpl.java/1.2/Wed Nov 15 08:16:58 2006/-kk/
+/Request.java/1.1/Wed Sep  6 07:07:47 2006/-kk/
+/SQLFailureDescription.java/1.1/Wed Sep  6 07:07:47 2006/-kk/
+/SQLFailureDescriptionImpl.java/1.1/Wed Sep  6 07:07:47 2006/-kk/
+/SlowRequestDescriptor.java/1.1/Wed Sep  6 07:07:47 2006/-kk/
+/ThreadState.java/1.1/Wed Sep  6 07:07:47 2006/-kk/
+/UsageTrackingInfo.java/1.1/Wed Sep  6 07:07:47 2006/-kk/

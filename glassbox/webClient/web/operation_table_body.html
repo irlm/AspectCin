@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+
+<!--[if IE]>
+<link href='css/style_ms.css' rel='stylesheet' type='text/css'>
+<![endif]-->
+<![if !IE]>
+<link href='css/style.css' rel='stylesheet' type='text/css'>
+<![endif]>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type='text/javascript' src='dwr/interface/OperationHelper.js'></script>
+<script type='text/javascript' src='dwr/interface/ColumnHelper.js'></script>
+<script type='text/javascript' src='js/Base.js'></script>
+<script type='text/javascript' src='js/Logging.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type='text/javascript' src='dwr/util.js'></script>
+<script type='text/javascript' src='js/overlib.js'></script>
+<script type='text/javascript' src='js/overlib_crossframe.js'></script>
+<script type='text/javascript' src='js/troubleshooter.js'></script>
+<script type='text/javascript'>
+
+/*********************************************************************
+*Variables for the page.
+*
+*/
+var colArray = null;
+
+var failingColor="#CD5c5c";
+var slowColor="#FAF5C8";
+var okColor="white";
+
+var currentSelectedRow = null;
+var currentSelectedOperation = null;
+var currentSelectedRowColor = null;
+
+var selectedColor='#b4ebff';
+var unselectedColor = 'white';
+
+/*********************************************************************
+*Starts up the polling service, initializes.
+*
+*/
+function startup() {
+   DWREngine.setErrorHandler(errorHandler);
+   startTimer(5000, update);
+   ColumnHelper.getColumns(loadColInfo);
+}
+
+/*********************************************************************
+*Change the color of the selected row, and load the details IFrame.
+*
+*/
+function rowClick(x, event) {
+    var url = 'OperationDetails.form?operationId=' + x.operationKey;
+    if (event == null) {
+        event = window.event;
+    }
+    if (event.ctrlKey || ((event.modifiers != null) && (event.modifiers & 2) != 0) ) {
+        window.open(url, '_blank');
+    } else {
+        parent.contentarea.location.href=url;
+        if(currentSelectedRow != null) {
+           if(currentSelectedOperation == x.operationKey) {
+              currentSelectedRow.style.backgroundColor = currentSelectedRowColor;
+              currentSelectedRow = x;
+              currentSelectedOperation = x.operationKey;
+              currentSelectedRowColor = x.style.backgroundColor;
+              currentSelectedRow.style.backgroundColor = selectedColor;
+           } else {
+              currentSelectedRow.style.backgroundColor = currentSelectedRowColor;
+              currentSelectedRow = x;
+              currentSelectedOperation = x.operationKey;
+              currentSelectedRowColor = x.style.backgroundColor;
+              currentSelectedRow.style.backgroundColor = selectedColor;
+           }
+        } else {      
+          currentSelectedRow = x;
+          currentSelectedOperation = x.operationKey;
+          currentSelectedRowColor = x.style.backgroundColor;
+          currentSelectedRow.style.backgroundColor = selectedColor;
+        }   
+    }
+}
+
+/*********************************************************************
+*Updates the rows, creating, updating, or deleting.
+*
+*/
+function updateRows(data) {
+    var tbody = $("operationTable");
+    
+    // update existing
+    for(var i = 0; i < data.length && i < tbody.rows.length; i++) {                
+        var row = tbody.rows[i];
+        updateColumns(data[i], row, i);
+        row.style.backgroundColor = chooseRowColor(data[i]);
+    }
+    
+    // add new
+    for(; i < data.length; i++) {                
+        row = document.createElement("tr");
+        row.onclick = function(event) {rowClick(this,event);};       
+        buildColumns(data[i], row, i);
+        tbody.appendChild(row);
+        row.style.backgroundColor = chooseRowColor(data[i]);
+    }
+
+    // delete extra    
+    while (tbody.rows.length > data.length) {
+        tbody.removeChild(tbody.rows[data.length]);
+    }
+}
+
+
+function chooseRowColor(operationData) {
+  if (operationData.operationId == currentSelectedOperation) {
+     return selectedColor;
+  }
+
+   if(operationData.failing) {
+      return failingColor;
+   } else if(operationData.slow) {
+      return slowColor;
+   } else {
+      return okColor;
+   }
+}
+
+
+/*********************************************************************
+*Resets the displayed data.
+*
+*/
+function reset() {
+    DWRUtil.removeAllRows('operationTable');
+}
+
+/*********************************************************************
+*Refresh the displayed data.
+*
+*/
+function refreshTable() {
+    refreshOperationsTable();
+}
+    
+function refreshOperationsTable() {
+    DWRUtil.removeAllRows('operationTable');
+    OperationHelper.getOperations(loadRowInfo);
+}
+
+/*********************************************************************
+*Build a list of columns.
+*
+*/
+function buildColumns(data, row, rowid) {
+   for(var i = 0; i < colArray.length; i++) {
+        var col = document.createElement("td");
+        var spanNode = document.createElement("span");
+        var dataMethod = colArray[i];
+        var spanId = rowid + ":" + colArray[i];
+	    spanNode.appendChild(document.createTextNode(data[dataMethod]));	
+        spanNode.id=spanId;
+        col.appendChild(spanNode);
+        col.className=colArray[i];
+        col.id=rowid + ":" + colArray[i];
+        row.appendChild(col);
+   }
+   row.operationKey = data.operationId;
+}
+
+/*********************************************************************
+*Updates the individual cells within the columns.
+*/
+function updateColumns(data, row, rowid) {
+   for(var i = 0; i < colArray.length; i++) {
+     var spanId = rowid + ":" + colArray[i];
+     var dataMethod = colArray[i];
+     DWRUtil.setValue(spanId, data[dataMethod]);	   
+   }
+   row.operationKey = data.operationId;
+}
+
+/*********************************************************************
+*Updates based on a callback from the timer.
+*
+*/
+function update() {
+  try {
+      OperationHelper.getOperations(loadRowInfo);      
+  } catch (error) {
+     //not connecting. die silently. should be handled above by event handler.
+  }
+}
+  
+
+/*********************************************************************
+*Callback for the col Ajax call.
+*
+*/
+function loadColInfo(data) {
+  try {     
+     colArray = data;
+ } catch (error) {
+     //not connecting. die silently. should be handled above by event handler.
+  }
+}
+</script>
+</head>
+
+<body onload="javascript:startup();">
+<table class="operationTableBody" id="operationTableBody">
+    <thead>
+        <tr class="operationTableRow" height="0">
+            <th class="statusHead" height="0"></th>
+            <th class="analysisHead" height="0"></th>
+            <th class="serverHead" height="0"></th>
+            <th class="operationNameHead" height="0"></th>
+            <th class="applicationNameHead" height="0"></th>	    
+            <th class="averageTimeHead" height="0"></th>
+            <th class="executionsHead" height="0"></th>
+        </tr>
+    </thead>
+    <tbody id="operationTable">
+    </tbody>
+</table>
+</body>
+</html>

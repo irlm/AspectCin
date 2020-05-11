@@ -1,0 +1,13 @@
+/AdvisorAdapter.java/1.13/Fri Jan 26 22:03:31 2007//
+/AdvisorAdapterRegistrationManager.java/1.7/Fri Mar 25 09:26:40 2005//
+/AdvisorAdapterRegistry.java/1.12/Fri Jan 26 22:03:31 2007//
+/AfterReturningAdviceAdapter.java/1.12/Fri Jan 26 22:03:31 2007//
+/AfterReturningAdviceInterceptor.java/1.10/Mon Jan 29 10:52:22 2007//
+/DefaultAdvisorAdapterRegistry.java/1.20/Fri Jan 26 22:03:31 2007//
+/GlobalAdvisorAdapterRegistry.java/1.8/Fri May 27 19:49:52 2005//
+/MethodBeforeAdviceAdapter.java/1.1/Fri Jan 26 22:03:31 2007//
+/MethodBeforeAdviceInterceptor.java/1.8/Fri Jan 26 22:03:31 2007//
+/ThrowsAdviceAdapter.java/1.10/Fri Jan 26 22:03:32 2007//
+/ThrowsAdviceInterceptor.java/1.13/Mon Jan 29 10:52:22 2007//
+/UnknownAdviceTypeException.java/1.10/Fri Jun 24 17:22:16 2005//
+/package.html/1.2/Thu Jul 29 11:53:40 2004//

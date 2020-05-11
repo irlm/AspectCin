@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="aspectcin.communication.api.Request"/>
+    <fullyQualifiedTypeName name="aspectcin.CInORB"/>
+    <fullyQualifiedTypeName name="aspectcin.RemoteObject"/>
+    <fullyQualifiedTypeName name="aspectcin.Requestor"/>
+    <fullyQualifiedTypeName name="aspectcin.Stub"/>
+    <fullyQualifiedTypeName name="java.net.UnknownHostException"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="aspectcin.AnRemoteException"/>
+    <fullyQualifiedTypeName name="aspectcin.communication.api.PackageBody"/>
+    <fullyQualifiedTypeName name="aspectcin.communication.api.AnPackage"/>
+    <fullyQualifiedTypeName name="aspectcin.Dispatcher"/>
+    <fullyQualifiedTypeName name="java.lang.ClassCastException"/>
+    <fullyQualifiedTypeName name="aspectcin.orb.AnRemoteException"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="java.lang.SuppressWarnings"/>
+    <fullyQualifiedTypeName name="aspectcin.orb.communication.api.Receiver"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="hello.Primitive"/>
+    <fullyQualifiedTypeName name="java.lang.Math"/>
+</qualifiedTypeNameHistroy>

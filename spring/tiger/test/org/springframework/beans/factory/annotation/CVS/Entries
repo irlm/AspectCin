@@ -1,0 +1,10 @@
+/AnnotationBeanWiringInfoResolverTests.java/1.2/Tue Jul 17 21:08:12 2007//
+/AutowiredAnnotationBeanPostProcessorTests.java/1.7/Thu Jul 26 10:43:10 2007//
+/CommonAnnotationBeanPostProcessorTests.java/1.2/Sun May 20 19:22:39 2007//
+/MyRequired.java/1.1/Wed Apr  5 20:06:32 2006//
+/RequiredAnnotationBeanPostProcessorTests.java/1.1/Tue May 16 09:56:48 2006//
+/RequiredTestBean.java/1.2/Tue Aug  8 17:04:23 2006//
+/requiredWithAllRequiredPropertiesProvided.xml/1.5/Sun Nov 12 16:33:15 2006//
+/requiredWithCustomAnnotation.xml/1.5/Sun Nov 12 16:33:16 2006//
+/requiredWithOneRequiredPropertyOmitted.xml/1.5/Sun Nov 12 16:33:16 2006//
+/requiredWithThreeRequiredPropertiesOmitted.xml/1.5/Sun Nov 12 16:33:17 2006//

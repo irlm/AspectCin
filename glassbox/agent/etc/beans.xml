@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean class="glassbox.util.spring.GlassboxPropertyConfigurer">
+		<property name="ignoreResourceNotFound" value="true" />
+	</bean>
+	<!-- can override with threadMonitor.interval -->
+	<bean name="threadMonitor" class="glassbox.monitor.thread.ThreadMonitorFactory" factory-method="createThreadMonitor">
+		<constructor-arg>
+			<value>200000000</value>
+		</constructor-arg>
+	</bean>
+	<bean name="threadMonitorIntegration" class="glassbox.monitor.thread.ThreadMonitorIntegration" 
+	    factory-method="aspectOf" destroy-method="destroy">
+		<property name="threadMonitor">
+			<ref bean="threadMonitor" />
+		</property>
+	</bean>
+
+	<bean id="config" class="glassbox.config.GlassboxSpringConfigurator" factory-method="aspectOf" />
+
+	<bean id="glassboxService" class="glassbox.agent.control.GlassboxServiceImpl">
+		<property name="operationTracker">
+			<ref bean="operationTracker" />
+		</property>
+		<property name="configurationSummary">
+			<ref bean="configurationSummary" />
+		</property>
+	</bean>
+
+	<bean id="configurationSummary" class="glassbox.analysis.api.ConfigurationSummaryImpl">
+		<property name="instanceID">
+			<ref bean="instanceID" />
+		</property>
+	</bean>
+
+	<bean id="instanceID" class="glassbox.version.InstanceID" factory-method="getInstanceID">
+		<property name="shouldCheckUpdatesAutomatically" value="false" />
+	</bean>
+
+
+	<!-- RMI EXPORTER-->
+	<bean id="rmiService" class="glassbox.remoting.OptionalRmiServiceExporter" depends-on="rmiJmxRegistry">
+		<property name="serviceName" value="GlassboxRmi" />
+		<property name="service">
+			<ref bean="glassboxService" />
+		</property>
+		<property name="serviceInterface" value="glassbox.agent.control.api.GlassboxService" />
+		<property name="registryPort" value="7232" />
+	</bean>
+
+	<bean id="jmxAdapter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="Glassbox:type=service,name=default">
+					<ref bean="glassboxService" />
+				</entry>
+			</map>
+		</property>
+		<property name="assembler">
+			<ref bean="interfaceAssembler" />
+		</property>
+		<property name="server">
+			<ref bean="glassboxJmxServer" />
+		</property>
+	</bean>
+
+	<bean name="glassboxJmxServerFactory" class="glassbox.util.jmx.DiscoverMBeanServerFactory">
+		<property name="preferred" value="" /><!-- defaults to first server -->
+		<property name="newOnly" value="false" />
+	</bean>
+
+	<bean name="glassboxJmxServer" factory-bean="glassboxJmxServerFactory" factory-method="getServer" />
+
+	<bean id="rmiJmxRegistry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
+		<property name="port" value="7232" />
+	</bean>
+
+	<!-- we use the same thread for ease of testing... -->
+	<bean name="glassboxJmxServerConnector" class="glassbox.util.jmx.OptionalConnectorServerFactoryBean"
+		depends-on="rmiJmxRegistry">
+		<property name="server">
+			<ref bean="glassboxJmxServer" />
+		</property>
+
+		<property name="serviceUrl" value="service:jmx:rmi://localhost:7232/jndi/rmi://localhost:7232/GlassboxTroubleshooter" />
+		<property name="threaded">
+			<value>false</value>
+		</property>
+		<property name="daemon">
+			<value>true</value>
+		</property>
+	</bean>
+
+	<bean name="interfaceAssembler" class="glassbox.jmx.support.InterfaceBasedMBeanInfoAssembler">
+		<property name="managedInterfaces">
+			<list>
+				<value>glassbox.agent.control.api.GlassboxService</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="registry" class="glassbox.track.api.StatisticsRegistryImpl" />
+
+<!--  uncomment this to enable a simple low performance implementation of shared clustered statistics using TerraCotta 
+	<bean id="distributedRegistryHolder" class="glassbox.track.api.StatisticsRegistryHolderImpl">
+		<property name="local" ref="registry" />
+	</bean>
+ -->	
+
+	<bean id="operationTracker" class="glassbox.track.OperationTrackerImpl">
+		<property name="registry">
+			<ref bean="registry" />
+		</property>
+		<property name="operationAnalyzer">
+			<ref bean="operationAnalyzer" />
+		</property>
+	</bean>
+	<bean id="operationAnalyzer" class="glassbox.analysis.OperationAnalyzer">
+		<property name="slowThresholdMillis">
+			<value>1000</value>
+		</property>
+		<property name="minimumSlowFrac">
+			<value>0.05</value>
+		</property>
+		<property name="excessCpuFrac">
+			<value>0.5</value>
+		</property>
+		<property name="problemFactory" ref="problemFactory" />
+	</bean>
+	<bean id="problemFactory" class="glassbox.analysis.ProblemFactory" />
+	<bean id="threadStats" class="glassbox.track.ThreadStats">
+		<property name="registry">
+			<ref bean="registry" />
+		</property>
+	</bean>
+	<bean id="systemResponseFactory" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod">
+			<value>glassbox.monitor.AbstractMonitor.setResponseFactory</value>
+		</property>
+		<property name="arguments">
+			<list>
+				<ref bean="responseFactory" />
+			</list>
+		</property>
+	</bean>
+	<bean id="systemOperationFactory" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod">
+			<value>glassbox.monitor.AbstractMonitor.setOperationFactory</value>
+		</property>
+		<property name="arguments">
+			<list>
+				<ref bean="operationFactory" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="jndiMonitor" class="glassbox.monitor.resource.JndiMonitor" factory-method="aspectOf" />
+
+	<bean id="jdbcMonitor" class="glassbox.monitor.resource.JdbcMonitor" factory-method="aspectOf">
+		<property name="failureDetectionStrategy" ref="jdbcMonitorFailureDetectionStrategy" />
+		<property name="eventFactory" ref="databaseEventFactory" />
+		<property name="nameResolver" ref="jndiMonitor" />
+	</bean>
+
+	<bean id="ejbCallMonitor" class="glassbox.monitor.resource.EjbCallMonitor" factory-method="aspectOf">
+		<property name="nameResolver" ref="jndiMonitor" />
+		<property name="failureDetectionStrategy" ref="remoteCallFailureDetectionStrategy" />
+	</bean>
+	<bean id="ejbOperationMonitor" class="glassbox.monitor.resource.EjbOperationMonitor" factory-method="aspectOf">
+		<property name="failureDetectionStrategy" ref="remoteCallFailureDetectionStrategy" />
+	</bean>
+	<bean id="remoteCallMonitor" class="glassbox.monitor.resource.RemoteCallMonitor" factory-method="aspectOf">
+		<property name="failureDetectionStrategy" ref="remoteCallFailureDetectionStrategy" />
+	</bean>
+	<bean id="servletRequestMonitor" class="glassbox.monitor.ui.ServletRequestMonitor" factory-method="aspectOf">
+		<property name="failureDetectionStrategy" ref="servletFailureDetectionStrategy" />
+	</bean>
+
+	<bean id="databaseEventFactory" class="glassbox.analysis.resource.jdbc.DefaultDatabaseEventFactory" />
+	<bean id="defaultFailureDetectionStrategy" class="glassbox.track.api.DefaultFailureDetectionStrategy" />
+	<bean id="remoteCallFailureDetectionStrategy" class="glassbox.track.RemoteCallFailureDetectionStrategy" />
+	<bean id="servletFailureDetectionStrategy" class="glassbox.track.ServletFailureDetectionStrategy" />
+
+	<bean id="jdbcMonitorFailureDetectionStrategy" class="glassbox.track.api.ChainedFailureStrategy">
+		<property name="strategies">
+			<list>
+				<ref bean="databaseEventFactory" />
+				<ref bean="defaultFailureDetectionStrategy" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="clock" class="glassbox.util.timing.ClockFactory" factory-method="createInstance" />
+
+	<bean id="clockManager" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod">
+			<value>glassbox.util.timing.ClockManager.setInstance</value>
+		</property>
+		<property name="arguments">
+			<list>
+				<ref bean="clock" />
+			</list>
+		</property>
+	</bean>
+
+    <bean name="springAssembler" class="glassbox.util.jmx.SpringAssembler"/>
+    
+	<bean name="jmxServerManager" class="glassbox.util.jmx.DefaultJmxServerManager" destroy-method="destroy">
+		<property name="assembler" ref="springAssembler"/>
+		<property name="MBeanServer" ref="glassboxJmxServer"/>
+	</bean>
+	<bean name="jmxManagement" class="glassbox.util.jmx.JmxManagement" factory-method="aspectOf">
+		<property name="jmxServerManager" ref="jmxServerManager"/>
+	</bean>
+
+	<bean name="statsJmxManagement" class="glassbox.util.jmx.StatsJmxManagement" factory-method="aspectOf"
+		depends-on="jmxManagement">
+		<property name="nameStrategy" ref="nameStrategy" />
+	</bean>
+
+	<!--  pick your preferred strategy -->
+	<bean name="nameStrategy" class="glassbox.util.jmx.GuiFriendlyStatsJmxNameStrategy" />
+
+	<bean name="statsSummarizer" class="glassbox.summary.StatsSummarizer">
+		<property name="threadStats" ref="threadStats" />
+	</bean>
+	
+	<bean name="responseFactory" class="glassbox.response.DefaultResponseFactory">
+		<property name="clock" ref="clock" />
+		<property name="listeners">
+			<list>
+				<ref bean="statsSummarizer" />
+			</list>
+		</property>
+	</bean>
+	<bean name="performanceLogger" class="glassbox.response.PerformanceLogger" destroy-method="destroy">
+		<constructor-arg index="0" ref="responseFactory"/>
+	</bean>	
+
+	<bean name="operationFactory" class="glassbox.monitor.OperationFactory">
+		<property name="responseFactory" ref="responseFactory" />
+	</bean>
+	<bean name="pluginManager" class="glassbox.config.extension.DefaultPluginManager" factory-method="aspectOf" />
+
+	<!-- Non-AspectJ monitors, e.g., listeners. These are registered typically as singletons. They must not error out, even if 
+	required jars are missing. -->
+	<bean name="terracottaMonitor" class="glassbox.monitor.resource.TerracottaMonitor" lazy-init="false"/>
+</beans>

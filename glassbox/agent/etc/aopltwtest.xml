@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd"> 
+<aspectj>
+    <weaver options="-proceedOnError -Xlintfile:META-INF/Xlint.properties -Xnoinline"> <!-- -showWeaveInfo -verbose --> 
+        <exclude within="glassbox..*"/>
+    </weaver>
+    <aspects>
+	    <concrete-aspect name="test.TestMonitor" 
+	    		extends="glassbox.monitor.ui.TemplateOperationMonitor">	    
+    	    <pointcut name="methodSignatureControllerExecTarget" 
+    	    	expression="within(*..DummyMonitoredItem)"/>
+	    </concrete-aspect>
+        <aspect name="glassbox.monitor.ui.ServletRequestMonitor"/>
+        <aspect name="glassbox.monitor.ui.StrutsRequestMonitor"/>
+        <aspect name="glassbox.monitor.ui.SpringMvcRequestMonitor"/>
+        <aspect name="glassbox.monitor.resource.JdbcMonitor"/>
+        <aspect name="glassbox.monitor.resource.BerkeleyDbMonitor"/>
+        <aspect name="glassbox.monitor.resource.BerkeleyXmlDbMonitor"/>
+        <aspect name="glassbox.monitor.resource.CommonsHttpMonitor"/>
+        <aspect name="glassbox.monitor.resource.EmailMonitor"/>
+        <aspect name="glassbox.monitor.resource.SftpMonitor"/>
+        <aspect name="glassbox.monitor.resource.JakartaFtpMonitor"/>
+        <aspect name="glassbox.monitor.resource.RemoteCallMonitor"/>
+        <aspect name="glassbox.test.ForceEarlyInit"/>
+        <aspect name="glassbox.config.EagerConfigurator"/>
+    </aspects>
+</aspectj>

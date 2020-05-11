@@ -1,0 +1,6 @@
+16/02/2007
+  -Definir a arquitetura
+    -camada de transporte + aspectos que se beneficiem com aop.
+  
+  26/02/2007    
+    

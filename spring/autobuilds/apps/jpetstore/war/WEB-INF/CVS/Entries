@@ -1,0 +1,14 @@
+/applicationContext.xml/1.2/Fri Aug 18 17:58:29 2006//
+/caucho-servlet.xml/1.2/Fri Aug 18 17:58:29 2006//
+D/classes////
+/dataAccessContext-jta.xml/1.2/Fri Aug 18 17:58:29 2006//
+/dataAccessContext-local.xml/1.2/Fri Aug 18 17:58:29 2006//
+D/freemarker////
+/jdbc.properties/1.1/Thu Jan  8 11:36:05 2004//
+D/jsp////
+/petstore-servlet.xml/1.4/Fri Aug 18 17:58:29 2006//
+/server-config.wsdd/1.4/Tue May 22 19:16:11 2007//
+D/velocity////
+/web-jta.xml/1.1/Thu Jan  8 11:36:05 2004//
+/web-local.xml/1.1/Thu Jan  8 11:36:05 2004//
+D/xsl////

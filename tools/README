@@ -1,0 +1,75 @@
+
+  O p e n O R B  t o o l s
+
+
+  What is it?
+  -----------
+
+  The tools package is a collection of libraries that are used
+  by all modules. This set of libraries is needed when OpenORB
+  shall be built from the sources.
+
+
+  Build
+  -----
+
+  The tools module must be at the same level as all the other
+  modules.
+
+    CURRENT_DIR
+      ./OpenORB
+      ./NotificationService
+      ./tools
+      ...
+
+  In order to build one of the modules, e.g. OpenORB just change
+  into the OpenORB folder and call ./build.sh or ./build.bat.
+  From this location the build scipts assume that the tools module
+  can be found in "../tools".
+
+  Note: The standard build setup assumes that the Java Runtime 
+  Libraries are located in ${java.home}/lib/rt.jar. If your JDK doesn't
+  use this path then you must specify the jdk-runtime-library property
+  in the local.properties file.
+
+  The Latest Version
+  ------------------
+
+  Details of the latest version can be found on the SourceForge
+  Project web site <http://openorb.sf.net/>.
+
+
+  Documentation
+  -------------
+
+  Folder etc:
+     checkstyle.properties The properties file that is used by the
+     module's build.xml checkstyle target. The properties are the
+     same for all modules.
+
+  Folder docbook:
+     docbook-xml (entities), docbook-xsl for PDF/HTML generation.
+     These docbook tools are used by the module's build.xml
+     doc target.
+
+  Folder lib:
+     Common librariess without version information in the name.
+     E.g. xerces_J_1.4.4.jar -> xerces.jar
+
+
+  Licensing
+  ---------
+
+  This software is licensed under the terms you may find in the file
+  named "LICENSE.txt". See the file README in folders docbook
+  and lib for license information on the third party software delivered
+  by this package.
+
+
+  Thanks for using OpenORB tools.
+
+                                         The Community OpenORB Project
+                                            <http://openorb.sf.net/>
+
+
+

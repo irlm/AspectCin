@@ -1,0 +1,10 @@
+=======================================
+tools TODO
+=======================================
+
+- The library must be extracted from the openorb_native.jar when the binary archive is
+  used! Currently no library is present when someone uses a downloaded archive.
+
+- RepoIDHelper: Integrate NameMangling functionality into the RepoIDHelper methods.
+       For Example unmangleClassName -> idToClassname
+

@@ -1,0 +1,12 @@
+/AbstractDataFieldMaxValueIncrementer.java/1.8/Tue May  1 08:37:07 2007//
+/AbstractSequenceMaxValueIncrementer.java/1.7/Fri May 27 19:50:02 2005//
+/DB2SequenceMaxValueIncrementer.java/1.2/Fri Mar 25 09:27:09 2005//
+/DataFieldMaxValueIncrementer.java/1.7/Tue May  1 08:37:07 2007//
+/DerbyMaxValueIncrementer.java/1.4/Wed Jun 20 03:25:36 2007//
+/H2SequenceMaxValueIncrementer.java/1.1/Wed Jun 20 03:25:36 2007//
+/HsqlMaxValueIncrementer.java/1.12/Wed Jun 20 03:25:36 2007//
+/HsqlSequenceMaxValueIncrementer.java/1.1/Wed Jun 20 03:25:36 2007//
+/MySQLMaxValueIncrementer.java/1.11/Tue May  1 08:37:07 2007//
+/OracleSequenceMaxValueIncrementer.java/1.7/Fri May 27 19:50:02 2005//
+/PostgreSQLSequenceMaxValueIncrementer.java/1.4/Fri May 27 19:50:02 2005//
+/package.html/1.2/Fri Oct 27 09:07:56 2006//

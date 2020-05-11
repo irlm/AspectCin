@@ -1,0 +1,15 @@
+target
+dist
+release
+build.properties
+*.log
+bin
+junit-reports
+libold
+classes
+spring.iws
+spring.ipr
+spring-core.iml
+spring.iml
+.clover
+ajdocworkingdir

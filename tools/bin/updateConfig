@@ -1,0 +1,103 @@
+#!/bin/sh
+#
+# $Id: updateConfig,v 1.2 2004/03/22 09:26:03 lkuehne Exp $
+#
+
+
+#
+# A message explaining the user how to setup his environment
+#
+usage ()
+{
+  echo "Usage: updateConfig <module-name> <xml-file>"
+  echo "    <module-name>  The name of a module: e.g. InterfaceRepository."
+  echo "                   This name is used to find the following path:"
+  echo "                   %TCOO_HOME%\InterfaceRepository\lib\openorb*.jar."
+  echo "    <xml-file>     The name of the config file: e.g. pss.xml."
+}
+
+
+#
+# Set the TCOO_HOME variable
+#
+if [ -z $TCOO_HOME ]
+then
+  echo Warning: TCOO_HOME not set! Defaulting to parent directory.
+  TCOO_HOME=..
+  export TCOO_HOME
+fi
+
+
+#
+#
+# Check for the necessary folders and print a usage message upon failure
+#
+if [ -z $1 ]
+then
+  usage
+  exit 1
+else
+  if [ -z $2 ]
+  then
+    usage
+    exit 2
+  fi
+fi
+MODULE=$1
+CONFIG_FILE_NAME=$2
+
+
+#
+# Check whether the folder exists
+#
+if [ ! -d $TCOO_HOME/$MODULE ]
+then
+  echo Folder '$TCOO_HOME/$MODULE' does not exist!
+  exit 3
+fi
+
+#
+# Set up the Java environment
+#
+if [ -z "$JAVA_HOME" ] ; then
+  JAVA=`which jar`
+  if [ -z "$JAR" ] ; then
+    echo "Cannot find JAR. Please set your PATH."
+    exit 1
+  fi
+  JAVA_BIN=`dirname $JAR`
+  JAVA_HOME=$JAVA_BIN/..
+fi
+JAR=$JAVA_HOME/bin/jar
+
+
+#
+#
+# Check for the separator
+#
+case `uname` in
+  CYGWIN*) PS=';' ;;
+  *) PS=':' ;;
+esac
+
+
+#
+# update the file
+#
+CONFIG_FOLDER=org/openorb/config
+
+mkdir -p $TCOO_HOME/tmp/$CONFIG_FOLDER
+if [ $? -eq 0 ]
+then
+  cp $CONFIG_FILE_NAME $TCOO_HOME/tmp/$CONFIG_FOLDER/$CONFIG_FILE_NAME
+  if [ $? -eq 0 ]
+  then
+    for i in $TCOO_HOME/$MODULE/lib/openorb*.jar
+    do
+      echo Updating $CONFIG_FILE_NAME in $i
+      $JAR -uf $i -C $TCOO_HOME/tmp $CONFIG_FOLDER/$CONFIG_FILE_NAME
+    done
+  fi
+  rm -rf $TCOO_HOME/tmp
+fi
+

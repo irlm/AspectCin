@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!--
+	- Application context definition for installer DispatcherServlet.
+-->
+<beans>
+
+	<bean id="configuration" class="glassbox.client.pojo.ConfigurationData" />
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
+
+	<!--  The HSQLDB Data source	                         -->
+	<!-- This will create a new db, should one not exist. -->
+	<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="${glassbox.config.ds}" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<!-- JDBC Template -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<!-- Configuration DAO checks for database initialization -->
+	<bean id="configurationDAO" class="glassbox.client.persistence.jdbc.ConfigurationDAO">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		<property name="resourceTemplate" value="classpath:dbscripts/data.sql" />
+		<property name="databaseCheck" value="CONFIGURATION" />
+	</bean>
+
+	<!-- Connection DAO handles the connections -->
+	<bean id="connectionDAO" class="glassbox.client.persistence.jdbc.ConnectionDAO">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+
+	<!-- Mail DAO handles the mail settings -->
+	<bean id="mailDAO" class="glassbox.client.persistence.jdbc.MailDAO">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+
+	<bean id="backupDaemon" class="glassbox.client.persistence.jdbc.BackupDaemon" 
+			init-method="init" destroy-method="destroy">
+		<property name="configurationDAO" ref="configurationDAO" />
+	</bean>
+	
+	<bean id="persistChanges" class="glassbox.client.persistence.jdbc.PersistChanges" 
+		factory-method="aspectOf">
+		<property name="backupDaemon" ref="backupDaemon"/>
+	</bean>
+
+	<bean id="scheduledTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="delay" value="10000" />
+		<property name="period" value="10000" />
+		<property name="timerTask" ref="backupDaemon" />
+	</bean>
+
+	<bean id="timerFactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="scheduledTask" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="glassboxService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<!-- property name="serviceUrl" value="http://localhost:8080/glassboxWeb/remoting/GlassboxService.svc"/ -->
+		<property name="serviceUrl" value="http://www.glassbox.com/glassbox/remoting/GlassboxService.svc" />
+		<property name="serviceInterface" value="glassbox.remoting.GlassboxRemoteService" />
+	</bean>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!--This will be gathered from the config... -->
+		<!-- property name="host" value="mail.mycompany.com"/ -->
+	</bean>
+
+	<!-- Client JMX Connection -->
+	<bean id="agentManager" class="glassbox.client.remote.DistributedAgentManager" factory-method="instance"></bean>
+
+	<!-- Distributed Agent Operation Helper -->
+	<bean id="operationHelper" class="glassbox.client.helper.OperationHelper" factory-method="instance" destroy-method="destroy">
+		<property name="agentManager">
+			<ref bean="agentManager" />
+		</property>
+		<property name="connectionHelper" ref="connectionHelper" />
+		<property name="updateResponse" ref="updateResponse"/>
+	</bean>
+	
+	<bean id="updateResponse" class="glassbox.client.pojo.UpdateResponse"/>
+
+	<!-- Column Helper -->
+	<bean id="columnHelper" class="glassbox.client.helper.ColumnHelper">
+		<property name="columns">
+			<list>
+				<value>status</value>
+				<value>analysis</value>
+				<value>server</value>
+				<value>operation</value>
+				<value>application</value>
+				<value>averageTime</value>
+				<value>executions</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Connection Helper -->
+	<bean id="connectionHelper" class="glassbox.client.helper.ConnectionHelper" singleton="true">
+
+		<constructor-arg>
+			<ref bean="connectionDAO" />
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="configurationDAO" />
+		</constructor-arg>
+
+		<property name="agentManager">
+			<ref bean="agentManager" />
+		</property>
+	</bean>
+
+	<bean id="mailHelper" class="glassbox.client.helper.MailHelper">
+
+		<property name="remoteService">
+			<ref bean="glassboxService" />
+		</property>
+
+		<property name="mailSender">
+			<ref bean="mailSender" />
+		</property>
+
+		<property name="mailDAO">
+			<ref bean="mailDAO" />
+		</property>
+
+	</bean>
+
+
+	<!-- Velocity Configuration -->
+	<bean id="compoundResourceLoader" class="org.springframework.core.io.DefaultResourceLoader">
+	</bean>
+	
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="resourceLoaderPath" value="/velocity/" />
+		<property name="velocityProperties"><props>
+			<prop key="file.resource.loader.class">glassbox.velocity.RefreshableSingletonFileResourceLoader</prop>
+		</props></property>
+	</bean>
+	<bean id="refreshableVelocityLoader" factory-method="instance" class="glassbox.velocity.RefreshableSingletonFileResourceLoader"/>
+	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="velocityEngine" ref="velocityEngine"/>
+	</bean>
+
+	<!-- Resource View Resolver -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+		<property name="basename" value="views" />
+	</bean>
+	
+	<!-- Controller Beans -->
+	<!-- Client Beans -->
+	<bean id="clientController" class="glassbox.client.web.controller.ClientController" />
+	<bean id="operationHeadController" class="glassbox.client.web.controller.OperationHeadController" />
+	<bean id="operationBodyController" class="glassbox.client.web.controller.OperationBodyController" />
+	<bean id="operationDetailController" class="glassbox.client.web.controller.OperationDetailController"/>
+	<bean id="connectionController" class="glassbox.client.web.controller.ConnectionController" />
+	<bean id ="operationReportAllController" class="glassbox.client.web.controller.OperationReportAllController"/>
+
+	<!-- Installer Beans-->
+	<bean id="installerController" class="glassbox.installer.web.controller.InstallerController" />
+	<bean id="verifyController" class="glassbox.installer.web.controller.VerifyController" />
+
+	<!-- URL Mappings -->
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/Client.form">clientController</prop>
+				<prop key="/OperationHead.form">operationHeadController</prop>
+				<prop key="/OperationBody.form">operationBodyController</prop>
+				<prop key="/OperationDetails.form">operationDetailController</prop>
+				<prop key="/OperationReportAll.form">operationReportAllController</prop>
+				<prop key="/ConnectionPanel.form">connectionController</prop>
+
+				<!-- Installer JSPs-->
+				<prop key="/Install.form">installerController</prop>
+				<prop key="/VerifyInstall.form">verifyController</prop>
+				<!-- <prop key="/error.html">errorController</prop>  -->
+			</props>
+		</property>
+	</bean>
+
+	<bean class="glassbox.client.extension.WebClientPluginHandlerConfigurer" lazy-init="false">
+		<property name="velocityLoader" ref="refreshableVelocityLoader"/>
+		<property name="connectionHelper" ref="connectionHelper" />
+		<property name="preferences" ref="updateResponse"/>
+	</bean>
+</beans>

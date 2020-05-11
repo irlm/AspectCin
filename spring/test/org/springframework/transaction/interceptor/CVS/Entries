@@ -1,0 +1,15 @@
+/AbstractTransactionAspectTests.java/1.16/Tue Jul 10 22:18:52 2007//
+/BeanFactoryTransactionTests.java/1.33/Mon Jul 25 10:42:07 2005//
+/CommonsAttributesTransactionAttributeSourceTests.java/1.2/Thu Mar  1 19:14:24 2007//
+/ImplementsNoInterfaces.java/1.3/Fri May 27 19:50:48 2005//
+/MapTransactionAttributeSource.java/1.8/Thu Aug 17 16:28:37 2006//
+/PlatformTransactionManagerFacade.java/1.7/Mon Jul 25 10:42:07 2005//
+/RollbackRuleTests.java/1.9/Wed Jul 18 23:56:59 2007//
+/RuleBasedTransactionAttributeTests.java/1.10/Wed Jul 18 23:56:59 2007//
+/TransactionAttributeEditorTests.java/1.9/Fri May 27 19:50:48 2005//
+/TransactionAttributeSourceAdvisorTests.java/1.3/Fri Mar 25 09:28:54 2005//
+/TransactionAttributeSourceEditorTests.java/1.12/Sat May 28 09:54:36 2005//
+/TransactionAttributeSourceTests.java/1.5/Fri Sep 15 12:58:26 2006//
+/TransactionInterceptorTests.java/1.21/Mon Mar  6 15:59:38 2006//
+/noTransactionAttributeSource.xml/1.4/Sun Aug 20 19:08:42 2006//
+/transactionalBeanFactory.xml/1.20/Thu Oct 12 13:13:25 2006//

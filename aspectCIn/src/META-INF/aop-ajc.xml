@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aspectj>
+	<aspects>
+		<aspect name="aspectcin.orb.aspectStub.AspectStub"/>
+		<aspect name="aspectcin.orb.CinORBCommAspect"/>
+		<aspect name="aspectcin.namingservice.NamingServiceCommAspect"/>
+	</aspects>
+</aspectj>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
+<booleanAttribute key="yk-capture-cpu-on-exit" value="false"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="glassbox.simulator.DummyServer"/>
+<intAttribute key="yk-mem-threshold" value="60"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="2 4"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-javaagent:lib/aspectj/lib/aspectjweaver.jar -Daj.weaving.verbose=!true -Dxlog4j.configuration=file:etc/log4j.properties&#13;&#10;-Dtrace.summarization=!true -Dglassbox.response.trace=!true&#13;&#10;-Dnolog4j.debug=true -Djava.rmi.server.useCodebaseOnly=true"/>
+<stringAttribute key="yk-snapshot-dir" value="c:\devel\glassbox\profiles"/>
+<booleanAttribute key="org.eclipse.debug.core.appendEnvironmentVariables" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc}"/>
+<stringAttribute key="yk-cpu-startup" value="none"/>
+<booleanAttribute key="yk-disable-counts" value="false"/>
+<booleanAttribute key="yk-disable-alloc" value="false"/>
+<booleanAttribute key="yk-capture-memory-on-exit" value="false"/>
+<listAttribute key="org.eclipse.jdt.launching.CLASSPATH">
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry containerPath=&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot; javaProject=&quot;agent&quot; path=&quot;1&quot; type=&quot;4&quot;/&gt;&#13;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry id=&quot;org.eclipse.jdt.launching.classpathentry.defaultClasspath&quot;&gt;&#13;&#10;&lt;memento exportedEntriesOnly=&quot;false&quot; project=&quot;agent&quot;/&gt;&#13;&#10;&lt;/runtimeClasspathEntry&gt;&#13;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry path=&quot;3&quot; projectName=&quot;monitor&quot; type=&quot;1&quot;/&gt;&#13;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/webClient/web/WEB-INF/lib/backport-util-concurrent.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#13;&#10;"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="agent"/>
+<booleanAttribute key="yk-launch-ui" value="true"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/agent"/>
+</listAttribute>
+<booleanAttribute key="yk-startup-with-object-allocations" value="false"/>
+</launchConfiguration>

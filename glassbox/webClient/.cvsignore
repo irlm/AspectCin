@@ -1,0 +1,8 @@
+bin
+dist
+target
+junit*.properties
+glassboxInstall.txt
+glassboxDB
+glassbox.jar
+glassbox.db.*

@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<project name="ltw13" default="all" basedir=".">
+
+    <property file="build.properties" />
+    <property name="aspectjlib" value="${aspectj.home}/lib" />
+    <import file="../build/common-tasks.xml"/>
+
+    <!-- path to AspectWerkz - must contains aspectwerkz-core that allow LTW on 1.3/1.4 -->
+    <!-- get it from http://aspectwerkz.codehaus.org -->
+    <path id="aw.path">
+        <fileset dir="${common.home}/lib">
+            <include name="aspectwerkz-core-*.jar"/>
+        </fileset>
+    </path>
+
+    <!-- path to AspectJ -->
+    <path id="aj.path">
+        <!-- this one assume you builded AJ in aj-build from a cvs checkout
+             that might differ for an AJ shipment of M3 for example -->
+        <fileset dir="${aspectj.home}/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="project.class.path">
+    	<fileset dir="${aspectjlib}" includes="aspectjrt.jar, aspectjlib.jar"/>
+        <pathelement path="testsrc"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="dist"/>
+        <delete dir="ant-target"/>        
+        <delete dir="installer-target"/>
+        <delete file="java14Adapter.jar"/>   
+    </target>
+
+    <target name="compile">
+        <mkdir dir="ant-target"/>        
+        <mkdir dir="installer-target"/>
+        <javac destdir="ant-target" debug="on" source="1.3" target="1.3">
+            <src path="src"/>
+            <classpath>
+                <path refid="aw.path"/>
+                <path refid="aj.path"/>
+            </classpath>
+        </javac>
+        <javac destdir="installer-target" debug="on" source="1.3" target="1.3">
+            <src path="installer"/>
+            <classpath>
+                <path refid="aw.path"/>
+                <path refid="aj.path"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="makeScript">
+        <mkdir dir="dist"/>   
+        <jar destfile="dist/createJavaAdapter.jar" manifest="installer/META-INF/MANIFEST.MF">
+            <zipfileset dir="installer-target" includes="**"/>
+    	    <zipgroupfileset dir="lib" includes="aspectwerkz-core-2.0.jar"/>
+        </jar>   
+<!--
+        <iajc outjar="createJavaAdapter.jar" source="1.3" target="1.3" sourceRootCopyFilter="**/*.java,**/*.aj,**/CVS/**,**/*~,**/*#*,**/.#*,**/%*%,**/.cvsignore">
+          <src path="debug" />
+          <inpath>    
+            <pathelement location="installer-target"/>
+            <pathelement location="lib/aspectwerkz-core-2.0.jar"/>
+          </inpath>
+        </iajc>
+-->
+        
+    </target>   
+    <!-- This one prepare the environment for LTW on 1.3 -->
+    <!-- See http://aspectwerkz.codehaus.org/weaving.html#Overview_of_options_for_online_weaving for all the options -->
+    <target name="prepare" depends="makeScript">
+        <java jar="dist/createJavaAdapter.jar" fork="true" jvm="${java14.vm}" failonerror="true"/>
+    </target>
+    <target name="compile.test" depends="ajcompile">
+        <mkdir dir="ant-target"/>
+        <javac destdir="ant-target" debug="on" source="1.3" target="1.3">
+            <src path="testsrc"/>
+            <classpath>
+                <path refid="aw.path"/>
+                <path refid="aj.path"/>
+            </classpath>
+        </javac>
+    </target>
+
+ <!-- Defines the aspectj ant compiler -->
+ <taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+    <classpath>
+      <pathelement location="${aspectjlib}/aspectjtools.jar"/>
+    </classpath>
+  </taskdef>
+
+ <!-- Compiles the AspectJ aspects-->	
+  <target name="ajcompile" >
+    <iajc destdir="ant-target" incremental="false" source="1.3" target="1.3" sourceRootCopyFilter="**/*.java,**/*.aj,**/CVS/**,**/*~,**/*#*,**/.#*,**/%*%,**/.cvsignore">
+      <src location="testsrc" />
+      <classpath refid="project.class.path" />
+      <classpath>    
+        <pathelement location="${aspectjlib}/aspectjrt.jar"/>
+      </classpath>
+    </iajc>
+  </target>
+
+
+    <!-- run with LTW -->
+    <!-- here we used the "prepared bootclasspath approach -->
+    <!-- refer to http://aspectwerkz.codehaus.org/weaving.html#Overview_of_options_for_online_weaving -->
+    <target name="test" depends="compile.test, compile, prepare, makeScript">
+        <java classname="test.ltw13.Sample" fork="true" jvm="${java14.vm}" failonerror="true">
+            <classpath>
+                <pathelement path="ant-target"/>
+                <path refid="aj.path"/><!-- needs aspectjweaver.jar -->
+            </classpath>
+            <jvmarg line="-Daj5.def=testsrc/aop.xml
+                          -Xbootclasspath/p:java14Adapter.jar
+                          -Xbootclasspath/a:dist/createJavaAdapter.jar
+                          -Daspectwerkz.classloader.preprocessor=org.aspectj.ext.ltw13.ClassPreProcessorAdapter
+            "/>
+        </java>
+
+    </target>
+
+
+  <!-- Jar up the lib -->
+  <target name="jar" depends="compile, prepare, makeScript">
+	    <jar destfile="dist/aspectj14Adapter.jar">
+        <fileset dir="ant-target"
+	             includes="**/*.class,"
+                     excludes="**/test/*"
+	    />
+           </jar>
+  </target>
+    
+    <target name="all" depends="test,jar">
+         <zip destfile="dist/GlassboxForJava14.zip">
+            <zipfileset dir="dist"  includes="aspectj14Adapter.jar,createJavaAdapter.jar"/>
+            <zipfileset dir="../agent/lib/runtime"  includes="mx4j.jar,mx4j-remote.jar"/>
+            <zipfileset dir="."  includes="*.txt"/>
+         </zip>
+        <zip destfile="dist/GlassboxForJava14Src.zip">
+            <zipfileset dir="." includes="src/**, installer/**, build.xml"/>
+            <zipfileset dir="."  includes="*.txt,build.xml"/>
+        </zip>
+    </target>   
+</project>

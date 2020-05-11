@@ -1,0 +1,61 @@
+
+<div class="section">
+	    <table>	        
+		    <tr>
+    <td>
+    #if($display.operationData.status == "SLOW")
+      <img src="images/yellow-hourglass32.jpg">
+    #elseif($display.operationData.status == "FAILING")
+      <img src="images/red-failure32.jpg">
+    #else
+      <img src="images/ok-checkmark-32x32.jpg">
+    #end
+		    </td>
+		    <td>
+		    <div class="probtypehdr">Input URLs for this Operation</div>
+		    </td>
+		    </tr>
+    <tr>
+		    <td></td>
+		    <td>
+		    </table>
+  <br/>
+  <div class="probtypeinfo">This table provides a list of the input URLs and parameters for the last $display.analysisData.problemRequests.size() problem executions of this operation.  This is additional information about your existing issue, it is not an additional problem.</div>
+  <br/>
+
+  <div class="sqlin">
+    <div class="table">
+      #set($hasParam = false)
+	      #foreach($event in $display.analysisData.problemRequests)
+        #set($hasParam = $hasParam || (($event.parameterString != "(no parameters)" && $event.parameterString != "")))
+      #end
+      
+      <table class="sql" border="1" cellspacing="1" cellpadding="4" width="95%" ALIGN="center">	    
+	        <tr class="sql">
+    #if($display.operationData.status == "FAILING")
+	          <th class="sql">Failing URL</th>
+    #else
+	          <th class="sql">Slow URL</th>
+	#end
+    #if($hasParam)
+          <th class="sql">HTTP Post Parameters</th>
+    #end
+    <th class="sql">Completed</th><th class="Sql">Duration</th>
+	        </tr>
+	        
+	        #foreach($event in $display.analysisData.problemRequests)
+		      
+		          <tr class="sql">
+		            <td class="sql">$event.requestString</td>
+                #if($hasParam)
+                    <td class="sql">$event.parameterString</td>
+                #end
+		            <td class="sql">$display.formatDate($event.lastTime)</td>
+		            <td class="sql">$display.formatTime($event.elapsedTime)</td>
+		          </tr>
+	        #end
+      </table>
+    </div>
+  </div>
+</div>
+

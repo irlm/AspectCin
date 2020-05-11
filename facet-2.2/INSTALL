@@ -1,0 +1,114 @@
+Installation instructions for FACET
+-----------------------------------
+
+FACET is known to have worked on Windows 2000, Linux, and Solaris.
+Other platforms should work, but your success may vary.  Note that
+Linux is currently the only platform that is regularly used.
+
+You will need to set FACET_ROOT in your environment to point to the
+top-level directory containing the FACET distribution before building
+FACET. For example, if you have installed the software into
+/home/ravi/src/facet, $FACET_ROOT is /home/ravi/src/facet. See
+documentation for your operating system or shell for how to do this.
+
+
+[I] Package dependencies
+------------------------
+
+The following components then need to be installed and configured
+correctly before building FACET :
+
+  - JDK 1.3.1 or later (see http://java.sun.com)
+  
+  - AspectJ 1.1 or later (see http://aspectj.org) 
+     
+  - JacORB 1.3.30 or later (see http://www.jacorb.org)
+
+  - jUnit 3.7 or later (see http://www.junit.org)
+
+  - Jakarta Ant 1.4 or later (see http://jakarta.apache.org/ant)
+    (The optional.jar file is needed for the junit task)
+
+  - gcj to compile FACET to native code
+    (see http://gcc.gnu.org/java/)
+    
+    (Native code compilation can be turned off from the
+     platform.properties file.)
+
+
+The following software is optional to build FACET:
+
+  - Log4j for tracing and event logging
+    (see http://jakarta.apache.org/log4j/docs/index.html)
+
+  - GraphViz for generating feature dependence graphs
+    (see http://www.research.att.com/sw/tools/graphviz)
+
+  - Jopt to optimize the .class files produced by ajc
+    (see http://www-i2.informatik.rwth-aachen.de/~markusj/jopt/)
+
+
+[II] Setting up your environment
+--------------------------------
+
+When done with installation, add $FACET_ROOT/classes directory to your
+classpath.
+
+In the end, your class path should include at least the following:
+
+  - AspectJ runtime and tools jar files
+  - JacORB's jacorb.jar and idl.jar files
+  - $FACET_ROOT/classes
+  - Ant's ant.jar
+  - jUnit's junit.jar
+  - AspectJ Ant task jar file (or just copy it to the Ant lib directory)
+
+If you are building FACET from within the DOC group at Washington
+University, type 'source setup-gcj.csh' in $FACET_ROOT to have your
+environment correctly setup for you.
+
+
+[III] Building FACET
+--------------------
+
+Before you build you must setup the configuration files :
+
+ - Setup the platform.properties configuration file
+
+   $ cp $FACET_ROOT/platform_template $FACET_ROOT/platform.properties.
+
+   Edit the platform.properties file to match your system
+   configuration and any preferences you might have.
+
+ - Setup the facet.properties configuration file
+
+   $ cd $FACET_ROOT/src/edu/wustl/doc/facet directory 
+   $ cp facet_template facet.properties
+	
+   Modify this file later to customize the event channel to your
+   application. To get things working for the first time though, the
+   contents of facet_template file should be good enough.
+
+
+To build:
+
+$ ant
+
+To build the API documentation:
+(Unsupported in releases subsequent to the AspectJ 1.1 port)
+
+$ ant doc 
+
+
+To clean up the distribution:
+
+$ ant clean
+
+or 
+
+$ ant realclean 
+ 
+
+To build supporting libraries to native code, type:
+
+$ ant -buildfile gcj.xml

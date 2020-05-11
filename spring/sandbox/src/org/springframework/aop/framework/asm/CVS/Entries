@@ -1,0 +1,13 @@
+/AbstractCodeGenerationStrategy.java/1.5/Wed Jan  4 17:31:42 2006//
+/AbstractMethodProxyCodeGenerationStrategy.java/1.2/Wed Jan  4 17:31:42 2006//
+/AdvisedCodeGenerationStrategy.java/1.5/Wed Jan  4 17:31:42 2006//
+/AdvisedMixinCodeGenerationStrategy.java/1.3/Wed Jan  4 17:31:42 2006//
+/AsmAopProxy.java/1.7/Wed Jan  4 17:31:42 2006//
+/CodeGenerationStrategy.java/1.1/Wed Jun 22 15:07:13 2005//
+/CodeGenerationStrategySelector.java/1.1/Wed Jun 22 15:07:13 2005//
+/DefaultCodeGenerationStrategySelector.java/1.4/Mon Jul 18 10:26:21 2005//
+/EqualsCodeGenerationStrategy.java/1.2/Wed Jan  4 17:31:42 2006//
+/HashCodeCodeGenerationStrategy.java/1.2/Wed Jan  4 17:31:42 2006//
+/NonStaticTargetSourceCodeGenerationStrategy.java/1.6/Wed Jan  4 17:31:42 2006//
+/ProxyConstructorGenerationStrategy.java/1.2/Wed Jan  4 17:31:42 2006//
+/StraightToTargetCodeGenerationStrategy.java/1.3/Wed Jan  4 17:31:42 2006//

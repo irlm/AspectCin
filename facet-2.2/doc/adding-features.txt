@@ -1,0 +1,40 @@
+Adding Features to FACET
+------------------------
+
+To add a feature to FACET, follow these steps:
+
+1.  Create a directory under $FACET_ROOT/src/edu/wustl/doc/facet for
+    the feature.  The directory name that you choose will be part of
+    the package name for your feature.
+
+2.  Create a public interface for the feature with an embedded aspect
+    to register the feature with the Feature Registry.  See any of the
+    other features for how to do this. Ensure that you register it in
+    the correct manner based on what type it is - Abstract, Mutex etc.
+
+3.  Write the aspects, classes, and unit tests that are part of your
+    feature.
+
+    All introductions which should show up in the IDL of the
+    EventChannel must be done in a file with a name ending with
+    'IntroAspect.java'
+
+4.  Add a "use_<your featurename here>=t" to the facet.properties and
+    facet_template files.
+
+5.  From the $FACET_ROOT directory, do this :
+         
+    $ ant clean
+    $ ant feature.deps
+
+    This ensures that dependency information for the new set of
+    features is generated (this happens only from the top-level ant
+    build).
+
+    If all goes well, FACET shall get built with the latest feature
+    set.  If you see an error about the featuredeps.xml file being
+    malformed or something similar, restore the old version of the
+    featuredeps.xml file from CVS.
+
+
+

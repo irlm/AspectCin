@@ -1,0 +1,2 @@
+compilar Hello.java
+pause

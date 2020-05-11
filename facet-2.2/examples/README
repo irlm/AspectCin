@@ -1,0 +1,7 @@
+README
+------
+
+This directory contains some examples on using some of FACET's features.
+
+Please remember that before you try to compile these, you must build
+FACET with the right features (for that example) enabled.

@@ -1,0 +1,58 @@
+div { font-family: Georgia, Palatino, "Palatino Linotype", "Book Antiqua", "Trebuchet MS"; }
+div.reporttitle { margin-top: 10px; margin-bottom: 10px; }
+td.reporttitle { font-size: 20pt; }
+div.reportfooter { margin-top: 10px; margin-bottom: 0px; }
+td.reportfooter { font-size: 10pt; }
+div.section { padding: 5px; margin: 10px; margin-top: 20px; margin-bottom: 20px;}
+div.sectiontitle { margin-bottom: 20px; font-size: 18pt; font-weight: bold; }
+div.problemtype { padding: 5px; margin: 10px; }
+div.ruledout { padding: 5px; margin: 10px; }
+div.summary { padding: 0px; margin: 0px; }
+div.problem {  margin-left: 22px; }
+div.table { padding: 5px; margin-top: 20px;}
+div.ruledoutitem { font-size: 14pt; margin-left: 5px; }
+div.ruledoutitem2 { font-size: 11pt; margin-left: 25px; }
+div.probtypeinfo { margin-left: 24px; font-size: 14pt; }
+div.probtypehdr { font-size: 16pt; }d
+iv.probinfo { font-size: 12pt; margin-left: 10px; }
+div.summaryinfo { font-size: 12pt; margin-left: 24px; margin-bottom: 10px; }
+div.summaryinfoemph { font-size: 12pt; font-weight: bolder; margin-left: 24px; margin-bottom: 10px; }
+div.summaryemph { margin-left: 12px; margin-bottom: 10px; }
+div.summaryemphtxt { font-size: 14pt; margin-left: 5px; }
+div.sqlin { margin-left: 20px; }
+ul.ruledout { margin:0; padding:0; list-style-type:none; } 
+li.ruledout { margin-top: 5px; margin-bottom: 5px; padding: 5px; } 
+div.comsolitems { font-size: 12pt; margin-left: 48px; }
+ol.comsol { margin:0; padding:0;  } 
+li.comsol { margin-top: 5px; margin-bottom: 5px; padding: 5px; } 
+table.stacktrace { background: #ffeecc; border: black 4px double; }
+th.stacktrace {}
+tr.stacktrace {}
+tr.stacktraceclosed {display: none;}
+td.stacktrace { font-family: "Courier New", Monospace; font-size: 12pt; }
+table.sql {  background: #ffeecc; border: black 4px double;}
+th.sql { }
+tr.sql { }
+td.sql { font-family: "Courier New", Monospace; font-size: 12pt; }
+div.headertitle { font-size: 16pt; font-weight: bold; margin: 5px; }
+div.headersubtitle { font-size: 14pt; margin: 5px; }
+div.headersubtitle2 {font-size: 14pt; font-weight: bold; margin: 5px; }
+span.headersubtitle2 { font-size: 14pt; font-weight: bold; }
+div.headerstatline { font-size: 14pt; font-weight: normal; margin: 5px; }
+div.header { padding: 5px; margin: 10px; margin-bottom: 20px; margin-top: 20px; border-style: groove; border-width: 2px; background: #ffeecc }
+table.header { }
+th.header { }
+tr.header { }
+td.headerdata { font-size: 12pt; }
+td.headerprompt { font-size: 12pt; font-weight: bold; }
+td.headersubtitle { font-size: 14pt; font-weight: bold; }
+div.techtitle { font-size: 16pt; font-weight: bold; margin: 5px; }
+div.techsubtitle { font-size: 14pt; font-weight: bold; margin: 5px; }
+div.techstatline { font-size: 14pt; font-weight: normal; margin: 5px; }
+div.tech { padding: 5px; margin: 10px; margin-bottom: 40px; margin-top: 40px; border-style: groove; border-width: 2px; background: #ffeecc }
+table.tech { }
+th.tech { }
+tr.tech { }
+td.techdata { font-size: 12pt; font-weight: bold; }
+td.techprompt { font-size: 12pt; }
+td.statheader { font-size: 12pt; font-weight: bold; }

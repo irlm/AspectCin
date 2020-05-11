@@ -1,0 +1,973 @@
+<!-- ********************************************************************** -->
+<!--                                  tools                                 -->
+<!--                               build  file                              -->
+<!-- ********************************************************************** -->
+
+<project name="tools" default="default-target" basedir="..">
+
+  <!--
+    Give user a chance to override without editing this file
+    (and without typing -D each time he compiles it)
+
+    ant.properties in the user.home directory can hold global
+    ant settings that should be applied to any ant invocation.
+
+    The local.properties file should contain settings only for
+    the local project.
+  -->
+  <property name="buildfile-version" value="$Id: build.xml,v 1.42 2005/01/26 17:00:44 lkuehne Exp $"/>
+
+  <property file="../personal.properties" />
+  <property file="local.properties" />
+  <property file="../tools/global.properties" />
+  <property file="${user.home}/ant.properties" />
+
+  <!-- For version or name changes modify the values below:
+     NAME    - Name of the package.
+     VERSION - Version of the package.
+     SPEC    - Specification this package implements.
+  -->
+  <property name="NAME_LONG"                   value="Tools" />
+  <property name="NAME_SHORT"                  value="tools" />
+  <property name="VERSION_MAJOR"               value="1" />
+  <property name="VERSION_MINOR"               value="4" />
+  <property name="VERSION_MINOR_CHANGE"        value="0" />
+  <property name="MAIN_CLASS"                  value="org.openorb.util.launcher.Start" />
+  <property name="VENDOR"                      value="OpenORB Community Project" />
+  <property name="VENDOR_ID"                   value="org.openorb.community-project" />
+  <property name="EXAMPLES_NAME"               value="org/openorb/orb/examples" />
+  <property name="EXAMPLES_MANIFEST_CLASSPATH" value="" />
+  <property name="TEST_NAME"                   value="org/openorb/test/OpenORBTest" />
+  <property name="TEST_MAIN_CLASS"             value="org.openorb.test.OpenORBTest" />
+  <property name="TEST_MANIFEST_CLASSPATH"     value="" />
+
+  <property name="project"                     value="${NAME_LONG}" />
+  <property name="version"                     value="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MINOR_CHANGE}" />
+  <property name="spec.version"                value="${SPEC_VERSION_MAJOR}.${SPEC_VERSION_MINOR}.${SPEC_VERSION_MINOR_CHANGE}" />
+  <property name="archive"                     value="${project}-${version}" />
+
+  <property name="src"                         location="src"/>
+  <property name="compiler.dir"                location="src/compiler" />
+  <property name="src.dir"                     location="src/main" />
+  <property name="etc.dir"                     location="etc" />
+  <property name="docbook.dir"                 location="docbook" />
+  <property name="src.docbook.dir"             location="${src}/docbook" />
+  <property name="test.dir"                    location="src/test" />
+  <property name="examples.dir"                location="src/examples" />
+  <property name="build.dir"                   location="build" />
+  <property name="bin.dir"                     location="bin" />
+  <property name="dist.dir"                    location="dist" />
+  <property name="lib.dir"                     location="lib" />
+  <property name="src.doc.dir"                 location="src/doc" />
+  <property name="dist.doc.dir"                location="doc" />
+
+  <property name="tools.dir"                   value="." />
+
+  <property name="build.debug"                 value="on" />
+  <property name="build.deprecation"           value="off" />
+  <property name="build.optimize"              value="off" />
+
+  <property name="main-jar"                    value="tools-${version}.jar" />
+  <property name="launcher-jar"                value="launcher.jar" />
+  <property name="build-jar"                   value="build.jar" />
+  <property name="test-jar"                    value="tools_test-${version}.jar" />
+  <property name="examples-jar"                value="tools_examples-${version}.jar" />
+
+  <property name="checkstyle-results"          value="${build.dir}/checkstyle-results.txt" />
+  <property name="checkstyle-cache"            value="${build.dir}/checkstyle-cache.txt" />
+
+  <property name="compiler-override-src"       value="src/compiler-override"/>
+  <property name="compiler-override-classes"   value="${build.dir}/compiler-override"/>
+
+  <!--
+      Default paths for runtime libraries for the Sun and IBM JDK's.
+      Users can override this value by setting it in the ../personal.properties
+      or local.properties file.
+  -->
+  <property name="jdk-runtime-library"
+            value="${java.home}/lib/rt.jar:${java.home}/lib/core.jar:${java.home}/lib/server.jar:${java.home}/lib/ibmorbapi.jar"/>
+
+
+  <!-- =========================================== -->
+  <!--   Default JVM arguments for running tests   -->
+  <!-- =========================================== -->
+  <property name="default.jvmargs"  value=""/>
+
+  <!-- =============================== -->
+  <!--     CLASSPATH used to build     -->
+  <!-- =============================== -->
+  <path id="compiler-override-classpath">
+    <pathelement path="${build.dir}/main" />
+    <pathelement path="${compiler-override-classes}" />
+    <pathelement path="${jdk-runtime-library}" />
+  </path>
+
+  <path id="project.class.path">
+    <pathelement path="${build.dir}/main" />
+    <pathelement path="${build.dir}/test" />
+    <pathelement path="${build.dir}/examples" />
+    <fileset dir="..">
+      <exclude name="**/build/*"/>
+      <include name="tools/lib/ext/*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="build.class.path">
+    <path refid="project.class.path" />
+    <fileset dir="..">
+      <include name="tools/lib/ext/build/**/*.jar"/>
+    </fileset>
+  </path>
+
+
+  <!-- =============================== -->
+  <!--        Default target           -->
+  <!-- =============================== -->
+  <target name="default-target">
+    <antcall target="${default-target}"/>
+  </target>
+
+  <!-- =============================== -->
+  <!--               Help              -->
+  <!-- =============================== -->
+  <target name="help">
+  <echo>
+----------------------------------------------------------------------
+${NAME_LONG} build targets
+----------------------------------------------------------------------
+
+dependency targets
+==================
+clean          : Delete everything that has been created by the build
+                 process. Depends on clean-all.
+clean-deep     : Performs a deep clean on all module dependencies.
+doc            : Create the documentation. Depends on compile-javadoc,
+                 compile-docbook
+help (DEFAULT) : Show this list of dependency targets.
+checkstyle     : Run checkstyle on the source code.
+install        : Install the jar files in a common directory. The common
+                 directory can be specified via the install.path property
+                 in the local.properties file. Depends on jar-all and doc.
+jar-all        : Create all the jar files. Depends on main,
+                 build-test,build-examples,create-main-jar,create-test-jar,
+                 create-examples-jar.
+jar            : Create the jar file. Depends on main,
+                 create-main-jar.
+main           : Build the main classes. Depends on build-main.
+release        : Cleanup everything, rebuild without debug info, and
+                 create the tarballs. Depends on clean,
+                 initialize-directory-tree,build-main,build-test,run-test,
+                 build-examples, jar, doc, create-binary-tarball,
+                 create-source-tarball
+nightly        : Same as release, but compiles with debug info
+targets        : Show a list of all targets. Depends on help.
+version        : Show the current version of the package. Depends on
+                 initialize-directory-tree.
+    </echo>
+  </target>
+
+  <target name="targets" depends="help">
+  <echo>
+worker targets
+==============
+initialize-directory-tree     : Initialize the directory tree for the
+                                build process.
+dump-info                     : Show ant environment information.
+create-manifest-file          : Create the main manifest file.
+clean-all                     : Delete everything that has been
+                                created by the build.
+clean-main                    : Delete the main classes and the
+                                generated source.
+build-main                    : Build the main classes.
+create-main-jar               : Create the main jar files.
+compile-javadoc               : Create the javadoc documentation.
+copy-bin-to-dir               : Copy all binary generated files to a
+                                directory specified by the "bin" property
+create-source-tarball         : Create the source tarball.
+create-binary-tarball         : Create the binary tarball.
+run-checkstyle                : Run checkstyle on the sources.
+    </echo>
+  </target>
+
+  <target name="version" depends="dump-info"/>
+
+  <!-- =============================== -->
+  <!--            Manifest             -->
+  <!-- =============================== -->
+  <target name="create-manifest-file">
+    <copy file="${etc.dir}/manifest.mf" toDir="${build.dir}" />
+    <replace file="${build.dir}/manifest.mf" token="@@NAME@@" value="${NAME_LONG}" />
+    <replace file="${build.dir}/manifest.mf" token="@@MANIFEST_CLASSPATH@@" value="${MANIFEST_CLASSPATH}" />
+    <replace file="${build.dir}/manifest.mf" token="@@MAIN_CLASS@@" value="${MAIN_CLASS}" />
+    <replace file="${build.dir}/manifest.mf" token="@@EXTENSION_NAME@@" value="${NAME_SHORT}" />
+    <replace file="${build.dir}/manifest.mf" token="@@VENDOR_ID@@" value="${VENDOR_ID}" />
+    <replace file="${build.dir}/manifest.mf" token="@@VENDOR@@" value="${VENDOR}" />
+    <replace file="${build.dir}/manifest.mf" token="@@IMPL_VERSION@@" value="${version}" />
+  </target>
+
+  <!-- =============================== -->
+  <!--          Initialization         -->
+  <!-- =============================== -->
+  <target name="dump-info" unless="suppress-dump-info" depends="-init">
+    <echo>
+
+       ++++                                    ++++    ++++++    ++++++
+     +++  +++                                +++  +++  ++   +++  ++   +++
+     ++    ++                                ++    ++  ++    ++  ++    ++
+     ++    ++  ++ +++      ++++    ++ +++    ++    ++  ++    ++  ++   +++
+     ++    ++  +++++++    ++++++   +++++++   ++    ++  ++   +++  +++++++
+     ++    ++  ++    ++  ++    ++  ++    ++  ++    ++  ++++++    ++   +++
+     ++    ++  ++    ++  ++++++++  ++    ++  ++    ++  ++  +++   ++    ++
+     ++    ++  ++    ++  ++        ++    ++  ++    ++  ++   ++   ++    ++
+     +++  +++  +++  +++  +++   ++  ++    ++  +++  +++  ++   ++   ++   +++
+       ++++    ++ +++      +++++   ++    ++    ++++    ++    ++  ++++++
+               ++
+               ++
+
+     - Vendor : ${VENDOR}
+
+     - Module : ${project}
+     - Version: ${version}
+
+     - Contact: mailto:openorb-users@lists.sf.net
+
+    </echo>
+    <echo message="buildfile-version=${buildfile-version}" />
+    <echo message="timestamp=${timestamp}" />
+    <echo message="java.vm.info=${java.vm.info}" />
+    <echo message="java.vm.name=${java.vm.name}" />
+    <echo message="java.vm.vendor=${java.vm.vendor}" />
+    <echo message="java.vm.version=${java.vm.version}" />
+    <echo message="os.arch=${os.arch}" />
+    <echo message="os.name=${os.name}" />
+    <echo message="os.version=${os.version}" />
+    <echo message="file.encoding=${file.encoding}" />
+    <echo message="user.language=${user.language}" />
+    <echo message="build.debug=${build.debug}" />
+    <echo message="build.deprecation=${build.debug}" />
+    <echo message="build.optimize=${build.debug}" />
+  </target>
+
+  <target name="-init">
+    <tstamp>
+      <format property="timestamp" pattern="yyyy-MM-dd hh:mm:ss z (zzzz)"/>
+    </tstamp>
+  </target>
+
+  <target name="native-library">
+    <condition property="native-lib-required">
+      <os name="AIX" />
+    </condition>
+    <antcall target="-extract-native-library"/>
+  </target>
+
+  <target name="-extract-native-library" if="native-lib-required">
+    <echo message="Extracting native jar to build/tmp..." />
+    <mkdir dir="${build.dir}/tmp" />
+    <unjar src="${lib.dir}/openorb_native.jar"
+           dest="${build.dir}/tmp"/>
+    <echo message="Copying native library to lib folder..." />
+    <copy todir="${lib.dir}">
+        <fileset dir="${build.dir}/tmp/${os.name}/${os.arch}"
+                 includes="*openorb.*"/>
+    </copy>
+  </target>
+
+  <target name="initialize-directory-tree" depends="-init,dump-info,unpack-docbook,native-library">
+    <mkdir dir="${compiler-override-classes}" />
+    <mkdir dir="${build.dir}/main" />
+    <mkdir dir="${build.dir}/test" />
+    <mkdir dir="${build.dir}/examples" />
+    <mkdir dir="${dist.dir}" />
+    <mkdir dir="${dist.doc.dir}" />
+  </target>
+
+  <!-- =============================== -->
+  <!--            Clean up             -->
+  <!-- =============================== -->
+  <target name="clean"
+          depends="clean-all"
+          description="Delete everything that has been created by the build process.">
+  </target>
+
+  <target name="clean-all">
+    <delete failonerror="false" quiet="true">
+      <fileset dir="${lib.dir}">
+        <include name="${main-jar}" />
+        <include name="${launcher-jar}" />
+      </fileset>
+      <fileset dir="${build.dir}" />
+      <fileset dir="${dist.dir}" />
+      <fileset dir="${dist.doc.dir}" />
+      <fileset dir="${docbook.dir}" />
+      <fileset dir="${basedir}" includes="**/*.log" />
+      <fileset dir="${user.dir}" includes="*.cache" />
+    </delete>
+  </target>
+
+  <target name="clean-deep" depends="clean" >
+  </target>
+
+  <target name="clean-main">
+    <delete failonerror="false" quiet="true">
+      <fileset dir="${build.dir}/main" includes="**/*.class" />
+      <fileset dir="${lib.dir}">
+        <include name="${main-jar}" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- =============================== -->
+  <!--            Main                 -->
+  <!-- =============================== -->
+  <target name="main"
+          depends="initialize-directory-tree,-build-main"
+          description="Build the main classes.">
+  </target>
+
+  <target name="-build-main"
+          depends="-build-compiler-overrides">
+
+    <!-- Compile the launcher classes -->
+    <javac srcdir="${src.dir}"
+           destdir="${build.dir}/main"
+           debug="${build.debug}"
+           deprecation="${build.deprecation}"
+           optimize="${build.optimize}" >
+      <include name="org/openorb/util/launcher/**/*.java"/>
+    </javac>
+
+    <!-- Compile the non override dependant classes -->
+    <javac srcdir="${src.dir}"
+           destdir="${build.dir}/main"
+           debug="${build.debug}"
+           deprecation="${build.deprecation}"
+           optimize="${build.optimize}" >
+      <classpath refid="project.class.path" />
+      <exclude name="org/openorb/util/launcher/**/*.java"/>
+    </javac>
+  </target>
+
+  <target name="-build-compiler-overrides"
+          depends="-check-compiler-overrides-modified"
+          if="compiler-overrides-modified"
+          description="Builds the compiler overrides and dependent classes">
+
+    <!-- Compile the override classes -->
+    <javac srcdir="${compiler-override-src}"
+           destdir="${compiler-override-classes}" >
+      <classpath refid="compiler-override-classpath" />
+    </javac>
+
+    <!-- delete Exception tool to force recompile -->
+    <delete>
+      <fileset dir="${build.dir}/main">
+        <include name="org/openorb/util/ExceptionTool.class" />
+        <include name="org/openorb/util/ExceptionTool$*.class" />
+      </fileset>
+    </delete>
+
+    <!-- Compile classes that use the override classes -->
+    <javac srcdir="${src.dir}"
+           includes="org/openorb/util/ExceptionTool.java"
+           destdir="${build.dir}/main"
+           debug="${build.debug}"
+           deprecation="${build.deprecation}"
+           optimize="${build.optimize}"
+           bootclasspathref="compiler-override-classpath" >
+      <classpath refid="compiler-override-classpath" />
+    </javac>
+
+    <!-- Remove the non override dependant classes-->
+    <delete>
+      <fileset dir="${build.dir}/main">
+        <exclude name="org/openorb/util/ExceptionTool.class" />
+        <exclude name="org/openorb/util/ExceptionTool$*.class" />
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="-check-compiler-overrides-modified"
+          description="Checks if overrides or their dependents have been modified.">
+
+    <condition property="compiler-overrides-modified">
+      <or>
+        <isset property="assume-modified"/>
+        <not>
+          <uptodate targetfile="${build.dir}/main/org/openorb/util/ExceptionTool.class">
+            <srcfiles dir="${src.dir}" includes="org/openorb/util/ExceptionTool.java"/>
+            <srcfiles dir="${compiler-override-src}"/>
+          </uptodate>
+        </not>
+      </or>
+    </condition>
+  </target>
+
+
+  <!-- =============================== -->
+  <!--              Inspect            -->
+  <!--                                 -->
+  <!-- Exclude files that are either   -->
+  <!-- generated automatically or are  -->
+  <!-- marked deprecated.              -->
+  <!-- =============================== -->
+  <target name="checkstyle"
+          depends="initialize-directory-tree,run-checkstyle"
+          description="Run checkstyle on the source code.">
+  </target>
+
+  <target name="run-checkstyle">
+    <taskdef name="checkstyle"
+             classname="com.puppycrawl.tools.checkstyle.CheckStyleTask">
+      <classpath refid="build.class.path" />
+    </taskdef>
+
+    <checkstyle
+      config="${tools.dir}/etc/checkstyleconf.xml"
+      properties="${tools.dir}/etc/checkstyle.properties"
+      failOnViolation="true">
+      <fileset dir="${src.dir}">
+        <include name="**/*.java"/>
+        <exclude name="org/openorb/util/NumberCache.java"/>
+        <exclude name="org/openorb/util/CharacterCache.java"/>
+        <exclude name="org/openorb/util/urlhandler/**/*.java"/>
+      </fileset>
+      <property key="checkstyle.cache.file" file="${checkstyle-cache}"/>
+    </checkstyle>
+
+    <checkstyle
+      config="${tools.dir}/etc/checkstyleconf.xml"
+      properties="${tools.dir}/etc/checkstyle.properties"
+      failOnViolation="true">
+      <fileset dir="${src.dir}">
+        <include name="org/openorb/util/NumberCache.java"/>
+        <include name="org/openorb/util/CharacterCache.java"/>
+        <include name="org/openorb/util/urlhandler/**/*.java"/>
+      </fileset>
+      <property key="checkstyle.cache.file" file="${checkstyle-cache}"/>
+      <property key="checkstyle.illegalInstantiations" value="java.lang.Boolean"/>
+    </checkstyle>
+  </target>
+
+  <!-- =============================== -->
+  <!--              Test               -->
+  <!-- =============================== -->
+  <target name="test" depends="build-test,run-test"/>
+
+  <target name="build-test" depends="main">
+    <javac srcdir="${test.dir}"
+           destdir="${build.dir}/test"
+           debug="${build.debug}"
+           deprecation="${build.deprecation}"
+           optimize="${build.optimize}" >
+      <classpath refid="build.class.path" />
+    </javac>
+  </target>
+
+  <target name="run-test">
+    <echo message="Running tools tests..." />
+    <java failonerror="true"
+          classname="junit.textui.TestRunner"
+          fork="yes">
+      <classpath refid="build.class.path" />
+      <jvmarg line="${default.jvmargs}" />
+      <arg line="org.openorb.util.test.ToolsTest" />
+    </java>
+  </target>
+
+  <target name="run-single-test">
+  </target>
+
+  <!-- =============================== -->
+  <!--             Examples            -->
+  <!-- =============================== -->
+  <target name="examples" depends="main,-build-examples"/>
+
+  <target name="-build-examples" >
+  </target>
+
+  <!-- =============================== -->
+  <!--          Distribution           -->
+  <!-- =============================== -->
+  <target name="jar-all" depends="jar,jar-test,jar-examples"/>
+
+  <target name="jar" depends="main,-create-build-jar,-create-launcher-jar,-create-main-jar"/>
+
+  <target name="-create-build-jar"
+          depends="-check-build-jar-contents-modified"
+          if="build-jar-contents-modified">
+
+    <echo file="${build.dir}/manifest.mf">Manifest-Version: 1.0
+Main-Class: org.openorb.util.launcher.Build
+Class-Path: ${build-jar}
+    </echo>
+
+    <jar jarfile="${build-jar}" manifest="${build.dir}/manifest.mf">
+      <fileset dir="${build.dir}/main" >
+        <include name="org/openorb/util/launcher/Build.class"/>
+        <include name="org/openorb/util/launcher/Build$*.class"/>
+        <include name="org/openorb/util/launcher/LibraryClassLoader.class"/>
+        <include name="org/openorb/util/launcher/LibraryClassLoader$*.class"/>
+      </fileset>
+    </jar>
+
+    <delete file="${build.dir}/manifest.mf" />
+  </target>
+
+  <target name="-check-build-jar-contents-modified"
+          description="Checks if build jar contents have been modified.">
+
+    <condition property="build-jar-contents-modified">
+      <or>
+        <isset property="assume-modified"/>
+        <not>
+          <uptodate targetfile="${build-jar}">
+            <srcfiles dir="${src.dir}/org/openorb/util/launcher">
+              <include name="Build.java"/>
+              <include name="LibraryClassLoader.java"/>
+            </srcfiles>
+          </uptodate>
+        </not>
+      </or>
+    </condition>
+  </target>
+
+  <target name="-create-launcher-jar"
+          depends="-check-launcher-jar-contents-modified"
+          if="launcher-jar-contents-modified">
+
+    <delete failonerror="false" file="${lib.dir}/${launcher-jar}" />
+
+    <antcall target="create-manifest-file" />
+
+    <jar jarfile="${lib.dir}/${launcher-jar}" manifest="${build.dir}/manifest.mf">
+      <fileset dir="${build.dir}/main" >
+        <include name="org/openorb/util/launcher/**/*"/>
+        <include name="org/openorb/util/urlhandler/**/*"/>
+      </fileset>
+    </jar>
+    <delete file="${build.dir}/manifest.mf" />
+  </target>
+
+  <target name="-check-launcher-jar-contents-modified"
+          description="Checks if launcher jar contents have been modified.">
+
+    <condition property="launcher-jar-contents-modified">
+      <or>
+        <isset property="assume-modified"/>
+        <not>
+          <uptodate targetfile="${lib.dir}/${launcher-jar}">
+            <srcfiles dir="${build.dir}/main/org/openorb/util/launcher"/>
+            <srcfiles dir="${src.dir}/org/openorb/util/urlhandler/">
+              <include name="**/*.java"/>
+            </srcfiles>
+          </uptodate>
+        </not>
+      </or>
+    </condition>
+  </target>
+
+  <target name="-create-main-jar"
+          depends="-check-main-jar-contents-modified"
+          if="main-jar-contents-modified">
+
+    <delete failonerror="false" file="${lib.dir}/${main-jar}" />
+
+    <echo file="${build.dir}/tools-module.tag">#tools module tag file
+      openorb.tools.buildtime=${timestamp}
+    </echo>
+
+    <jar jarfile="${lib.dir}/${main-jar}" manifest="${etc.dir}/tools.mf">
+      <fileset dir="${build.dir}/main" />
+      <fileset dir="${build.dir}" includes="tools-module.tag"/>
+    </jar>
+  </target>
+
+  <target name="-check-main-jar-contents-modified"
+          description="Checks if jar contents have been modified.">
+
+    <condition property="main-jar-contents-modified">
+      <or>
+        <isset property="assume-modified"/>
+        <not>
+          <uptodate targetfile="${lib.dir}/${main-jar}">
+            <srcfiles dir="${build.dir}/main"/>
+          </uptodate>
+        </not>
+      </or>
+    </condition>
+  </target>
+
+  <target name="jar-test" depends="build-test,-create-test-jar"/>
+
+  <target name="jar-examples" depends="examples,-create-examples-jar"/>
+
+  <target name="-create-test-jar">
+    <delete file="${lib.dir}/${test-jar}" />
+
+    <echo file="${build.dir}/test-manifest.mf">Manifest-Version: 1.0
+Main-Class: org.openorb.util.test.ToolsTest
+Class-Path: ${test-jar}
+    </echo>
+
+    <jar jarfile="${lib.dir}/${test-jar}" manifest="${build.dir}/test-manifest.mf" basedir="${build.dir}/test" />
+    <delete file="${build.dir}/test-manifest.mf" />
+  </target>
+
+  <target name="-create-examples-jar">
+  </target>
+
+  <!-- =============================== -->
+  <!--          Documentation          -->
+  <!-- =============================== -->
+  <target name="doc"
+          depends="main,compile-javadoc"
+          description="Create the documentation."/>
+
+  <target name="compile-javadoc">
+    <delete dir="${dist.doc.dir}/javadoc" />
+    <mkdir   dir="${dist.doc.dir}/javadoc" />
+    <javadoc destdir="${dist.doc.dir}/javadoc"
+             doctitle="${project} ${version}"
+             windowtitle="${project} ${version}"
+             noindex="true"
+             author="true"
+             packagenames="org.openorb.util.*"
+             verbose="false">
+      <sourcepath>
+        <pathelement path="${src.dir}"/>
+      </sourcepath>
+      <classpath refid="build.class.path" />
+      <link href="http://java.sun.com/j2se/1.3/docs/api" />
+      <link href="http://avalon.apache.org/framework/api" />
+    </javadoc>
+  </target>
+
+  <target name="-check-docbook-unpacked">
+    <uptodate property="docbook-unpacked"
+               srcfile="${etc.dir}/docbook.tgz"
+              targetfile="${docbook.dir}/.docbook-unpacked"/>
+  </target>
+
+  <target name="unpack-docbook" depends="-check-docbook-unpacked" unless="docbook-unpacked">
+    <mkdir dir="${docbook.dir}" />
+
+    <untar src="${etc.dir}/docbook.tgz"
+         compression="gzip"
+         dest="${docbook.dir}"/>
+
+    <copy todir="${docbook.dir}">
+      <fileset dir="${src.docbook.dir}" includes="*.xsl"/>
+    </copy>
+
+    <echo file="${docbook.dir}/.docbook-unpacked">#Flag file</echo>
+  </target>
+
+  <target name="tar-docbook">
+    <delete file="${etc.dir}/docbook.tgz" />
+    <tar tarfile="${etc.dir}/docbook.tgz"
+         compression="gzip"
+         longfile="gnu">
+
+      <tarfileset dir="${docbook.dir}">
+        <exclude name=".docbook-unpacked"/>
+        <exclude name="**/ChangeLog"/>
+      </tarfileset>
+    </tar>
+  </target>
+
+  <!-- =============================== -->
+  <!--          Tarballs               -->
+  <!-- =============================== -->
+  <target name="release"
+          depends="clean,checkstyle,jar-all,doc,create-binary-tarball,create-source-tarball">
+  </target>
+
+  <target name="nightly" depends="release">
+  </target>
+
+  <target name="create-source-tarball">
+    <delete file="${dist.dir}/${archive}-src.tgz" />
+    <delete file="${dist.dir}/${archive}-src.zip" />
+    <mkdir dir="${build.dir}/src" />
+    <mkdir dir="${build.dir}/src/${NAME_SHORT}" />
+    <mkdir dir="${build.dir}/src/${NAME_SHORT}/bin" />
+    <mkdir dir="${build.dir}/src/${NAME_SHORT}/etc" />
+    <mkdir dir="${build.dir}/src/${NAME_SHORT}/lib" />
+    <mkdir dir="${build.dir}/src/${NAME_SHORT}/src" />
+
+    <copy todir="${build.dir}/src/${NAME_SHORT}">
+      <fileset dir=".">
+        <include name="README" />
+        <include name="WHATSNEW" />
+        <include name="local.properties" />
+        <include name="*.bat" />
+        <include name="*.sh" />
+        <include name="*.txt" />
+        <include name="build.jar" />
+      </fileset>
+    </copy>
+    <chmod file="${build.dir}/src/${NAME_SHORT}/build.sh" perm="ugo+rx"/>
+    <chmod file="${build.dir}/src/${NAME_SHORT}/buildModule.sh" perm="ugo+rx"/>
+
+    <copy todir="${build.dir}/src/${NAME_SHORT}/bin" >
+       <fileset dir="${bin.dir}">
+         <exclude name="**/CVS/*" />
+       </fileset>
+    </copy>
+    <chmod dir="${build.dir}/src/${NAME_SHORT}/bin" perm="ugo+rx" includes="*"/>
+
+    <copy todir="${build.dir}/src/${NAME_SHORT}/etc">
+       <fileset dir="${etc.dir}">
+         <exclude name="**/CVS/*" />
+       </fileset>
+    </copy>
+
+    <copy todir="${build.dir}/src/${NAME_SHORT}/lib">
+       <fileset dir="${lib.dir}">
+         <include name="**/*.jar" />
+         <include name="README"/>
+         <exclude name="${NAME_SHORT}-${version}*.jar" />
+       </fileset>
+    </copy>
+
+    <copy todir="${build.dir}/src/${NAME_SHORT}/src">
+      <fileset dir="src">
+        <exclude name="**/CVS/*" />
+      </fileset>
+    </copy>
+
+    <tar tarfile="${dist.dir}/${archive}-src.tgz"
+         compression="gzip"
+         defaultexcludes="true">
+      <tarfileset dir="${build.dir}/src" mode="755">
+        <include name="${NAME_SHORT}/*.sh"/>
+        <include name="${NAME_SHORT}/bin/*"/>
+      </tarfileset>
+      <tarfileset dir="${build.dir}/src">
+        <include name="${NAME_SHORT}/**/*"/>
+        <exclude name="${NAME_SHORT}/*.sh"/>
+        <exclude name="${NAME_SHORT}/bin/**/*"/>
+      </tarfileset>
+    </tar>
+    <zip zipfile="${dist.dir}/${archive}-src.zip" basedir="${build.dir}/src"
+         defaultexcludes="true" />
+
+    <delete dir="${build.dir}/src" />
+  </target>
+
+  <!-- Auxiliary target to copy all binary files to a directory -->
+  <target name="copy-bin-to-dir">
+    <mkdir    dir="${bin}/bin" />
+    <mkdir    dir="${bin}/lib" />
+    <mkdir    dir="${bin}/doc" />
+    <mkdir    dir="${bin}/etc" />
+
+    <copy todir="${bin}">
+      <fileset dir="${basedir}">
+        <include name="README" />
+        <include name="LICENSE.txt" />
+        <include name="WHATSNEW" />
+        <include name="hypersonic_lic.txt" />
+        <include name="hsqldb_lic.txt" />
+      </fileset>
+    </copy>
+
+    <copy todir="${bin}/bin" >
+       <fileset dir="${bin.dir}">
+         <exclude name="**/CVS/*" />
+       </fileset>
+    </copy>
+    <chmod dir="${bin}/bin" perm="ugo+rx" includes="*"/>
+
+    <copy file="${lib.dir}/${main-jar}"
+              tofile="${bin}/lib/${main-jar}" />
+
+    <copy todir="${bin}/doc/javadoc">
+       <fileset dir="${dist.doc.dir}/javadoc" />
+    </copy>
+
+    <copy todir="${bin}/lib">
+       <fileset dir="${lib.dir}">
+         <include name="**/*.jar" />
+       </fileset>
+    </copy>
+
+    <copy todir="${bin}/etc">
+       <fileset dir="${etc.dir}">
+         <exclude name="**/CVS/*" />
+       </fileset>
+    </copy>
+  </target>
+
+  <target name="create-binary-tarball">
+    <property name="root" value="${build.dir}/distrib" />
+    <property name="bin" value="${root}/${NAME_SHORT}" />
+
+    <delete   file="${dist.dir}/${archive}.tgz" />
+    <delete   file="${dist.dir}/${archive}.zip" />
+    <delete   dir="${bin}" />
+    <mkdir    dir="${bin}" />
+
+    <antcall target="copy-bin-to-dir"   >
+      <param name="bin" value="${bin}" />
+    </antcall>
+
+    <tar compression="gzip"
+         tarfile="${dist.dir}/${archive}.tgz">
+      <tarfileset dir="${root}" mode="755">
+        <include name="${NAME_SHORT}/bin/*"/>
+      </tarfileset>
+      <tarfileset dir="${root}">
+        <include name="${NAME_SHORT}/**/*"/>
+        <exclude name="${NAME_SHORT}/bin/*"/>
+      </tarfileset>
+    </tar>
+    <zip basedir="${root}"
+         zipfile="${dist.dir}/${archive}.zip" />
+
+    <delete dir="${build.dir}/distrib" />
+  </target>
+
+  <!-- =============================== -->
+  <!--          Install                -->
+  <!-- =============================== -->
+  <target name="check-install-path">
+    <available file="${install.path}" type="dir" property="install.path.present"/>
+  </target>
+
+  <target name="install" depends="check-install-path,jar-all,doc" if="install.path.present">
+    <echo message="Installing to ${install.path}..." />
+    <antcall target="copy-bin-to-dir" >
+      <param name="bin"   value="${install.path}" />
+    </antcall>
+  </target>
+
+  <!-- =============================== -->
+  <!--       Build module releases     -->
+  <!-- =============================== -->
+  <target name="release-all"
+          depends="release-tools,release-orb,release-extensions,release-services">
+  </target>
+
+  <target name="-release-module">
+    <echo>building ${release-module-name} release...</echo>
+    <ant antfile="../${release-module-name}/src/build.xml"
+         target="release"
+         inheritall="false">
+    </ant>
+    <echo>...built ${release-module-name} release</echo>
+  </target>
+
+  <target name="release-tools">
+    <echo>building tools release...</echo>
+    <antcall target="release"/>
+    <echo>...built tools release</echo>
+  </target>
+
+  <target name="release-orb">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="OpenORB"/>
+    </antcall>
+  </target>
+
+  <target name="release-extensions"
+          depends="release-ssl">
+  </target>
+
+  <target name="release-ssl">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="SSL"/>
+    </antcall>
+  </target>
+
+  <target name="release-services"
+          depends="-release-services-1,-release-services-2,-release-services-3">
+  </target>
+
+  <target name="-release-services-1"
+          depends="release-ots,release-pss,release-naming">
+  </target>
+
+  <target name="-release-services-2"
+          depends="release-eval,release-trader,release-notify,release-event">
+  </target>
+
+  <target name="-release-services-3"
+          depends="release-css,release-ir,release-time,release-property,release-board">
+  </target>
+
+  <target name="release-css">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="ConcurrencyControlService"/>
+    </antcall>
+  </target>
+
+  <target name="release-eval">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="EvaluatorUtility"/>
+    </antcall>
+  </target>
+
+  <target name="release-event">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="EventService"/>
+    </antcall>
+  </target>
+
+  <target name="release-ir">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="InterfaceRepository"/>
+    </antcall>
+  </target>
+
+  <target name="release-board">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="ManagementBoard"/>
+    </antcall>
+  </target>
+
+  <target name="release-naming">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="NamingService"/>
+    </antcall>
+  </target>
+
+  <target name="release-notify">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="NotificationService"/>
+    </antcall>
+  </target>
+
+  <target name="release-pss">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="PersistentStateService"/>
+    </antcall>
+  </target>
+
+  <target name="release-property">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="PropertyService"/>
+    </antcall>
+  </target>
+
+  <target name="release-time">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="TimeService"/>
+    </antcall>
+  </target>
+
+  <target name="release-trader">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="TradingService"/>
+    </antcall>
+  </target>
+
+  <target name="release-ots">
+    <antcall target="-release-module">
+      <param name="release-module-name" value="TransactionService"/>
+    </antcall>
+  </target>
+
+</project>
+

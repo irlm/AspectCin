@@ -1,0 +1,24 @@
+/CustomEditorConfigurerTests.java/1.5/Tue Nov 15 13:32:09 2005//
+/DateRange.java/1.2/Fri Mar 25 09:28:30 2005//
+/ExceptionOnInitBean.java/1.2/Fri Mar 25 09:28:30 2005//
+/JmxTestUtils.java/1.2/Thu Aug 10 19:23:51 2006//
+/LazyInitMBeanTests.java/1.1/Sat Jan 20 14:54:48 2007//
+/MBeanExporterOperationsTests.java/1.2/Thu Sep 21 20:42:07 2006//
+/MBeanExporterTests.java/1.27/Sun Jul  1 17:31:55 2007//
+/NotificationListenerTests.java/1.4/Sat Jun 30 15:14:07 2007//
+/NotificationPublisherTests.java/1.3/Tue Aug 15 16:25:39 2006//
+/PropertyPlaceholderConfigurerTests.java/1.5/Tue Nov 15 13:32:09 2005//
+/TestDynamicMBean.java/1.5/Sat Jan 20 14:54:48 2007//
+D/assembler////
+/autodetectLazyMBeans.xml/1.5/Sat Jan 20 14:54:48 2007//
+/autodetectMBeans.xml/1.7/Tue Oct  3 12:09:10 2006//
+D/autodetectNoMBeans////
+/autodetectNoMBeans.xml/1.1/Mon May 21 18:36:35 2007//
+/customConfigurer.xml/1.3/Sun Aug 20 19:08:42 2006//
+/excludedBeans.xml/1.3/Sun Aug 20 19:08:42 2006//
+/lazyInit.xml/1.3/Sun Aug 20 19:08:42 2006//
+D/naming////
+D/notification////
+/notificationPublisherLazyTests.xml/1.3/Sun Aug 20 19:08:42 2006//
+/notificationPublisherTests.xml/1.3/Sun Aug 20 19:08:42 2006//
+/propertyPlaceholderConfigurer.xml/1.5/Thu May 17 21:32:05 2007//

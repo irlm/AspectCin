@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+
+	<!-- For tomcat 4 and Weblogic.... -->
+	<!-- web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+		version="2.4" -->
+
+	<display-name>Glassbox Web Client</display-name>
+	<description>
+		The Glassbox Web Client provides the agent for tracking performance data, installation tools, and a Web interface for
+		troubleshooting performance problems and outages.
+	</description>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	
+	<filter>
+		<filter-name>Glassbox Installer Filter</filter-name>
+		<filter-class>glassbox.installer.web.filters.InstallerFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Glassbox Installer Filter</filter-name>
+		<servlet-name>initializer</servlet-name>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>Glassbox Installer Filter</filter-name>
+		<servlet-name>springapp</servlet-name>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>initializer</servlet-name>
+		<servlet-class>glassbox.web.ContextLoaderServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>springapp</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>springapp</servlet-name>
+		<url-pattern>*.form</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
+
+

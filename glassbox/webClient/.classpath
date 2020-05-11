@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="WEB-INF/|WEB-INF/classes/|WEB-INF/classes/" kind="src" path="web"/>
+	<classpathentry excluding="classes/|classes/" kind="src" path="web/WEB-INF"/>
+	<classpathentry kind="src" path="testsrc"/>
+	<classpathentry kind="lib" path="/lib/buildtime/junit.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-beanutils-core.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/dwr.jar" sourcepath="C:/devel/lib/dwr-1.1.1-src.zip"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/mx4j.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/mx4j-jmx.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/mx4j-remote.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/velocity-1.4.jar" sourcepath="C:/devel/lib/velocity-1.4/src/java"/>
+	<classpathentry kind="lib" path="/lib/buildtime/servlet-api-2.4.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/backport-util-concurrent.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/agent"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/bootstrap"/>
+	<classpathentry kind="lib" path="/lib/testonly/jmock-20050507-203802.jar" sourcepath="c:/devel/tool/jmock/core/src"/>
+	<classpathentry kind="lib" path="/lib/testonly/jmock-cglib-20050507-203802.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-logging-1.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/monitor"/>
+	<classpathentry kind="lib" path="conf"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/activation.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-dbcp-1.2.1.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-pool-1.3.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/xsltc.jar"/>
+	<classpathentry kind="lib" path="/lib/spring/spring.jar"/>
+	<classpathentry kind="lib" path="/lib/buildtime/ant.jar"/>
+	<classpathentry kind="lib" path="/lib/buildtime/ant-launcher.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/classes"/>
+	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

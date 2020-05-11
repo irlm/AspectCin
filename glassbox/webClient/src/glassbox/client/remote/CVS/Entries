@@ -1,0 +1,10 @@
+/AbstractAgentClientProvider.java/1.3/Wed Nov 15 08:17:53 2006/-kk/
+/AgentClientManager.java/1.2/Wed Nov 15 08:17:53 2006/-kk/
+/AgentClientProvider.java/1.2/Wed Nov 15 08:17:53 2006/-kk/
+/AgentConnectionException.java/1.1/Wed Sep  6 07:22:53 2006/-kk/
+/ConnectByURL.java/1.1/Wed Sep  6 07:22:53 2006/-kk/
+/DistributedAgentManager.java/1.2/Wed Nov 15 08:17:53 2006/-kk/
+/JmxAgentClientProviderImpl.java/1.2/Wed Nov 15 08:17:53 2006/-kk/
+/LocalAgentClient.java/1.7/Mon Jul 23 03:37:31 2007/-kk/
+/RmiAgentClientProviderImpl.java/1.2/Wed Nov 15 08:17:53 2006/-kk/
+/StubAgentClientProviderImpl.java/1.2/Wed Nov 15 08:17:53 2006/-kk/

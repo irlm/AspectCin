@@ -1,0 +1,1007 @@
+2002-09-27 Friday 10:26  mrumpf
+
+	* WHATSNEW (1.4), lib/README (1.9), lib/avalon-framework.jar (1.5):
+	
+	    Updated avalon-framework.jar to version 4.1.2.
+
+2002-09-25 Wednesday 20:55  mrumpf
+
+	* WHATSNEW (1.3):
+	
+	   Added the version information for the 1.3.0 final release.
+
+2002-09-06 Friday 12:41  mrumpf
+
+	* etc/checkstyle.properties (1.24):
+	
+	   Added some comments.
+
+2002-08-15 Thursday 01:54  shawnboyce
+
+	* bin/license.pl (1.3):
+	
+	removed
+
+2002-08-14 Wednesday 02:41  shawnboyce
+
+	* bin/license.pl (1.2):
+	
+	print LICENSE.txt
+
+2002-08-14 Wednesday 02:19  shawnboyce
+
+	* bin/license.pl (1.1):
+	
+	initial version
+
+2002-08-12 Monday 18:36  jews
+
+	* build.sh (1.2):
+	
+	tar.gz -> .tgz like other modules
+
+2002-08-10 Saturday 08:38  jews
+
+	* WHATSNEW (1.2, tools_1_3_0_BETA2):
+	
+	Beta2 information
+
+2002-07-22 Monday 06:59  mrumpf
+
+	* etc/checkstyle.properties (1.23, tools_1_3_0_BETA2):
+	
+	    Fixed the syntax of the property
+	checkstyle.illegalInstantiations.
+
+2002-07-20 Saturday 15:54  mrumpf
+
+	* etc/checkstyle.properties (1.22):
+	
+	   Allow package protected members. This is used in DynAnyImpl
+	where members
+	      are accessed from derived classes.
+	   Do not allow instantiations of Boolean.
+
+2002-07-16 Tuesday 21:05  mrumpf
+
+	* etc/checkstyle.properties (1.21):
+	
+	    Max file increased so that Delegate.java with 2994 lines will
+	pass.
+
+2002-07-14 Sunday 20:36  mrumpf
+
+	* etc/checkstyle.properties (1.20), lib/README (1.8,
+	tools_1_3_0_BETA2), lib/checkstyle-all.jar (1.3,
+	tools_1_3_0_BETA2):
+	
+	   Upgraded to checkstyle 2.3.
+
+2002-07-03 Wednesday 14:39  mrumpf
+
+	* lib/README (1.7):
+	
+	   Updated README to reflect the latest changes.
+
+2002-07-03 Wednesday 14:07  mrumpf
+
+	* lib/: xalan.jar (1.2), xml-apis.jar (1.1) (utags:
+	tools_1_3_0_BETA2):
+	
+	   Added latest xalan version to make docbook compile work under
+	JDK 1.4.
+
+2002-06-28 Friday 09:16  mrumpf
+
+	* etc/checkstyle.properties (1.19):
+	
+	   Activated the license header check again as the three core
+	modules are clean now.
+	   All other modules do not have the failonerror property set to
+	true yet.
+
+2002-06-27 Thursday 22:04  mrumpf
+
+	* etc/checkstyle.properties (1.18):
+	
+	   Temporarily disable the header check to let the nightly build
+	run through...
+
+2002-06-27 Thursday 20:19  mrumpf
+
+	* LICENSE.txt (1.1, tools_1_3_0_BETA2, tools_1_3_0_BETA1), README
+	(1.4, tools_1_3_0_BETA2), WHATSNEW (1.1, tools_1_3_0_BETA1),
+	build.bat (1.1, tools_1_3_0_BETA2, tools_1_3_0_BETA1),
+	docbook/README (1.2, tools_1_3_0_BETA2), lib/README (1.6):
+	
+	   Updates.
+
+2002-06-27 Thursday 19:20  mrumpf
+
+	* build.sh (1.1, tools_1_3_0_BETA2, tools_1_3_0_BETA1):
+	
+	   Added a build script to create a tools archive for distribution.
+
+2002-06-27 Thursday 17:45  mrumpf
+
+	* etc/: LICENSE.txt (1.1, tools_1_3_0_BETA2), checkstyle.properties
+	(1.17):
+	
+	   Make checkstyle check the license headers of the source files.
+
+2002-06-27 Thursday 15:42  mrumpf
+
+	* README (1.3), lib/README (1.5):
+	
+	   Updated the READMEs.
+
+2002-05-31 Friday 02:30  shawnboyce
+
+	* etc/checkstyle.properties (1.16, tools_1_3_0_BETA1):
+	
+	increase max constructor length to 500 (from 300) for RMIoverIIOP
+	module.
+
+2002-05-24 Friday 06:57  mrumpf
+
+	* etc/checkstyle.properties (1.15):
+	
+	   Changed the maxXYZlen properties again. Leaving the dafaults
+	would be
+	   too much effort.
+
+2002-05-22 Wednesday 23:41  mrumpf
+
+	* etc/checkstyle.properties (1.14):
+	
+	    More checkstyle features enabled.
+
+2002-05-22 Wednesday 23:19  mrumpf
+
+	* etc/checkstyle.properties (1.13):
+	
+	   Fixed line length warnings after setting the maxlinelen back to
+	100.
+
+2002-05-22 Wednesday 19:56  mrumpf
+
+	* etc/checkstyle.properties (1.12):
+	
+	   Adapted more rules to match the Avalon/Jakarta coding
+	guidelines.
+
+2002-05-15 Wednesday 17:25  mrumpf
+
+	* etc/checkstyle.properties (1.11):
+	
+	    Allow file length of 3000.
+
+2002-05-15 Wednesday 17:20  mrumpf
+
+	* etc/checkstyle.properties (1.10):
+	
+	   Allow method and constructor length of 500.
+	   Allow file length of 3000.
+
+2002-05-14 Tuesday 23:17  mrumpf
+
+	* etc/checkstyle.properties (1.9):
+	
+	    Use the same regex for all patterns, i.e. do not allow double
+	    (consecutive) underscores.
+
+2002-05-14 Tuesday 15:56  mrumpf
+
+	* etc/checkstyle.properties (1.8):
+	
+	   Added better patterns for members and methods.
+	   Added support for checkstyle cache files.
+
+2002-05-13 Monday 17:56  mrumpf
+
+	* etc/checkstyle.properties (1.7):
+	
+	   Removed a '=' from the constant pattern.
+
+2002-05-13 Monday 17:36  mrumpf
+
+	* etc/checkstyle.properties (1.6):
+	
+	    Added a pattern to better match the rule for constants.
+	    Do not ignore public in interfaces.
+
+2002-05-13 Monday 16:19  mrumpf
+
+	* etc/checkstyle.properties (1.5):
+	
+	   Allow capital name constants.
+
+2002-05-13 Monday 15:12  mrumpf
+
+	* etc/checkstyle.properties (1.4):
+	
+	   Switched to the official Jakarta checkstyle rules.
+
+2002-05-13 Monday 14:32  mrumpf
+
+	* etc/checkstyle.properties (1.3):
+	
+	   Set the maximum line length to 79 (379 was used to see what real
+	issues
+	   we have, besides lines that are too long)
+
+2002-05-13 Monday 13:52  mrumpf
+
+	* etc/checkstyle.properties (1.2):
+	
+	   Added the central checkstyle properties file to RMIoverIIOP and
+	SSL.
+	   Added more parameters to match the coding Sun/Avalon
+	conventions.
+
+2002-05-13 Monday 13:38  mrumpf
+
+	* etc/checkstyle.properties (1.1):
+	
+	   Added the central checkstyle properties file.
+
+2002-05-13 Monday 12:56  mrumpf
+
+	* lib/: README (1.4), checkstyle-all.jar (1.2) (utags:
+	tools_1_3_0_BETA1):
+	
+	   Added version 2.2 of checkstyle.
+
+2002-05-13 Monday 12:35  electric_steve
+
+	* lib/excalibur-configuration.jar (1.1, tools_1_3_0_BETA2,
+	tools_1_3_0_BETA1):
+	
+	no message
+
+2002-05-12 Sunday 11:52  electric_steve
+
+	* lib/excalibur-configuration-1.0.jar (1.2):
+	
+	replaced by excalibur-configuration.jar
+
+2002-05-12 Sunday 04:31  electric_steve
+
+	* lib/excalibur-configuration-1.0.jar (1.1):
+	
+	new source for CascadingConfiguration
+
+2002-04-23 Tuesday 22:17  mrumpf
+
+	* lib/checkstyle-all.jar (1.1):
+	
+	   Added the tool checkstyle to the tool set.
+
+2002-03-02 Saturday 03:08  electric_steve
+
+	* lib/avalon-framework.jar (1.4, tools_1_3_0_BETA2,
+	tools_1_3_0_BETA1):
+	
+	Updated to include Log4J logger.
+
+2002-02-22 Friday 08:57  electric_steve
+
+	* lib/avalon-framework.jar (1.3):
+	
+	Same version as before with corrected javadoc on service package.
+
+2002-02-21 Thursday 17:12  electric_steve
+
+	* lib/README (1.3):
+	
+	quick update to the framework version that includes purged
+	"component" in doc and replaced getComponent with getObjects in the
+	DefaultComponentManager
+
+2002-02-21 Thursday 16:33  electric_steve
+
+	* lib/avalon-framework.jar (1.2):
+	
+	updated version that provides support for components that don't
+	implement the Component interface (refer framework.service package)
+
+2002-01-28 Monday 19:52  mrumpf
+
+	* docbook/xsl/: BUGS (1.1), ChangeLog (1.1), README (1.1), TODO
+	(1.1), VERSION (1.1), WhatsNew (1.1), common/ChangeLog (1.1),
+	common/af.xml (1.1), common/ca.xml (1.1), common/common.xsl (1.1),
+	common/cs.xml (1.1), common/da.xml (1.1), common/de.xml (1.1),
+	common/el.xml (1.1), common/en.xml (1.1), common/es.xml (1.1),
+	common/et.xml (1.1), common/eu.xml (1.1), common/fi.xml (1.1),
+	common/fr.xml (1.1), common/gentext.xsl (1.1), common/hu.xml (1.1),
+	common/id.xml (1.1), common/it.xml (1.1), common/ja.xml (1.1),
+	common/ko.xml (1.1), common/l10n.dtd (1.1), common/l10n.xml (1.1),
+	common/l10n.xsl (1.1), common/labels.xsl (1.1), common/nl.xml
+	(1.1), common/nn.xml (1.1), common/no.xml (1.1), common/pl.xml
+	(1.1), common/pt.xml (1.1), common/pt_br.xml (1.1), common/ro.xml
+	(1.1), common/ru.xml (1.1), common/sk.xml (1.1), common/sl.xml
+	(1.1), common/sr.xml (1.1), common/subtitles.xsl (1.1),
+	common/sv.xml (1.1), common/table.xsl (1.1), common/th.xml (1.1),
+	common/titles.xsl (1.1), common/tr.xml (1.1), common/uk.xml (1.1),
+	common/xh.xml (1.1), common/zh_cn.xml (1.1), common/zh_tw.xml
+	(1.1), doc/ChangeLog (1.1), doc/book.xsl (1.1), doc/ch01s02.html
+	(1.1), doc/ch01s03.html (1.1), doc/ch01s04.html (1.1),
+	doc/ch02s02.html (1.1), doc/ch03.html (1.1), doc/ch04.html (1.1),
+	doc/ch05.html (1.1), doc/ch06s02.html (1.1), doc/ch06s03.html
+	(1.1), doc/copyright.html (1.1), doc/extensions.html (1.1),
+	doc/htmlhelp.html (1.1), doc/index.html (1.1), doc/jrefhtml.xsl
+	(1.1), doc/pr01.html (1.1), doc/publishing.html (1.1), doc/ref.css
+	(1.1), doc/reference.css (1.1), doc/reference.html (1.1),
+	doc/reference.xsl (1.1), doc/warranty.html (1.1),
+	doc/common/ChangeLog (1.1), doc/common/common.html (1.1),
+	doc/fo/ChangeLog (1.1), doc/fo/admon.graphics.extension.html (1.1),
+	doc/fo/admon.graphics.html (1.1), doc/fo/admon.graphics.path.html
+	(1.1), doc/fo/admonition.properties.html (1.1),
+	doc/fo/admonition.title.properties.html (1.1),
+	doc/fo/alignment.html (1.1), doc/fo/apa.html (1.1),
+	doc/fo/appendix.autolabel.html (1.1),
+	doc/fo/arbortext.extensions.html (1.1),
+	doc/fo/author.othername.in.middle.html (1.1),
+	doc/fo/autotoc.label.separator.html (1.1),
+	doc/fo/biblioentry.item.separator.html (1.1),
+	doc/fo/bibliography.collection.html (1.1),
+	doc/fo/blockquote.properties.html (1.1),
+	doc/fo/body.font.family.html (1.1), doc/fo/body.font.master.html
+	(1.1), doc/fo/body.font.size.html (1.1),
+	doc/fo/body.margin.bottom.html (1.1), doc/fo/body.margin.top.html
+	(1.1), doc/fo/callout.defaultcolumn.html (1.1),
+	doc/fo/callout.graphics.extension.html (1.1),
+	doc/fo/callout.graphics.html (1.1),
+	doc/fo/callout.graphics.number.limit.html (1.1),
+	doc/fo/callout.graphics.path.html (1.1),
+	doc/fo/callout.unicode.font.html (1.1), doc/fo/callout.unicode.html
+	(1.1), doc/fo/callout.unicode.number.limit.html (1.1),
+	doc/fo/callout.unicode.start.character.html (1.1),
+	doc/fo/callouts.extension.html (1.1), doc/fo/chapter.autolabel.html
+	(1.1), doc/fo/column.count.html (1.1),
+	doc/fo/component.title.properties.html (1.1),
+	doc/fo/default.table.width.html (1.1), doc/fo/default.units.html
+	(1.1), doc/fo/dingbat.font.family.html (1.1),
+	doc/fo/double.sided.html (1.1), doc/fo/firstterm.only.link.html
+	(1.1), doc/fo/footnote.font.size.html (1.1),
+	doc/fo/fop.extensions.html (1.1),
+	doc/fo/formal.object.properties.html (1.1),
+	doc/fo/formal.procedures.html (1.1),
+	doc/fo/formal.title.properties.html (1.1),
+	doc/fo/format.variablelist.as.list.html (1.1),
+	doc/fo/funcsynopsis.decoration.html (1.1),
+	doc/fo/funcsynopsis.style.html (1.1), doc/fo/function.parens.html
+	(1.1), doc/fo/generate.book.equation.lot.html (1.1),
+	doc/fo/generate.book.example.lot.html (1.1),
+	doc/fo/generate.book.figure.lot.html (1.1),
+	doc/fo/generate.book.table.lot.html (1.1),
+	doc/fo/generate.book.toc.html (1.1),
+	doc/fo/generate.component.toc.html (1.1),
+	doc/fo/generate.division.equation.lot.html (1.1),
+	doc/fo/generate.division.example.lot.html (1.1),
+	doc/fo/generate.division.figure.lot.html (1.1),
+	doc/fo/generate.division.table.lot.html (1.1),
+	doc/fo/generate.division.toc.html (1.1), doc/fo/generate.index.html
+	(1.1), doc/fo/generate.set.toc.html (1.1),
+	doc/fo/glossary.collection.html (1.1),
+	doc/fo/glossterm.auto.link.html (1.1),
+	doc/fo/graphic.default.extension.html (1.1),
+	doc/fo/html.stylesheet.html (1.1), doc/fo/html.stylesheet.type.html
+	(1.1), doc/fo/hyphenate.html (1.1), doc/fo/index.html (1.1),
+	doc/fo/insert.xref.page.number.html (1.1),
+	doc/fo/label.from.part.html (1.1), doc/fo/line-height.html (1.1),
+	doc/fo/linenumbering.everyNth.html (1.1),
+	doc/fo/linenumbering.extension.html (1.1),
+	doc/fo/linenumbering.separator.html (1.1),
+	doc/fo/linenumbering.width.html (1.1),
+	doc/fo/list.block.spacing.html (1.1), doc/fo/list.item.spacing.html
+	(1.1), doc/fo/make.single.year.ranges.html (1.1),
+	doc/fo/make.year.ranges.html (1.1),
+	doc/fo/monospace.font.family.html (1.1),
+	doc/fo/monospace.verbatim.properties.html (1.1),
+	doc/fo/nominal.table.width.html (1.1),
+	doc/fo/normal.para.spacing.html (1.1), doc/fo/page.height.html
+	(1.1), doc/fo/page.height.portrait.html (1.1),
+	doc/fo/page.margin.bottom.html (1.1), doc/fo/page.margin.inner.html
+	(1.1), doc/fo/page.margin.outer.html (1.1),
+	doc/fo/page.margin.top.html (1.1), doc/fo/page.orientation.html
+	(1.1), doc/fo/page.width.html (1.1),
+	doc/fo/page.width.portrait.html (1.1), doc/fo/paper.type.html
+	(1.1), doc/fo/part.autolabel.html (1.1),
+	doc/fo/passivetex.extensions.html (1.1), doc/fo/pr01.html (1.1),
+	doc/fo/preface.autolabel.html (1.1),
+	doc/fo/process.empty.source.toc.html (1.1),
+	doc/fo/process.source.toc.html (1.1), doc/fo/punct.honorific.html
+	(1.1), doc/fo/qanda.inherit.numeration.html (1.1),
+	doc/fo/qandadiv.autolabel.html (1.1),
+	doc/fo/refentry.generate.name.html (1.1),
+	doc/fo/refentry.generate.title.html (1.1),
+	doc/fo/refentry.xref.manvolnum.html (1.1),
+	doc/fo/region.after.extent.html (1.1),
+	doc/fo/region.before.extent.html (1.1), doc/fo/rn01.html (1.1),
+	doc/fo/rn02.html (1.1), doc/fo/rn03.html (1.1), doc/fo/rn04.html
+	(1.1), doc/fo/rn05.html (1.1), doc/fo/rn06.html (1.1),
+	doc/fo/rn07.html (1.1), doc/fo/rn08.html (1.1), doc/fo/rn09.html
+	(1.1), doc/fo/rn10.html (1.1), doc/fo/rn11.html (1.1),
+	doc/fo/rn12.html (1.1), doc/fo/rn13.html (1.1), doc/fo/rn14.html
+	(1.1), doc/fo/rn15.html (1.1), doc/fo/rn16.html (1.1),
+	doc/fo/rn17.html (1.1), doc/fo/rn18.html (1.1), doc/fo/rn19.html
+	(1.1), doc/fo/rn20.html (1.1), doc/fo/rootid.html (1.1),
+	doc/fo/runinhead.default.title.end.punct.html (1.1),
+	doc/fo/runinhead.title.end.punct.html (1.1),
+	doc/fo/sans.font.family.html (1.1), doc/fo/section.autolabel.html
+	(1.1), doc/fo/section.label.includes.component.label.html (1.1),
+	doc/fo/segmentedlist.as.table.html (1.1), doc/fo/show.comments.html
+	(1.1), doc/fo/stylesheet.result.type.html (1.1),
+	doc/fo/table.border.color.html (1.1),
+	doc/fo/table.border.padding.html (1.1),
+	doc/fo/table.border.style.html (1.1),
+	doc/fo/table.border.thickness.html (1.1),
+	doc/fo/table.entry.padding.html (1.1), doc/fo/table.html (1.1),
+	doc/fo/tablecolumns.extension.html (1.1),
+	doc/fo/tex.math.in.alt.html (1.1), doc/fo/textinsert.extension.html
+	(1.1), doc/fo/title.font.family.html (1.1),
+	doc/fo/title.margin.left.html (1.1), doc/fo/toc.indent.width.html
+	(1.1), doc/fo/toc.margin.properties.html (1.1),
+	doc/fo/toc.section.depth.html (1.1), doc/fo/use.extensions.html
+	(1.1), doc/fo/variablelist.as.blocks.html (1.1),
+	doc/fo/verbatim.properties.html (1.1), doc/fo/xep.extensions.html
+	(1.1), doc/fo/xref.properties.html (1.1), doc/html/ChangeLog (1.1),
+	doc/html/admon.graphics.extension.html (1.1),
+	doc/html/admon.graphics.html (1.1),
+	doc/html/admon.graphics.path.html (1.1), doc/html/admon.style.html
+	(1.1), doc/html/annotate.toc.html (1.1), doc/html/apa.html (1.1),
+	doc/html/appendix.autolabel.html (1.1),
+	doc/html/author.othername.in.middle.html (1.1),
+	doc/html/autotoc.label.separator.html (1.1), doc/html/base.dir.html
+	(1.1), doc/html/biblioentry.item.separator.html (1.1),
+	doc/html/bibliography.collection.html (1.1),
+	doc/html/bridgehead.in.toc.html (1.1),
+	doc/html/callout.defaultcolumn.html (1.1),
+	doc/html/callout.graphics.extension.html (1.1),
+	doc/html/callout.graphics.html (1.1),
+	doc/html/callout.graphics.number.limit.html (1.1),
+	doc/html/callout.graphics.path.html (1.1),
+	doc/html/callout.list.table.html (1.1),
+	doc/html/callout.unicode.html (1.1),
+	doc/html/callout.unicode.number.limit.html (1.1),
+	doc/html/callout.unicode.start.character.html (1.1),
+	doc/html/callouts.extension.html (1.1),
+	doc/html/chapter.autolabel.html (1.1), doc/html/chunk.datafile.html
+	(1.1), doc/html/chunk.first.sections.html (1.1),
+	doc/html/chunk.section.depth.html (1.1),
+	doc/html/citerefentry.link.html (1.1), doc/html/css.decoration.html
+	(1.1), doc/html/default.encoding.html (1.1),
+	doc/html/default.table.width.html (1.1),
+	doc/html/ebnf.table.bgcolor.html (1.1),
+	doc/html/ebnf.table.border.html (1.1),
+	doc/html/emphasis.propagates.style.html (1.1),
+	doc/html/firstterm.only.link.html (1.1),
+	doc/html/formal.procedures.html (1.1),
+	doc/html/funcsynopsis.decoration.html (1.1),
+	doc/html/funcsynopsis.style.html (1.1),
+	doc/html/function.parens.html (1.1),
+	doc/html/generate.appendix.toc.html (1.1),
+	doc/html/generate.article.toc.html (1.1),
+	doc/html/generate.book.toc.html (1.1),
+	doc/html/generate.chapter.toc.html (1.1),
+	doc/html/generate.component.toc.html (1.1),
+	doc/html/generate.division.toc.html (1.1),
+	doc/html/generate.index.html (1.1),
+	doc/html/generate.legalnotice.link.html (1.1),
+	doc/html/generate.part.toc.html (1.1),
+	doc/html/generate.preface.toc.html (1.1),
+	doc/html/generate.qandadiv.toc.html (1.1),
+	doc/html/generate.qandaset.toc.html (1.1),
+	doc/html/generate.reference.toc.html (1.1),
+	doc/html/generate.section.toc.html (1.1),
+	doc/html/generate.section.toc.level.html (1.1),
+	doc/html/generate.set.toc.html (1.1),
+	doc/html/glossary.collection.html (1.1),
+	doc/html/glossterm.auto.link.html (1.1),
+	doc/html/graphic.default.extension.html (1.1),
+	doc/html/html.base.html (1.1), doc/html/html.ext.html (1.1),
+	doc/html/html.longdesc.html (1.1), doc/html/html.longdesc.link.html
+	(1.1), doc/html/html.stylesheet.html (1.1),
+	doc/html/html.stylesheet.type.html (1.1),
+	doc/html/htmlhelp.alias.file.html (1.1),
+	doc/html/htmlhelp.autolabel.html (1.1), doc/html/htmlhelp.chm.html
+	(1.1), doc/html/htmlhelp.encoding.html (1.1),
+	doc/html/htmlhelp.enumerate.images.html (1.1),
+	doc/html/htmlhelp.force.map.and.alias.html (1.1),
+	doc/html/htmlhelp.hhc.html (1.1),
+	doc/html/htmlhelp.hhc.section.depth.html (1.1),
+	doc/html/htmlhelp.hhp.html (1.1), doc/html/htmlhelp.hhp.tail.html
+	(1.1), doc/html/htmlhelp.map.file.html (1.1), doc/html/index.html
+	(1.1), doc/html/inherit.keywords.html (1.1),
+	doc/html/label.from.part.html (1.1),
+	doc/html/linenumbering.everyNth.html (1.1),
+	doc/html/linenumbering.extension.html (1.1),
+	doc/html/linenumbering.separator.html (1.1),
+	doc/html/linenumbering.width.html (1.1),
+	doc/html/link.mailto.url.html (1.1),
+	doc/html/make.single.year.ranges.html (1.1),
+	doc/html/make.valid.html.html (1.1), doc/html/make.year.ranges.html
+	(1.1), doc/html/navig.graphics.extension.html (1.1),
+	doc/html/navig.graphics.html (1.1),
+	doc/html/navig.graphics.path.html (1.1),
+	doc/html/navig.showtitles.html (1.1),
+	doc/html/nominal.table.width.html (1.1), doc/html/olink.fragid.html
+	(1.1), doc/html/olink.outline.ext.html (1.1),
+	doc/html/olink.pubid.html (1.1), doc/html/olink.resolver.html
+	(1.1), doc/html/olink.sysid.html (1.1), doc/html/output.method.html
+	(1.1), doc/html/part.autolabel.html (1.1),
+	doc/html/phrase.propagates.style.html (1.1), doc/html/pr01.html
+	(1.1), doc/html/preface.autolabel.html (1.1),
+	doc/html/process.empty.source.toc.html (1.1),
+	doc/html/process.source.toc.html (1.1),
+	doc/html/punct.honorific.html (1.1),
+	doc/html/qanda.defaultlabel.html (1.1),
+	doc/html/qanda.inherit.numeration.html (1.1),
+	doc/html/qandadiv.autolabel.html (1.1),
+	doc/html/refentry.generate.name.html (1.1),
+	doc/html/refentry.generate.title.html (1.1),
+	doc/html/refentry.separator.html (1.1),
+	doc/html/refentry.xref.manvolnum.html (1.1), doc/html/rn01.html
+	(1.1), doc/html/rn02.html (1.1), doc/html/rn03.html (1.1),
+	doc/html/rn04.html (1.1), doc/html/rn05.html (1.1),
+	doc/html/rn06.html (1.1), doc/html/rn07.html (1.1),
+	doc/html/rn08.html (1.1), doc/html/rn09.html (1.1),
+	doc/html/rn10.html (1.1), doc/html/rn11.html (1.1),
+	doc/html/rn12.html (1.1), doc/html/rn13.html (1.1),
+	doc/html/rn14.html (1.1), doc/html/rn15.html (1.1),
+	doc/html/rn16.html (1.1), doc/html/rn17.html (1.1),
+	doc/html/rn18.html (1.1), doc/html/root.filename.html (1.1),
+	doc/html/rootid.html (1.1),
+	doc/html/runinhead.default.title.end.punct.html (1.1),
+	doc/html/runinhead.title.end.punct.html (1.1),
+	doc/html/saxon.character.representation.html (1.1),
+	doc/html/section.autolabel.html (1.1),
+	doc/html/section.label.includes.component.label.html (1.1),
+	doc/html/segmentedlist.as.table.html (1.1),
+	doc/html/shade.verbatim.html (1.1),
+	doc/html/shade.verbatim.style.html (1.1),
+	doc/html/show.comments.html (1.1), doc/html/show.revisionflag.html
+	(1.1), doc/html/spacing.paras.html (1.1),
+	doc/html/stylesheet.result.type.html (1.1),
+	doc/html/suppress.navigation.html (1.1),
+	doc/html/table.border.color.html (1.1),
+	doc/html/table.border.style.html (1.1),
+	doc/html/table.border.thickness.html (1.1),
+	doc/html/table.borders.with.css.html (1.1),
+	doc/html/tablecolumns.extension.html (1.1),
+	doc/html/tex.math.file.html (1.1), doc/html/tex.math.in.alt.html
+	(1.1), doc/html/textinsert.extension.html (1.1),
+	doc/html/toc.list.type.html (1.1), doc/html/toc.section.depth.html
+	(1.1), doc/html/ulink.target.html (1.1),
+	doc/html/use.extensions.html (1.1),
+	doc/html/use.id.as.filename.html (1.1), doc/html/using.chunker.html
+	(1.1), doc/html/variablelist.as.table.html (1.1), doc/lib/ChangeLog
+	(1.1), doc/lib/lib.html (1.1), doc/template/ChangeLog (1.1),
+	doc/template/titlepage.html (1.1), doc/tools/ChangeLog (1.1),
+	doc/tools/profile-chain.png (1.1), doc/tools/profiling.html (1.1),
+	docsrc/ChangeLog (1.1), docsrc/clrefentry.xsl (1.1),
+	docsrc/copyright.xml (1.1), docsrc/documentation.xml (1.1),
+	docsrc/extensions.xml (1.1), docsrc/htmlhelp.xml (1.1),
+	docsrc/jrefhtml.xsl (1.1), docsrc/legalnotice.xml (1.1),
+	docsrc/lrefentry.xsl (1.1), docsrc/publishing.xml (1.1),
+	docsrc/reference.xml (1.1), docsrc/template-example.xml (1.1),
+	docsrc/template-example.xsl (1.1), docsrc/templates.xml (1.1),
+	docsrc/warranty.xml (1.1), docsrc/xsl2jref.xsl (1.1),
+	docsrc/common/ChangeLog (1.1), docsrc/common/common.xml (1.1),
+	docsrc/fo/ChangeLog (1.1), docsrc/fo/param.xml (1.1),
+	docsrc/fo/table.xml (1.1), docsrc/html/ChangeLog (1.1),
+	docsrc/html/param.xml (1.1), docsrc/lib/ChangeLog (1.1),
+	docsrc/lib/lib.xml (1.1), docsrc/template/ChangeLog (1.1),
+	docsrc/template/titlepage.xml (1.1), docsrc/tools/ChangeLog (1.1),
+	docsrc/tools/profile-chain.png (1.1), docsrc/tools/profiling.xml
+	(1.1), extensions/ChangeLog (1.1), extensions/prj.el (1.1),
+	extensions/saxon642.jar (1.1), extensions/saxon643.jar (1.1),
+	extensions/saxon644.jar (1.1), extensions/saxon65.jar (1.1),
+	extensions/xalan2.jar (1.1),
+	extensions/doc/saxon5/deprecated-list.html (1.1),
+	extensions/doc/saxon5/help-doc.html (1.1),
+	extensions/doc/saxon5/index-all.html (1.1),
+	extensions/doc/saxon5/index.html (1.1),
+	extensions/doc/saxon5/overview-tree.html (1.1),
+	extensions/doc/saxon5/package-list (1.1),
+	extensions/doc/saxon5/packages.html (1.1),
+	extensions/doc/saxon5/serialized-form.html (1.1),
+	extensions/doc/saxon5/stylesheet.css (1.1),
+	extensions/doc/saxon5/com/nwalsh/saxon/CVS.html (1.1),
+	extensions/doc/saxon5/com/nwalsh/saxon/Callout.html (1.1),
+	extensions/doc/saxon5/com/nwalsh/saxon/Driver.html (1.1),
+	extensions/doc/saxon5/com/nwalsh/saxon/Text.html (1.1),
+	extensions/doc/saxon5/com/nwalsh/saxon/TextFactory.html (1.1),
+	extensions/doc/saxon5/com/nwalsh/saxon/Verbatim.html (1.1),
+	extensions/doc/saxon5/com/nwalsh/saxon/package-frame.html (1.1),
+	extensions/doc/saxon5/com/nwalsh/saxon/package-summary.html (1.1),
+	extensions/doc/saxon5/com/nwalsh/saxon/package-tree.html (1.1),
+	extensions/doc/saxon6/deprecated-list.html (1.1),
+	extensions/doc/saxon6/help-doc.html (1.1),
+	extensions/doc/saxon6/index-all.html (1.1),
+	extensions/doc/saxon6/index.html (1.1),
+	extensions/doc/saxon6/overview-tree.html (1.1),
+	extensions/doc/saxon6/package-list (1.1),
+	extensions/doc/saxon6/packages.html (1.1),
+	extensions/doc/saxon6/serialized-form.html (1.1),
+	extensions/doc/saxon6/stylesheet.css (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/CVS.html (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/CalloutEmitter.html (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/CopyEmitter.html (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/LineCountEmitter.html
+	(1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/NumberLinesEmitter.html
+	(1.1), extensions/doc/saxon6/com/nwalsh/saxon6/Table.html (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/Text.html (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/TextFactory.html (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/Verbatim.html (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/package-frame.html (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/package-summary.html (1.1),
+	extensions/doc/saxon6/com/nwalsh/saxon6/package-tree.html (1.1),
+	extensions/saxon642/ChangeLog (1.1), extensions/saxon642/prj.el
+	(1.1), extensions/saxon642/com/nwalsh/saxon/CVS.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/Callout.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/CalloutEmitter.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/ChangeLog (1.1),
+	extensions/saxon642/com/nwalsh/saxon/ColumnScanEmitter.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/ColumnUpdateEmitter.java
+	(1.1), extensions/saxon642/com/nwalsh/saxon/CopyEmitter.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/FormatCallout.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/FormatGraphicCallout.java
+	(1.1), extensions/saxon642/com/nwalsh/saxon/FormatTextCallout.java
+	(1.1),
+	extensions/saxon642/com/nwalsh/saxon/FormatUnicodeCallout.java
+	(1.1), extensions/saxon642/com/nwalsh/saxon/LineCountEmitter.java
+	(1.1), extensions/saxon642/com/nwalsh/saxon/NumberLinesEmitter.java
+	(1.1), extensions/saxon642/com/nwalsh/saxon/Table.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/Text.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/TextFactory.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/Verbatim.java (1.1),
+	extensions/saxon642/com/nwalsh/saxon/package.html (1.1),
+	extensions/saxon643/ChangeLog (1.1), extensions/saxon643/prj.el
+	(1.1), extensions/saxon643/com/nwalsh/saxon/CVS.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/Callout.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/CalloutEmitter.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/ChangeLog (1.1),
+	extensions/saxon643/com/nwalsh/saxon/ColumnScanEmitter.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/ColumnUpdateEmitter.java
+	(1.1), extensions/saxon643/com/nwalsh/saxon/CopyEmitter.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/FormatCallout.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/FormatGraphicCallout.java
+	(1.1), extensions/saxon643/com/nwalsh/saxon/FormatTextCallout.java
+	(1.1),
+	extensions/saxon643/com/nwalsh/saxon/FormatUnicodeCallout.java
+	(1.1), extensions/saxon643/com/nwalsh/saxon/LineCountEmitter.java
+	(1.1), extensions/saxon643/com/nwalsh/saxon/NumberLinesEmitter.java
+	(1.1), extensions/saxon643/com/nwalsh/saxon/Table.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/Text.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/TextFactory.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/Verbatim.java (1.1),
+	extensions/saxon643/com/nwalsh/saxon/package.html (1.1),
+	extensions/xalan2/ChangeLog (1.1),
+	extensions/xalan2/com/nwalsh/xalan/CVS.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/Callout.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/ChangeLog (1.1),
+	extensions/xalan2/com/nwalsh/xalan/FormatCallout.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/FormatDingbatCallout.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/FormatGraphicCallout.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/FormatTextCallout.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/FormatUnicodeCallout.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/Func.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/Params.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/Table.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/Text.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/Verbatim.java (1.1),
+	extensions/xalan2/com/nwalsh/xalan/package.html (1.1), fo/ChangeLog
+	(1.1), fo/admon.xsl (1.1), fo/autoidx.xsl (1.1), fo/autotoc.xsl
+	(1.1), fo/biblio.xsl (1.1), fo/block.xsl (1.1), fo/callout.xsl
+	(1.1), fo/component.xsl (1.1), fo/division.xsl (1.1),
+	fo/docbook.xsl (1.1), fo/ebnf.xsl (1.1), fo/fo-patch-for-fop.xsl
+	(1.1), fo/fo.xsl (1.1), fo/footnote.xsl (1.1), fo/fop.xsl (1.1),
+	fo/formal.xsl (1.1), fo/glossary.xsl (1.1), fo/graphics.xsl (1.1),
+	fo/index.xsl (1.1), fo/info.xsl (1.1), fo/inline.xsl (1.1),
+	fo/keywords.xsl (1.1), fo/lists.xsl (1.1), fo/math.xsl (1.1),
+	fo/output (1.1), fo/pagesetup.xsl (1.1), fo/param.ent (1.1),
+	fo/param.html (1.1), fo/param.xml (1.1), fo/param.xsl (1.1),
+	fo/param.xweb (1.1), fo/passivetex.xsl (1.1), fo/pi.xsl (1.1),
+	fo/qandaset.xsl (1.1), fo/refentry.xsl (1.1), fo/sections.xsl
+	(1.1), fo/synop.xsl (1.1), fo/table.xsl (1.1),
+	fo/titlepage.templates.xml (1.1), fo/titlepage.templates.xsl (1.1),
+	fo/titlepage.xsl (1.1), fo/toc.xsl (1.1), fo/verbatim.xsl (1.1),
+	fo/xep.xsl (1.1), fo/xref.xsl (1.1), html/.#param.ent.1.8 (1.1),
+	html/.#param.xweb.1.11 (1.1), html/ChangeLog (1.1), html/admon.xsl
+	(1.1), html/autoidx.xsl (1.1), html/autotoc.xsl (1.1),
+	html/biblio.xsl (1.1), html/block.xsl (1.1), html/calc-chunks.xsl
+	(1.1), html/callout.xsl (1.1), html/changebars.xsl (1.1),
+	html/chunk-experimental.xsl (1.1), html/chunk.xsl (1.1),
+	html/chunker.xsl (1.1), html/component.xsl (1.1), html/division.xsl
+	(1.1), html/docbook.xsl (1.1), html/ebnf.xsl (1.1),
+	html/expchunk.xsl (1.1), html/footnote.xsl (1.1), html/formal.xsl
+	(1.1), html/glossary.xsl (1.1), html/graphics.xsl (1.1),
+	html/html.xsl (1.1), html/index.xsl (1.1), html/info.xsl (1.1),
+	html/inline.xsl (1.1), html/keywords.xsl (1.1), html/lists.xsl
+	(1.1), html/math.xsl (1.1), html/oldchunker.xsl (1.1),
+	html/onechunk.xsl (1.1), html/param.ent (1.1), html/param.html
+	(1.1), html/param.xml (1.1), html/param.xsl (1.1), html/param.xweb
+	(1.1), html/pi.xsl (1.1), html/qandaset.xsl (1.1),
+	html/refentry.xsl (1.1), html/sections.xsl (1.1), html/synop.xsl
+	(1.1), html/table.xsl (1.1), html/titlepage.templates.xml (1.1),
+	html/titlepage.templates.xsl (1.1), html/titlepage.xsl (1.1),
+	html/toc.xsl (1.1), html/verbatim.xsl (1.1), html/xref.xsl (1.1),
+	htmlhelp/ChangeLog (1.1), htmlhelp/htmlhelp.xsl (1.1),
+	htmlhelp/langcodes.xml (1.1), htmlhelp/doc/ChangeLog (1.1),
+	htmlhelp/doc/htmlhelp.xml (1.1), images/ChangeLog (1.1),
+	images/caution.gif (1.1), images/caution.png (1.1),
+	images/caution.tif (1.1), images/home.gif (1.1), images/home.png
+	(1.1), images/important.gif (1.1), images/important.png (1.1),
+	images/important.tif (1.1), images/next.gif (1.1), images/next.png
+	(1.1), images/note.gif (1.1), images/note.png (1.1),
+	images/note.tif (1.1), images/prev.gif (1.1), images/prev.png
+	(1.1), images/tip.gif (1.1), images/tip.png (1.1), images/tip.tif
+	(1.1), images/toc-blank.png (1.1), images/toc-minus.png (1.1),
+	images/toc-plus.png (1.1), images/up.gif (1.1), images/up.png
+	(1.1), images/warning.gif (1.1), images/warning.png (1.1),
+	images/warning.tif (1.1), images/callouts/1.png (1.1),
+	images/callouts/10.png (1.1), images/callouts/2.png (1.1),
+	images/callouts/3.png (1.1), images/callouts/4.png (1.1),
+	images/callouts/5.png (1.1), images/callouts/6.png (1.1),
+	images/callouts/7.png (1.1), images/callouts/8.png (1.1),
+	images/callouts/9.png (1.1), images/callouts/ChangeLog (1.1),
+	javahelp/ChangeLog (1.1), javahelp/javahelp.xsl (1.1),
+	lib/ChangeLog (1.1), lib/lib.xsl (1.1), params/ChangeLog (1.1),
+	params/admon.graphics.extension.xml (1.1),
+	params/admon.graphics.path.xml (1.1), params/admon.graphics.xml
+	(1.1), params/admon.style.xml (1.1),
+	params/admonition.properties.xml (1.1),
+	params/admonition.title.properties.xml (1.1), params/alignment.xml
+	(1.1), params/annotate.toc.xml (1.1), params/appendix.autolabel.xml
+	(1.1), params/arbortext.extensions.xml (1.1),
+	params/author.othername.in.middle.xml (1.1),
+	params/autotoc.label.separator.xml (1.1), params/base.dir.xml
+	(1.1), params/biblioentry.item.separator.xml (1.1),
+	params/bibliography.collection.xml (1.1),
+	params/blockquote.properties.xml (1.1), params/body.font.family.xml
+	(1.1), params/body.font.master.xml (1.1), params/body.font.size.xml
+	(1.1), params/body.margin.bottom.xml (1.1),
+	params/body.margin.top.xml (1.1), params/bridgehead.in.toc.xml
+	(1.1), params/callout.defaultcolumn.xml (1.1),
+	params/callout.graphics.extension.xml (1.1),
+	params/callout.graphics.number.limit.xml (1.1),
+	params/callout.graphics.path.xml (1.1), params/callout.graphics.xml
+	(1.1), params/callout.list.table.xml (1.1),
+	params/callout.unicode.font.xml (1.1),
+	params/callout.unicode.number.limit.xml (1.1),
+	params/callout.unicode.start.character.xml (1.1),
+	params/callout.unicode.xml (1.1), params/callouts.extension.xml
+	(1.1), params/chapter.autolabel.xml (1.1),
+	params/chunk.datafile.xml (1.1), params/chunk.first.sections.xml
+	(1.1), params/chunk.section.depth.xml (1.1),
+	params/chunk.sections.xml (1.1), params/citerefentry.link.xml
+	(1.1), params/column.count.xml (1.1),
+	params/component.title.properties.xml (1.1),
+	params/css.decoration.xml (1.1), params/default.encoding.xml (1.1),
+	params/default.table.width.xml (1.1), params/default.units.xml
+	(1.1), params/dingbat.font.family.xml (1.1),
+	params/double.sided.xml (1.1), params/ebnf.table.bgcolor.xml (1.1),
+	params/ebnf.table.border.xml (1.1),
+	params/emphasis.propagates.style.xml (1.1),
+	params/firstterm.only.link.xml (1.1), params/footnote.font.size.xml
+	(1.1), params/fop.extensions.xml (1.1),
+	params/formal.object.properties.xml (1.1),
+	params/formal.procedures.xml (1.1),
+	params/formal.title.properties.xml (1.1),
+	params/funcsynopsis.decoration.xml (1.1),
+	params/funcsynopsis.style.xml (1.1), params/function.parens.xml
+	(1.1), params/generate.appendix.toc.xml (1.1),
+	params/generate.article.toc.xml (1.1),
+	params/generate.book.equation.lot.xml (1.1),
+	params/generate.book.example.lot.xml (1.1),
+	params/generate.book.figure.lot.xml (1.1),
+	params/generate.book.table.lot.xml (1.1),
+	params/generate.book.toc.xml (1.1), params/generate.chapter.toc.xml
+	(1.1), params/generate.component.toc.xml (1.1),
+	params/generate.division.equation.lot.xml (1.1),
+	params/generate.division.example.lot.xml (1.1),
+	params/generate.division.figure.lot.xml (1.1),
+	params/generate.division.table.lot.xml (1.1),
+	params/generate.division.toc.xml (1.1), params/generate.index.xml
+	(1.1), params/generate.legalnotice.link.xml (1.1),
+	params/generate.part.toc.xml (1.1), params/generate.preface.toc.xml
+	(1.1), params/generate.qandadiv.toc.xml (1.1),
+	params/generate.qandaset.toc.xml (1.1),
+	params/generate.reference.toc.xml (1.1),
+	params/generate.section.toc.level.xml (1.1),
+	params/generate.section.toc.xml (1.1), params/generate.set.toc.xml
+	(1.1), params/glossary.collection.xml (1.1),
+	params/glossterm.auto.link.xml (1.1),
+	params/graphic.default.extension.xml (1.1), params/html.base.xml
+	(1.1), params/html.ext.xml (1.1), params/html.longdesc.link.xml
+	(1.1), params/html.longdesc.xml (1.1),
+	params/html.stylesheet.type.xml (1.1), params/html.stylesheet.xml
+	(1.1), params/htmlhelp.alias.file.xml (1.1),
+	params/htmlhelp.autolabel.xml (1.1), params/htmlhelp.chm.xml (1.1),
+	params/htmlhelp.encoding.xml (1.1),
+	params/htmlhelp.enumerate.images.xml (1.1),
+	params/htmlhelp.force.map.and.alias.xml (1.1),
+	params/htmlhelp.hhc.section.depth.xml (1.1),
+	params/htmlhelp.hhc.xml (1.1), params/htmlhelp.hhp.tail.xml (1.1),
+	params/htmlhelp.hhp.xml (1.1), params/htmlhelp.map.file.xml (1.1),
+	params/hyphenate.xml (1.1), params/inherit.keywords.xml (1.1),
+	params/insert.xref.page.number.xml (1.1),
+	params/label.from.part.xml (1.1), params/line-height.xml (1.1),
+	params/linenumbering.everyNth.xml (1.1),
+	params/linenumbering.extension.xml (1.1),
+	params/linenumbering.separator.xml (1.1),
+	params/linenumbering.width.xml (1.1), params/link.mailto.url.xml
+	(1.1), params/list.block.spacing.xml (1.1),
+	params/list.item.spacing.xml (1.1),
+	params/make.single.year.ranges.xml (1.1),
+	params/make.valid.html.xml (1.1), params/make.year.ranges.xml
+	(1.1), params/monospace.font.family.xml (1.1),
+	params/monospace.verbatim.properties.xml (1.1),
+	params/navig.graphics.extension.xml (1.1),
+	params/navig.graphics.path.xml (1.1), params/navig.graphics.xml
+	(1.1), params/navig.showtitles.xml (1.1),
+	params/nominal.table.width.xml (1.1),
+	params/normal.para.spacing.xml (1.1), params/olink.fragid.xml
+	(1.1), params/olink.outline.ext.xml (1.1), params/olink.pubid.xml
+	(1.1), params/olink.resolver.xml (1.1), params/olink.sysid.xml
+	(1.1), params/output.method.xml (1.1),
+	params/page.height.portrait.xml (1.1), params/page.height.xml
+	(1.1), params/page.margin.bottom.xml (1.1),
+	params/page.margin.inner.xml (1.1), params/page.margin.outer.xml
+	(1.1), params/page.margin.top.xml (1.1),
+	params/page.orientation.xml (1.1), params/page.width.portrait.xml
+	(1.1), params/page.width.xml (1.1), params/paper.type.xml (1.1),
+	params/part.autolabel.xml (1.1), params/passivetex.extensions.xml
+	(1.1), params/phrase.propagates.style.xml (1.1),
+	params/preface.autolabel.xml (1.1),
+	params/process.empty.source.toc.xml (1.1),
+	params/process.source.toc.xml (1.1), params/punct.honorific.xml
+	(1.1), params/qanda.defaultlabel.xml (1.1),
+	params/qanda.inherit.numeration.xml (1.1),
+	params/qandadiv.autolabel.xml (1.1),
+	params/refentry.generate.name.xml (1.1),
+	params/refentry.generate.title.xml (1.1),
+	params/refentry.separator.xml (1.1),
+	params/refentry.xref.manvolnum.xml (1.1),
+	params/region.after.extent.xml (1.1),
+	params/region.before.extent.xml (1.1), params/root.filename.xml
+	(1.1), params/rootid.xml (1.1),
+	params/runinhead.default.title.end.punct.xml (1.1),
+	params/runinhead.title.end.punct.xml (1.1),
+	params/sans.font.family.xml (1.1), params/saxon.callouts.xml (1.1),
+	params/saxon.character.representation.xml (1.1),
+	params/saxon.linenumbering.xml (1.1), params/saxon.tablecolumns.xml
+	(1.1), params/section.autolabel.xml (1.1),
+	params/section.label.includes.component.label.xml (1.1),
+	params/segmentedlist.as.table.xml (1.1),
+	params/shade.verbatim.style.xml (1.1), params/shade.verbatim.xml
+	(1.1), params/show.comments.xml (1.1), params/show.revisionflag.xml
+	(1.1), params/spacing.paras.xml (1.1),
+	params/stylesheet.result.type.xml (1.1),
+	params/suppress.navigation.xml (1.1), params/table.border.color.xml
+	(1.1), params/table.border.padding.xml (1.1),
+	params/table.border.style.xml (1.1),
+	params/table.border.thickness.xml (1.1),
+	params/table.borders.with.css.xml (1.1),
+	params/table.entry.padding.xml (1.1),
+	params/tablecolumns.extension.xml (1.1), params/template.xml (1.1),
+	params/tex.math.file.xml (1.1), params/tex.math.in.alt.xml (1.1),
+	params/textinsert.extension.xml (1.1), params/title.font.family.xml
+	(1.1), params/title.margin.left.xml (1.1),
+	params/toc.indent.width.xml (1.1), params/toc.list.type.xml (1.1),
+	params/toc.margin.properties.xml (1.1),
+	params/toc.section.depth.xml (1.1), params/ulink.target.xml (1.1),
+	params/use.extensions.xml (1.1), params/use.id.as.filename.xml
+	(1.1), params/use.id.function.xml (1.1), params/using.chunker.xml
+	(1.1), params/variablelist.as.blocks.xml (1.1),
+	params/variablelist.as.table.xml (1.1),
+	params/verbatim.properties.xml (1.1), params/xep.extensions.xml
+	(1.1), params/xref.properties.xml (1.1), template/ChangeLog (1.1),
+	template/README (1.1), template/biblioentry.xsl (1.1),
+	template/testtemplate.xml (1.1), template/titlepage.xsl (1.1),
+	tools/ChangeLog (1.1), tools/olink/ChangeLog (1.1),
+	tools/olink/olink-common.xsl (1.1), tools/olink/olink.xsl (1.1),
+	tools/olink/olinkchunk.xsl (1.1), tools/olink/olinksum.dtd (1.1),
+	tools/profile/ChangeLog (1.1), tools/profile/profile.xsl (1.1),
+	xhtml/ChangeLog (1.1), xhtml/FIXME.bak (1.1), xhtml/admon.xsl
+	(1.1), xhtml/autoidx.xsl (1.1), xhtml/autotoc.xsl (1.1),
+	xhtml/biblio.xsl (1.1), xhtml/block.xsl (1.1),
+	xhtml/calc-chunks.xsl (1.1), xhtml/callout.xsl (1.1),
+	xhtml/changebars.xsl (1.1), xhtml/chunk-experimental.xsl (1.1),
+	xhtml/chunk.xsl (1.1), xhtml/chunker.xsl (1.1), xhtml/component.xsl
+	(1.1), xhtml/division.xsl (1.1), xhtml/docbook.xsl (1.1),
+	xhtml/ebnf.xsl (1.1), xhtml/expchunk.xsl (1.1), xhtml/footnote.xsl
+	(1.1), xhtml/formal.xsl (1.1), xhtml/glossary.xsl (1.1),
+	xhtml/graphics.xsl (1.1), xhtml/html.xsl (1.1),
+	xhtml/html2xhtml.xsl (1.1), xhtml/index.xsl (1.1), xhtml/info.xsl
+	(1.1), xhtml/inline.xsl (1.1), xhtml/keywords.xsl (1.1),
+	xhtml/lists.xsl (1.1), xhtml/math.xsl (1.1), xhtml/oldchunker.xsl
+	(1.1), xhtml/onechunk.xsl (1.1), xhtml/param.xsl (1.1),
+	xhtml/pi.xsl (1.1), xhtml/qandaset.xsl (1.1), xhtml/refentry.xsl
+	(1.1), xhtml/sections.xsl (1.1), xhtml/synop.xsl (1.1),
+	xhtml/table.xsl (1.1), xhtml/titlepage.templates.xsl (1.1),
+	xhtml/titlepage.xsl (1.1), xhtml/toc.xsl (1.1), xhtml/verbatim.xsl
+	(1.1), xhtml/xref.xsl (1.1), xhtml/xslfiles.gen (1.1) (utags:
+	tools_1_3_0_BETA2, tools_1_3_0_BETA1):
+	
+	   Added docbook-xsl to the tools package.
+
+2002-01-28 Monday 18:18  mrumpf
+
+	* lib/: README (1.2), ant.jar (1.1, tools_1_3_0_BETA2,
+	tools_1_3_0_BETA1), crimson.jar (1.1, tools_1_3_0_BETA2,
+	tools_1_3_0_BETA1), jaxp.jar (1.1, tools_1_3_0_BETA2,
+	tools_1_3_0_BETA1):
+	
+	   Added ant 1.4.1...
+
+2002-01-28 Monday 18:13  mrumpf
+
+	* README (1.2), docbook/README (1.1), docbook/xml/README (1.1,
+	tools_1_3_0_BETA2), docbook/xml/calstblx.dtd (1.1,
+	tools_1_3_0_BETA2), docbook/xml/catalog.xml (1.1,
+	tools_1_3_0_BETA2), docbook/xml/dbcentx.mod (1.1,
+	tools_1_3_0_BETA2), docbook/xml/dbgenent.mod (1.1,
+	tools_1_3_0_BETA2), docbook/xml/dbhierx.mod (1.1,
+	tools_1_3_0_BETA2), docbook/xml/dbnotnx.mod (1.1,
+	tools_1_3_0_BETA2), docbook/xml/dbpoolx.mod (1.1,
+	tools_1_3_0_BETA2), docbook/xml/docbook.cat (1.1,
+	tools_1_3_0_BETA2), docbook/xml/docbookx.dtd (1.1,
+	tools_1_3_0_BETA2), docbook/xml/soextblx.dtd (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/entities-2001-11-19.html (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-amsa.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-amsb.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-amsc.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-amsn.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-amso.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-amsr.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-box.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-cyr1.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-cyr2.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-dia.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-grk1.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-grk2.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-grk3.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-grk4.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-lat1.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-lat2.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-num.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-pub.ent (1.1,
+	tools_1_3_0_BETA2), docbook/xml/ent/iso-tech.ent (1.1,
+	tools_1_3_0_BETA2) (utags: tools_1_3_0_BETA1):
+	
+	   Added docbook-xml and the xml character entity packages.
+
+2002-01-28 Monday 18:06  mrumpf
+
+	* lib/: README (1.1), avalon-framework.jar (1.1), batik.jar (1.1,
+	tools_1_3_0_BETA2, tools_1_3_0_BETA1), fop.jar (1.1,
+	tools_1_3_0_BETA2, tools_1_3_0_BETA1), jimi.jar (1.1,
+	tools_1_3_0_BETA2, tools_1_3_0_BETA1), junit.jar (1.1,
+	tools_1_3_0_BETA2, tools_1_3_0_BETA1), logkit.jar (1.1,
+	tools_1_3_0_BETA2, tools_1_3_0_BETA1), xalan.jar (1.1,
+	tools_1_3_0_BETA1):
+	
+	   Added the shared libs to the tools module as discussed.
+
+2002-01-25 Friday 11:52  jews
+
+	* lib/xerces.jar (1.1, tools_1_3_0_BETA2, tools_1_3_0_BETA1):
+	
+	Xerces-1.4.4
+
+2002-01-15 Tuesday 16:58  mrumpf
+
+	* README (1.1):
+	
+	Initial revision
+
+2002-01-15 Tuesday 16:58  mrumpf
+
+	* README (1.1.1.1, InitialImport_20020115):
+	
+	Tools Module Initial Import
+

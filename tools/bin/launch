@@ -1,0 +1,81 @@
+#!/bin/sh
+
+#
+# An application launcher script for "The Community OpenORB (TCOO)" project
+#
+
+#
+# A message explaining the user how to setup his environment 
+#
+usage ()
+{
+    echo
+    echo "The Community OpenORB (TCOO) environment has not been setup properly!"
+    echo "The following folder layout is required:"
+    echo
+    echo "    <TCOO_HOME>"
+    echo "        |- tools"
+    echo "        |- OpenORB"
+    echo "        |- <Any other module>"
+    echo
+    echo "The environment variable TCOO_HOME must be set to the root of the"
+    echo "folder tree:"
+    echo "    export TCOO_HOME=<TCOO_HOME>"
+    echo
+}
+
+
+#
+# Check for the necessary folders and print a usage message upon failure
+#
+if [ -z $TCOO_HOME ]
+then
+    usage
+    return 1
+else
+    if [ ! -d $TCOO_HOME/tools ]
+    then
+        usage
+        return 2
+    fi
+fi
+
+
+#
+# Set up the Java environment
+#
+if [ -z "$JAVA_HOME" ] ; then
+  JAVA=`which java`
+  if [ -z "$JAVA" ] ; then
+    echo "Cannot find JAVA. Please set your PATH."
+    exit 1
+  fi
+  JAVA_BIN=`dirname $JAVA`
+  JAVA_HOME=$JAVA_BIN/..
+fi
+
+JAVA=$JAVA_HOME/bin/java
+
+
+#
+# Check for the separator
+#
+case `uname` in
+   CYGWIN*) PS=';' ;;
+   *) PS=':' ;;
+esac
+
+
+#
+# Collect jars for the bootclasspath
+#
+BOOTCLASSPATH=`echo $TCOO_HOME/OpenORB/lib/endorsed/*.jar | tr ' ' ${PS}`
+
+
+#
+# Launch the application
+#
+VM_ARGS="-Xbootclasspath/p:$BOOTCLASSPATH -Dopenorb.home.path=$TCOO_HOME"
+$JAVA $VM_ARGS -jar $TCOO_HOME/tools/lib/launcher.jar "$@"
+
+

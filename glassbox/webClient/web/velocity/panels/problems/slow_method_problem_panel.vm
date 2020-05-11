@@ -1,0 +1,9 @@
+<div class="problemtype">
+    <div class="probtypeinfo">$problemItem.problemTypeInfo</div>
+    <br/>
+    
+    <div class="probtypeinfo">$problemItem.problemDescription</div>
+    #parse("/common/stacktrace_panel.vm")
+    
+
+</div>

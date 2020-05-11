@@ -1,0 +1,323 @@
+<?xml version="1.0"?>
+<project name="common" basedir=".">
+
+	<!-- meant to be included by build files in other modules -->
+	<property name="build.dir" value="../build" />
+	<property file="${build.dir}/build/${user.name}.build.properties" />
+    <property file="${build.dir}/build.properties" />
+
+	<target name="init" depends="common-init"/>
+	<target name="common-init" unless="${already.initted}">
+		<!-- sources of input -->
+		<property name="etc.dir" value="etc" />
+		<property name="src.dir" value="src" />
+        <property name="testsrc.dir" value="testsrc" />
+        <property name="ltwtestsrc.dir" value="ltwtestsrc" />
+        <property name="runtimelib" value="lib/runtime" />
+		<property name="buildtimelib" value="../lib/buildtime" />
+		<property name="aspectjlib" value="${aspectj.home}/lib" />
+        <property name="lib.dir" value="${basedir}/../lib" />
+		<property name="testlib" value="../lib/testonly" />
+		<property name="emma.dir" value="../lib/tool" />
+
+		<!-- places for output -->
+		<property name="output.root.dir" value="../dist" />
+		<property name="dist.dir" value="${output.root.dir}/dist" />
+		<property name="output.dir" value="${output.root.dir}/output/${ant.project.name}" />
+		<property name="prodoutput.dir" value="${output.dir}/prod/classes" />
+		<property name="testoutput.dir" value="${output.dir}/test/classes" />
+        <property name="ltwtestoutput.dir" value="${output.dir}/ltwtest/classes" />        
+        <property name="report.tests.dir" value="${output.dir}/reports" />
+
+		<!-- setup the directories -->             
+        <mkdir dir="${output.root.dir}"/>      
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${output.dir}" />
+		<mkdir dir="${prodoutput.dir}" />
+		<mkdir dir="${testoutput.dir}" />
+        <mkdir dir="${report.tests.dir}" />
+        <mkdir dir="${report.tests.dir}/junit" />
+
+        <property name="project.jar" value="${ant.project.name}.jar"/>      
+		<property name="project.jar.path" value="${dist.dir}/${project.jar}" />
+		<property name="api.jar" value="${dist.dir}/glassboxRemoteApi.jar" />
+  
+        <property name="aopxmlfile" value="META-INF/aop.xml"/>      
+
+		<path id="emma.lib">
+			<pathelement location="${emma.dir}/emma.jar" />
+			<pathelement location="${emma.dir}/emma_ant.jar" />
+		</path>
+
+		<path id="common.production.class.path">
+			<fileset dir="${buildtimelib}" includes="**/*.jar" />
+			<fileset dir="${aspectjlib}" includes="aspectjrt.jar, aspectjlib.jar" />
+            <pathelement location="${lib.dir}/spring/spring.jar" />
+            <pathelement path="${java.class.path}" />
+		</path>
+		<path id="project.aspect.path"/>
+        <path id="included.modules"/>
+		<path id="project.test.aspect.path"/>
+		<path id="project.class.path">
+			<fileset dir="${runtimelib}" includes="**/*.jar" />
+			<fileset dir="../webClient/web/WEB-INF/lib" includes="**/*.jar" />
+            <path refid="project.aspect.path"/>
+            <path refid="included.modules"/>
+			<path refid="common.production.class.path" />
+		</path>
+		<!--      
+        <property name="myapath" refid="project.aspect.path"/>
+        <property name="mycpath" refid="project.class.path"/>
+        <echo message="set up paths: ${mycpath} and ${myapath}"/>-->
+
+		<path id="common.test.class.path">
+			<fileset dir="${testlib}" includes="**/*.jar" />
+			<fileset dir="${buildtimelib}" includes="**/*.jar" />
+			<pathelement location="${aspectjlib}/aspectjtools.jar" />
+			<path refid="project.test.aspect.path"/>
+		</path>
+
+
+		<patternset id="not_tests">
+  <!--      
+			<exclude name="**/TestBean.class" />
+			<exclude name="**/TestMonitor.class" />
+			<exclude name="**/TestHelper.class" />
+			<exclude name="**/TestMonitorControl.class" />
+			<exclude name="**/TestExceptionHandling.class" />
+-->            
+		</patternset>
+
+		<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+			<classpath>
+				<pathelement location="${aspectjlib}/aspectjtools.jar" />
+				<path refid="common.production.class.path" />
+			</classpath>
+		</taskdef>
+		<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+			<classpath>
+				<pathelement location="${buildtimelib}/ant-contrib-1.0b2.jar"/>
+				<path refid="common.production.class.path" />
+			</classpath>
+		</taskdef>
+      
+		<!-- Prevent unnecessary initialization -->
+		<property name="already.initted" value="true" />
+	</target>
+ 
+    <target name="emma-def" if="emma.dir">
+        <taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+    </target>   
+	<target name="coverageinstr" if="emma.dir" depends="common-init,emma-def">
+		<path id="emma.path">
+			<pathelement location="${testoutput.dir}" />
+			<!-- <pathelement location="${output.dir}/test/instrumented.jar"/> -->
+		</path>
+		<delete file="${report.tests.dir}/*.emma" />
+		<emma>
+			<instr metadatafile="${report.tests.dir}/metadata.emma" mode="overwrite" instrpathref="emma.path">
+				<filter excludes="glassbox.test.*,edu.*,glassbox.*.*Test,glassbox.*.Test*,*.*Exception,*.Dummy*,*.Mock*"/>
+			</instr>
+		</emma>
+	</target>
+	<target name="coverage" if="emma.dir" depends="common-init,emma-def">
+		<emma>
+			<report sourcepath="${src.dir},${testsrc.dir}" 
+		             columns="class,method,block,name"
+ 					metrics="method:70,block:80,line:80,class:100">
+				<fileset dir="${report.tests.dir}">
+					<include name="*.emma" />
+				</fileset>
+				<txt outfile="${report.tests.dir}/coverage.txt" depth="method"/>
+				<html outfile="${report.tests.dir}/coverage.html" depth="method"/>
+			</report>
+		</emma>
+	</target>
+
+	<target description="Clean" name="clean" depends="common-init">
+		<delete dir="${output.dir}" />
+		<delete file="${project.jar.path}"/>
+	</target>
+	<target name="compile" depends="ajccompile"/>
+	<target name="ajccompile" depends="init" unless="project.jar.current">
+		<!--   
+        <property name="mypath" refid="project.class.path"/>
+        <echo message="${mypath}"/>-->
+		<iajc destdir="${prodoutput.dir}" incremental="false" source="1.3" target="1.3" X="${ajc.xOptions}" debugLevel="source"
+            Xlintfile="../monitor/etc/META-INF/Xlint.properties" sourceRootCopyFilter="**/*.java,**/CVS/**,**/*~,**/*#*,**/.#*,**/%*%,**/.cvsignore" 
+            showWeaveInfo="false" verbose="false">
+			<src location="${src.dir}" />
+			<exclude name="**/CVS/*" />
+			<classpath refid="project.class.path" />
+			<aspectpath refid="project.aspect.path"/>
+		</iajc>
+		<!-- shouldn't iajc be copying these things, just like javac?! -->
+		<copy todir="${prodoutput.dir}">
+			<fileset dir="${src.dir}" includes="**/*.properties" />
+		</copy>
+	</target>
+
+	<target name="jar" depends="projectjar"/>
+	<target name="projectjar" depends="compile">
+
+		<jar jarfile="${project.jar.path}">
+			<fileset dir="${prodoutput.dir}" />
+			<fileset dir="${etc.dir}">
+				<exclude name="glassbox*.properties"/>
+				<exclude name="sample*"/>
+				<exclude name="aop*.xml"/>
+			</fileset>
+
+			<!-- ugly hack to work around AspectJ problem compiling >1 project with an aop.xml file-->
+			<zipfileset dir="${etc.dir}" includes="aop*.xml" prefix="META-INF"/>
+
+			<!-- Adds build information to the jar. -->
+			<fileset dir="${output.root.dir}/output">
+				<include name="glassbox_build.properties"/>
+			</fileset>
+		</jar>
+		<copy todir="${dist.dir}">
+			<fileset dir="${etc.dir}">
+				<include name="glassbox*.properties"/>
+                <include name="runtime*.properties"/>
+                <include name="sample*.*"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="testcompile" depends="testajccompile,testltwcompile,coverageinstr"/>
+	<target name="testajccompile" depends="init">
+        <mkdir dir="${testoutput.dir}"/>
+		<iajc incremental="false" destdir="${testoutput.dir}" x="${ajc.testxOptions}" debuglevel="source"
+            Xlintfile="../monitor/etc/META-INF/Xlint.properties" sourceRootCopyFilter="**/*.java,**/CVS/**,**/*~,**/*#*,**/.#*,**/%*%,**/.cvsignore">
+			<src location="${src.dir}" />
+			<src location="${testsrc.dir}" />
+			<src location="${etc.dir}" />
+			<exclude name="**/CVS/*" />
+			<classpath refid="test.class.path" />
+			<aspectpath refid="project.test.aspect.path" />
+		</iajc>
+
+		<!-- shouldn't iajc be copying these things, just like javac?! -->
+		<copy todir="${testoutput.dir}">
+			<fileset dir="${src.dir}" includes="**/*.properties,**/*.xml" />
+			<fileset dir="${etc.dir}" includes="**/*.properties,**/*.xml" />
+			<fileset dir="${testsrc.dir}" includes="**/*.properties,**/*.xml" />
+		</copy>
+
+		<!-- snap off a test jar before running emma used for weaving into dependent projects -->
+		<jar jarfile="${test.jar}">
+			<fileset dir="${testoutput.dir}"/>
+		</jar>
+     </target>
+    <target name="testltwcompile" if="java5.vm" depends="init">
+        <mkdir dir="${ltwtestoutput.dir}"/>
+        <iajc destdir="${ltwtestoutput.dir}" source="1.3" target="1.3" debuglevel="source" showWeaveInfo="false">
+            <src location="${ltwtestsrc.dir}" />
+            <classpath>
+                <path refid="test.class.path" />
+                <path location="${testoutput.dir}"/>
+            </classpath>
+            <aspectpath>
+                <path refid="project.test.aspect.path" />
+                <path location="${testoutput.dir}"/>
+            </aspectpath>                
+        </iajc>
+    </target>      
+
+    <target name="ltwTest" if="java5.vm" unless="ignore.tests" depends="common-init">
+        <mkdir dir="${report.tests.dir}/junit"/>
+        <junit printsummary="yes" haltonfailure="no" fork="yes" jvm="${java5.vm}" failureproperty="test.failure">
+            <jvmarg value="-Xmx256m"/>
+            <jvmarg value="-javaagent:${basedir}/../lib/aspectj/lib/aspectjweaver.jar"/> 
+            <jvmarg value="-Daj.weaving.verbose=false"/>
+            <jvmarg value="-Dorg.aspectj.weaver.loadtime.configuration=${aopxmlfile}"/>
+            <jvmarg value="-Dglassbox.inspector.jmx.StatsJmxManagement.composite=true"/>
+            <jvmarg value="-Demma.coverage.out.file=${report.tests.dir}/coverage.emma" />
+            <jvmarg value="-Demma.coverage.out.merge=true" />
+            <classpath>
+                <pathelement location="${ltwtestoutput.dir}" />
+                <pathelement location="${ltwtestsrc.dir}" />
+                <pathelement location="${testoutput.dir}" />
+                <pathelement location="${testsrc.dir}" />
+                <path refid="test.class.path" />
+                <path refid="emma.lib" />
+            </classpath>
+    
+            <formatter type="xml" />
+            <batchtest todir="${report.tests.dir}/junit" >
+                <fileset dir="${ltwtestoutput.dir}">
+                    <include name="**/*Test.class" />
+                    <exclude name="**/*$*.class" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+	<target name="junit" unless="ignore.tests" depends="init">
+        <echo message="${test.class.path}"/>      
+		<junit printsummary="yes" haltonfailure="no" filterTrace="true" failureProperty="test.failure" dir="${basedir}">
+			<classpath>
+				<path refid="emma.path" />
+				<pathelement location="${testoutput.dir}" />
+				<pathelement location="${project.jar.path}" />
+				<path refid="test.class.path" />
+                <path refid="emma.lib" />
+			</classpath>
+			<jvmarg value="-Demma.coverage.out.file=${report.tests.dir}/coverage.emma" />
+			<jvmarg value="-Demma.coverage.out.merge=true" />
+
+			<formatter type="xml"/>
+			<batchtest fork="yes" todir="${report.tests.dir}/junit">
+				<fileset dir="${testoutput.dir}">
+					<include name="**/*Test.class" />
+					<patternset refid="not_tests">
+					</patternset>
+					<exclude name="glassbox/test/**/*" />
+					<exclude name="**/*$*.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	<target name="test" unless="ignore.tests" depends="init,testcompile,junit,ltwTest,coverage">
+        <junitreport todir="${report.tests.dir}">
+            <fileset dir="${report.tests.dir}/junit">   
+                 <include name="TEST-*.xml"/>
+            </fileset>   
+            <report todir="${report.tests.dir}/html"/>
+        </junitreport>
+        <fail if="test.failure"/>
+    </target>      
+	<target name="test13" unless="ignore.tests" depends="testcompile">
+        <junit printsummary="yes" haltonfailure="no" filterTrace="true" failureproperty="test.failure" jvm="${java13.vm}">
+            <classpath>
+                <path refid="emma.path" />
+                <pathelement location="${testoutput.dir}" />
+                <pathelement location="${project.jar.path}" />
+                <path refid="emma.lib" />
+                <path refid="test.class.path" />
+            </classpath>
+            <jvmarg value="-Demma.coverage.out.file=${report.tests.dir}/coverage.emma" />
+            <jvmarg value="-Demma.coverage.out.merge=true" />
+
+            <formatter type="xml"/>
+            <batchtest fork="yes" todir="${report.tests.dir}">
+                <fileset dir="${testoutput.dir}">
+                    <include name="**/*Test.class" />
+                    <patternset refid="not_tests">
+                    </patternset>
+                    <exclude name="glassbox/test/**/*" />
+                    <exclude name="**/*$*.class" />
+                </fileset>
+            </batchtest>
+        </junit>
+        <junitreport todir="${report.tests.dir}">
+            <fileset dir="${report.tests.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report todir="${report.tests.dir}/html"/>
+        </junitreport>
+		<fail if="test.failure"/>
+	</target>
+	<!-- todo (probably in an integration build): build & test on different VMs -->
+</project>

@@ -1,0 +1,4 @@
+src.includes = src/
+src.excludes = src/aspectcin/log/*,\
+			   src/aspectcin/timing/
+

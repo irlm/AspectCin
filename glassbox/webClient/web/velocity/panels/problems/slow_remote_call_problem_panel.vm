@@ -1,0 +1,5 @@
+<div class="problemtype">
+    <div class="probtypeinfo">$problemItem.problemDescription</div>
+    <br/>
+    #parse("/common/remote_call_table.vm")
+</div>

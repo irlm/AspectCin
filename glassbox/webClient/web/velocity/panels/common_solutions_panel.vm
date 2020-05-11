@@ -1,0 +1,35 @@
+<div class="section">
+<div class="sectiontitle">Common Solutions</div>
+
+   #foreach($problemItem in $display.coreProblems)
+   
+    <div class="problemtype">
+	    <table>	        
+		    <tr>
+		    <td>
+		    <img src="images/$problemItem.problemTypeIcon">
+		    </td>
+		    <td>
+		    <div class="probtypehdr">$problemItem.commonSolutionTitle</div>
+		    </td>
+		    </tr>
+    <tr>
+		    <td></td>
+		    <td>		
+		    <div class="comsolitems">
+  		      <ol class="comsol">
+		          #foreach($commonSolution in $problemItem.commonSolutions)
+		              <li class="comsol">$commonSolution</li>
+		          #end
+		      </ol>
+		    </div>
+		</td>
+		</tr>
+	    </table>
+        </div>
+    #end
+ &nbsp;<br/>       
+</div>
+<hr size=1 width="97%"/>
+
+

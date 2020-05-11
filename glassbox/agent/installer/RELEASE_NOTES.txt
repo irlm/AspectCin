@@ -1,0 +1,59 @@
+===============================================================
+
+RELEASE NOTES version 1.23
+
+===============================================================
+
+
+===
+Overview of Significant Changes
+===
+
+Significant changes from version 1.0
+
+1. Client and Agent communicate on port 7232
+
+=>Effect to you: By default, client and agent talk on the new port.  If your datacenter needed to manually open port 9999 previously, they now need to open 7232.
+
+=>Why it changed: Previously we used port 9999, which turned out to be a commonly chosen number,  we changed to 7232 to avoid conflicts.
+
+
+2. For Tomcat,  the Glassbox JAR files have been moved from <tomcat>/shared/lib to <tomcat>/common/lib
+
+=>Effect to you: Review the Glassbox User Guide or Install.txt if you are a Tomcat user.  Move the JARs, change your setclasspath.bat or JAVA_OPTS environment variables to point to the new location.
+
+=>Why it changed: Glassbox Troubleshooter added some features around reporting the arguments used in slow sql.  In the BETA program, this proved to be key functionality, but it required that we weave into JDBC libraries, and necessitated a move into the /commmon/lib.
+
+
+3. The Menu->Connections->Add Connection URL changed in the client, now it only asks to the Hostname/IP and not the full connection string.
+
+=>Effect to you: Creating a new connection is streamlined if you are using the default port.  If you want to use a custom port, you must create the new URL, then go back into the menu and manually edit the URL.  
+
+=>Why change it: Previously we exposed the full RMI string which allowed the client to connect to the Agent.  This is not a user friendly format, and some people in BETA were confused. 
+
+
+4. Glassbox Client now can connect to multiple servers at the same time.
+
+=>Effect to you: There is an added default column in the client which shows the nickname of the Application Server for each Operation.  The client now connects to multiple servers if you add connections,  and allows you to view them concurrently. If you wish the previous behavior, only connect to a single Agent and turn off the new column.
+
+=>Why change it: This was a request by both QA and Operations people when we tested.
+
+
+5. Glassbox Client will download your details pane directly to an HTML file.
+
+=>Effect to you: There is an added document button at the top of the client.  If you select a row in the summary table and press it, it creates (or overwrites) the GlassboxDetails.html file.  Attach it to emails or bug logs.
+
+=>Why change it: Some QA users of Glassbox wanted a way to attach a formatted file easily to emails or bugs.  Cutting and pasting was more trouble and giving them formatting problems.
+
+
+6. Glassbox Client shows input URLs and parameters for the last 5 problem executions of an operation.
+
+=>Effect to you: You have some added data about which operations failed.
+
+=>Why change it: Some QA users of Glassbox wanted a way to identify which tests were failing.  They varied the parameters, and wanted to know which ones were causing the problem.
+
+7. Glassbox Agent can be installed by the automated glassbox.war file
+
+=>Effect to you: To install Glassbox on a fresh environment, you can now drop in the .war installer and view the installer from a browser (example on host mckinley:  http://mckinley:8080/GlassboxAgentInstaller)
+
+=>Why change it:  The installation previously was fairly simple, but most people ended up having vanilla environments and we were able to automate many of the steps for them.

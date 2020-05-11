@@ -1,0 +1,19 @@
+/DefaultJdoDialect.java/1.16/Mon Sep 11 22:15:06 2006//
+/JdoAccessor.java/1.20/Mon Sep 11 22:15:11 2006//
+/JdoCallback.java/1.7/Thu Nov 30 12:30:57 2006//
+/JdoDialect.java/1.16/Wed Jun 13 20:21:32 2007//
+/JdoInterceptor.java/1.11/Mon Apr 10 13:12:46 2006//
+/JdoObjectRetrievalFailureException.java/1.6/Wed Mar 15 21:02:43 2006//
+/JdoOperations.java/1.14/Thu Nov 30 12:30:57 2006//
+/JdoOptimisticLockingFailureException.java/1.6/Wed Mar 15 21:02:43 2006//
+/JdoResourceFailureException.java/1.4/Fri May 27 19:50:08 2005//
+/JdoSystemException.java/1.7/Fri May 27 19:50:08 2005//
+/JdoTemplate.java/1.36/Sat Jul 21 21:34:31 2007//
+/JdoTransactionManager.java/1.60/Wed Jul 18 09:06:42 2007//
+/JdoUsageException.java/1.6/Fri May 27 19:50:08 2005//
+/LocalPersistenceManagerFactoryBean.java/1.33/Mon Feb  5 23:09:36 2007//
+/PersistenceManagerFactoryUtils.java/1.33/Mon Sep 11 22:15:11 2006//
+/PersistenceManagerHolder.java/1.9/Wed Oct 19 19:12:02 2005//
+/TransactionAwarePersistenceManagerFactoryProxy.java/1.5/Wed Mar  7 18:17:51 2007//
+/package.html/1.2/Mon Sep 12 20:23:20 2005//
+D/support////

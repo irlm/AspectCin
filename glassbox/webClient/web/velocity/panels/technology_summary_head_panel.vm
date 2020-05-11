@@ -1,0 +1,27 @@
+<table class="tech" align="center">
+    <tbody>
+        <tr class="tech">
+	    <td colspan="2" class="statheader">Executions</td>
+	    <td class="tech" width="1000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    <td colspan="2" class="statheader">Execution Time(avg)</tr>
+	<tr class="tech">
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.normalOperations</td>
+	    <td class="techprompt" align="left" nowrap="nowrap"> were OK</td>
+	    <td class="tech" width="1000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.normalOperationsAverageTime</td>
+	    <td class="techprompt" align="left" nowrap="nowrap">for OK</td></tr>
+	<tr class="tech">
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.slowOperations</td>
+	    <td class="techprompt" align="left" nowrap="nowrap"> were SLOW</td>
+	    <td class="tech" width="1000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.slowOperationsAverageTime</td>
+	    <td class="techprompt" align="left" nowrap="nowrap">for SLOW</td>
+	</tr>
+	<tr class="tech"><td class="techdata" align="right" nowrap="nowrap">$display.analysisData.failingOperations</td>
+	    <td class="techprompt" align="left" nowrap="nowrap"> were FAILING</td>
+	    <td class="tech" width="1000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    <td class="techdata" align="right" nowrap="nowrap">$display.analysisData.failingOperationsAverageTime</td>
+	    <td class="techprompt" align="left" nowrap="nowrap">for FAILING</td>
+	</tr>
+    </tbody>
+ </table>

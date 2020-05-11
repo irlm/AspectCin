@@ -1,0 +1,10 @@
+
+
+
+<div class="problemtype">
+<div class="probtypeinfo">$problemItem.problemTypeInfo
+<br/>
+<br/>
+#parse("/panels/fail_panel.vm") 
+</div>
+</div>

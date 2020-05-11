@@ -1,0 +1,338 @@
+OpenORB tools
+-------------
+
+Version 1.4.0 - March, 28 2005 - tools_1_4_0_RELEASE
+
+- Changed the Copyright year to 2005
+
+- Fixed NPE in MergeStack
+
+- removed reference to the JDK tools.jar from build.xml
+  to allow compilation on OSX
+
+- Fixed potential NPE in ServiceBase
+
+- A memory leak on AIX, when using the native library for RMI-IIOP
+  unmarshalling has been discovered. The new library jar fixes the
+  problem.
+
+- Added a variable DEBUGGER_SUSPEND to the launchdbg script to allow
+  the user to influence the debugger suspend behaviour.
+  Setting 'export DEBUGGER_SUSPEND=y' makes the application wait
+  for a debugger to connect.
+
+Version 1.4.0 BETA2 - July, 29 2004 - tools_1_4_0_BETA2
+
+- Added support for CYGWIN to setenv.
+
+- For IBM JDK 1.4.2 the ibmorbapi.jar must be put on the jdk.runtime.jars
+  property otherwise org.omg.CORBA.SystemException will not be found.
+
+- Added HSQLDB jar which substitutes the InstantDB formerly available
+  for OTS only.
+
+- Added the native library jar to this module. A native library will
+  currently be extracted for AIX only.
+
+- Switch to checkstyle 3.4 (because of fix for bug #895072).
+
+- Changed the Copyright year from '2003' to '2002-2004'.
+
+- Fixed compilation under IBM JDK because the runtime libraries there
+  are not rt.jar, but core.jar and server.jar.
+
+- Fixed the service option: writeIORFile to respect file names instead of
+  folders only. Patch contributed by Richard G. Hash
+  (richard _dot_ hash _at_ openspirit _dot_ com).
+
+- Optimized NumberCache and CharacterCache, removing the caching of MIN_VALUE
+  and MAX_VALUE. The cache range is now configurable using system properties,
+  see the javadocs for details.
+
+- Added JUnit tests for caching.
+
+- Added ConfigUtils class to hold any common config code.
+
+- In ServerBase, added more searching for the ORB class according to the spec
+  (e.g., system properties and orb.properties file) in deciding whether
+  the OpenORB ORB shall be used or not.
+
+- Upgraded to checkstyle 3.3.
+
+- changed ZipUtil method names CreateZip, OpenZip and CloseZip to
+  lowercase (binary incompatible change)
+
+- Fixed various warnings Eclipse 3.0M6 complained about.
+
+- Added Eclipse project files (.project and .classpath)
+  the project can now easily be imported by
+      New->Project->Import From existing Source
+
+- Added the NamingService JNDI jar to the classpath when running
+  orb examples.
+
+- Updated Ant to version 1.6.0 as it seems to work with IBM JDK 1.4.1
+  without problems. The old 1.5.1 version was causing classloader
+  problems during javac tasks and other strange problems.
+
+Version 1.4.0 BETA1 - December, 19 2003 - tools_1_4_0_BETA1
+
+- Added patch from Eric Thomas to propagate exceptions when using the
+  ReflectionUtils.invokeMethod() function.
+
+- Removed explicit references to module RMIoverIIOP because of its move
+  into the OpenORB module.
+
+- Made some members of ServiceBase and ServerShutdownHook non-static.
+  This allows to run multiple services in one VM and taking them down
+  without multiple attempts to deregister from NamingService.
+
+- Fixed ModuleClassLoader problem #696522 reported by Dirk Liebke
+  (dliebke _at_ users _dot_ sf _dot net).
+
+- Added patch from Joncheng Kuo <ckuo01 _at_ users _dot_ sf _dot_ net>
+  for bug #710722.
+
+- Switched for HexPrintStream.flush from a negative test (isISOControl) to a
+  positive test (isPrintable) because it happened under high load that the
+  shell window got screwed up because of characters that have been interpreted
+  as control characters by the shell.
+
+- Updated ServerBase so that a null logger is used when the --debug option is
+  set to NONE. This can be used to increase performance and reduce memory
+  footprint in some cases.
+
+- Updated logging tools adding NullLoggerTeam and PrefixingLogger.
+
+- Updated Logkit to 1.2.
+
+- Extended the ModuleClassLoader so that the property "openorb.env.cp" is
+  evaluated and any valid location is added to the ModuleClassLoader.
+  This was especially necessary for the OpenORB JavaToIdl compiler, invoked by
+  the javatoidl script, which uses reflection internally and therefore needs
+  to find user-defined classes.
+  This mechanism can be activated by adding the following property to an
+  invocation of the Start application:
+    java -Dopenorb.env.cp=$CLASSPATH -jar org.openorb.util.launcher.Start <myApp>
+
+- Removed ExceptionTool dependencies from Handler classes. This was causing
+  problems trying to chain exceptions when ExceptionTool had not been loaded
+  in the system class loader.
+
+- Added VERSION properties to global.properties file
+
+- Added a method invokeMethod to ReflectionUtils.
+
+- Created ORBUtils class to contain common methods
+
+- Added fallback strategy for location of IOR files when no Naming Service.
+  Files will be written into directory ".OpenORB/NS_IOR"  in one of the
+  following root directories:
+  (1) TCOO_HOME (System property="openorb.home.path")
+  (2) User's home directory (System property="user.home")
+  (3) Current directory
+  The temporary directory will be created if not already existing. If unable to
+  find/create, the next directory in the list is tried.
+
+- Added new cmdline option, -U,--writeCorbalocURL, to write the Corbaloc URL
+  to a file. Patch from Venkatesh Prasad Ranganesh (vranganath _at_ cox . net)
+
+- Added an optional argument to the -f cmdline option which specifies
+  the directory to write the IOR files to.
+
+- Added an enhancement patch from Eric Thomas (e.thomas _at_ isti _dot_ com)
+  for a new method setServiceName() is ServerBase.
+
+- Fixed a JDK problem with the NamingUtils.dynamicXXX() methods.
+  The stub instantiation was not working under JDK 1.3.x because
+  the stub classes under those JDKs do not have a default constructor
+  and thus a simple clz.newInstance() did not work.
+
+- Added the updateConfig scripts for updating config files
+  in archives of the binary distribution. The setConfig scripts
+  can hopefully be removed now.
+
+- Added some improvements to the service framework as indicated
+  by Eric Thomas (e.thomas _at_ isti _dot_ com):
+    o do not try to unbind when binding was disabled
+    o always try to import the corbaloc service for OpenORB
+    o show IOR and corbaloc url even when the logger has not
+      been configured to do so.
+
+- Added the IdentityKey class from the RMIoverIIOP module.
+
+- Moved RepoIDHelper from the orb module as the methods may be
+  used from the compilers. That is before any orb classes are
+  compiled.
+
+- Added a global Introduction chapter to src/doc/intro.xml. This
+  fragment will be included from the docbook documents from all
+  modules.
+
+- Added HandlerLoader to load the URL handler classes into the system
+  class loader. This is a work around for pre Tiger JDK's, making it
+  possible to run OpenORB within containers such as Catalina.
+
+- Enhancements in the org.openorb.util.service.ServiceBase and
+  ServerBase classes to support more customizations.
+
+- Changes in org.openorb.util.service.ServiceContext class.
+  Now extends Avalon framework DefaultContext. Deprecated the setXXX
+  methods. Use the put() and makeReadOnly() methods instead.
+
+- Upgraded docbook libraries
+    docbook-xsl to version 1.60.1
+    xalan to version 2.4.1
+    xerces to version 2.2.1
+    fop to version 1.0dev
+
+- Added a docbook customization layer. Use the xsl style sheets
+  from tools/docbook/tcoo_html.xsl for HTML output and
+  tools/docbook/tcoo_fo.html for FO output (for PDF via FOP).
+  Add any customization to these xsl style sheets.
+
+- Added new command-line option for Servers/Services
+  -n,--noBind <service>  do not bind to specified service. Service
+  values: Naming, Corbaloc
+
+- Moved build script logic into Ant files.
+
+- Modified Build class to not provide default target of 'release'
+  for builds. Instead, the default ant target is used.
+
+- Added a class for reflection utilities. Currently only a version
+  of isAssignableFrom exists where the class does not need to be loaded.
+
+- Moved the org.openorb.orb.iiop.HexPrintStream class into the package
+  org.openorb.util.HexPrintStream.
+
+- Created separate launcher and build JARs.
+
+- Moved the NamingUtils from OpenORB into the tools module because
+  the methods will be used by the Service framework for NameService
+  operations.
+
+- Added initial classes for a Server/Service framework which can be
+  used by Server/Service classes of the OpenORB CORBA services to
+  achieve a common structure and functionality. Therefore these
+  classes provide methods that are shared by all services.
+
+- Added start and startdbg scripts which launch the Start application
+  either in normal or in debug mode: launch, launchdbg.
+
+- Added RMIoverIIOP properties to Start aplication.
+
+- Updated JUnit to version 3.8.1.
+
+- Added ModuleClassLoader and Start classes to org.openorb.util.launcher.
+  The Start class is specified as Main-Class: attribute in the tools.jar
+  manifest file. When executing the tools jar by:
+      java -jar lib/tools-1.4.0.jar <any OpenORB application class>
+  The specified argument will be used to determine the class path.
+  The prefix "org.openorb." will be cut off and the next package name
+  is always the short name of one of the OpenORB modules. The short name
+  is then be used to look up a set of dependencies, e.g.
+
+    org.openorb.ccs.Server
+      -> short name: ccs
+      -> Dependencies for the ConcurrencyControlService:
+           tools, OpenORB, TransactionService, ConcurrencyControlService
+
+  The ModuleClassLoader then looks into each of the following sub-folders:
+
+    tools/lib
+    tools/lib/ext
+    OpenORB/lib
+    TransactionService/lib
+    ConcurrencyControlService/lib
+
+  and adds each jar from these folders to the classpath. Finally it invokes
+  the main method from the class specified as parameter and passes any
+  additional parameters to the command of the new process.
+  With this mechanism all application classes from any OpenORB module can
+  be invoked without the hazzle to specify the classpath first. The
+  dependencies will be resolved automatically.
+  This classpath assembling facility has been contributed by Tony Thompson
+  (tony _dot_ thompson _at_ stone-ware _dot_ com).
+
+- Updated the custom URLStreamHandler to load resources from the context
+  class loader rather than the system class loader. This update was suggested
+  by Tony Thompson <tony _dot_ thompson _at_ stone-ware _dot_ com> to
+  resolve an issue with loading resources when all of the OpenORB classes
+  are loaded in their own class loader and are not in the system classpath.
+  The handler factory was also updated to support both "classpath" and
+  "resource" custom protocols.
+
+- Added commons-cli-1.0.jar to the tools module's lib/ext folder.
+
+- Changed the setEnv.bat script to use a project classloader to avoid
+  problems if _JAVA_OPTIONS is over 1024 bytes.
+
+- Added the global setenv script for UNIX environments.
+
+- Added a global setEnv.bat file for Windows. The script sets the
+  environment for all services found in TCOO_HOME.
+  Unfortunately due to restrictions of the length of environment
+  variables under Windoze all jars can't simply be put on the
+  CLASSPATH (Error: The input line is too long.) it will not be
+  possible to launch e.g. examples by just typing:
+      java org.openorb.ots.examples.subtrx.BankServer and/or
+      java org.openorb.ots.examples.subtrx.BankClient
+
+- Added buildAll.bat to build all modules with user specified args.
+  Note that all source distributions have to be downloaded and extracted
+  into TCOO_HOME or checked out from the CVS first!
+
+- Updated build process, lib folders and Win32 build scripts.
+
+- Added logging utils.
+
+- Java docs are now linked to JDK 1.3 and Avalon API's.
+
+- Update the build process to rewrite cp.bat when a new tools-x.x.x.jar
+  is put into the lib folder. This avoids problems encountered on some
+  versions of Win32 where by a jar file cannot be deleted when on the
+  classpath.
+
+- The source archive is complete now as to that it is possible to do
+   development on the source archive only. The binary and the source
+   archives differ only that in the binary the build scripts and the
+   util sources are missing, therefore it contains the tools-1.4.0.jar
+   in the lib folder and the javadoc for the util classes in the doc
+   folder.
+
+- The binary and the source tgz archives preserve the file attributes now.
+
+- Create the tools.jar file in the lib folder to have the jar in the same
+  folder for the binary archive and the compiled source archive.
+  Previously the jar archive was in dist making it difficult to refer to
+  it because there are two locations, one when the binary archive has
+  been unpacked and another when the jar archive has been created from
+  the sources.
+
+- Completed the move of the util package by moving the compiler override
+  files from OpenORB to tools.
+
+- Moved the source files from the package org.openorb.util
+  into this package and create a separate jar so that the helper
+  classes can be used more easily in other projects without
+  having to include openorb.jar in the classpath.
+
+- Moved ant from version 1.4.1 to version 1.5.1.
+  This includes Xerces 2.2.0 and the removal of crimson and jaxp.
+
+- Upgraded checkstyle to version 2.4.
+
+Version 1.3.0 - September 27, 2002 - tools_1_3_0
+
+- Upgraded avalon-framework.jar to version 4.1.2b of June, 19 2002.
+
+Version 1.3.0 BETA2 - August 10, 2002 - tools_1_3_0_BETA2
+
+- Added LICENSE.txt to the checkstyle.properties so that the source
+  headers get checked for a compliant license notice.
+
+Version 1.3.0 BETA1 - June 19, 2002 - tools_1_3_0_BETA1
+
+- Initial release
+

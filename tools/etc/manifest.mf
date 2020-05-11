@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Main-Class: @@MAIN_CLASS@@
+Extension-Name: @@EXTENSION_NAME@@
+Implementation-Vendor-Id: @@VENDOR_ID@@
+Implementation-Vendor: @@VENDOR@@
+Implementation-Version: @@IMPL_VERSION@@
+

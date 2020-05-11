@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- Glassbox provides log4j.xml to ensure this is found on systems where a log4j.xml is present at a higher level (e.g., JBoss) -->
+<log4j:configuration>
+    <appender name="main" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-6r [%t] %-5p %c %x - %m %n"/>
+        </layout>
+    </appender>
+
+	<appender name="glassbox" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="glassbox.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-6r [%t] %-5p %c %x - %m %n"/>
+        </layout>
+    </appender>
+
+	<appender name="diagnostics" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="glassbox-diagnostics.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} %-6r [%t] %-5p %c %x - %m %n"/>
+        </layout>
+    </appender>
+
+	<appender name="iterations" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="glassbox-iterations.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m %n"/>
+        </layout>
+    </appender>
+
+    <category name="org.springframework">
+        <priority value="WARN" />
+    </category>
+    <category name="org.springframework.beans">
+        <priority value="INFO" />
+    </category>
+    <category name="org.springframework.remoting">
+        <priority value="INFO" />
+    </category>
+    <category name="org.springframework.jmx">
+        <priority value="INFO" />
+    </category>
+    <!--  note this is also programmatically configured by Glassbox for systems with default INFO logging -->
+    <!--  see glassbox.properties to disable that -->
+    <category name="uk.ltd.getahead.dwr">
+        <priority value="WARN" />
+    </category>
+    <category name="glassbox">
+        <priority value="INFO" />
+    </category>
+    <category name="glassbox.track.exceptions" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="glassbox"/>
+    </category>
+
+    <category name="glassbox.track.diagnostics" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="diagnostics"/>
+    </category>
+
+    <category name="glassbox.track.diagnostics.iterations" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="iterations"/>
+    </category>
+	<root>
+        <priority value="INFO"/>
+        <appender-ref ref="main"/>
+        <appender-ref ref="glassbox"/>
+    </root>
+</log4j:configuration>

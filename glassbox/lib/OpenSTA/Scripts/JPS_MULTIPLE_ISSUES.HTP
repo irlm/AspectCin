@@ -1,0 +1,2491 @@
+!Browser:IE5
+!Date : 12/28/2005
+Environment
+	Description ""
+	Mode		HTTP
+	Wait		UNIT MILLISECONDS
+
+Definitions
+	! Standard Defines
+	Include			"RESPONSE_CODES.INC"
+	Include			"GLOBAL_VARIABLES.INC"
+
+	CHARACTER*512	USER_AGENT
+	Integer			USE_PAGE_TIMERS
+	CHARACTER*256	MESSAGE
+
+	Timer			T_JPS_MULTIPLE_ISSUES
+	CHARACTER*1024	cookie_3_0
+
+	CHARACTER*512 TEST_URL, LOCAL
+
+	CONSTANT		DEFAULT_HEADERS = "Host: anti-phishing.mcafee.com^J"	&
+		"User-Agent: HttpSession"
+
+Code
+	!Read in the default browser user agent field
+	Entry[USER_AGENT,USE_PAGE_TIMERS]
+
+SET TEST_URL = "localhost"
+
+	Start Timer T_JPS_MULTIPLE_ISSUES
+	
+	WAIT 60
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore HTTP/1.0" ON 2 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Accept-Language: en-us", &
+			"Host: " + TEST_URL + ":8080", &
+			"Connection: Keep-Alive"}
+
+	DISCONNECT FROM 2
+
+	WAIT 109
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore/ HTTP/1.0" ON 3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Accept-Language: en-us", &
+			"If-None-Match: W/~<22>1420-1135730436000~<22>", &
+			"Host: " + TEST_URL + ":8080", &
+			"Connection: Keep-Alive"}
+
+	WAIT 141
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/", &
+				"Accept-Language: en-us", &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/", &
+				"Accept-Language: en-us", &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/", &
+				"Accept-Language: en-us", &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/", &
+				"Accept-Language: en-us", &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/", &
+				"Accept-Language: en-us", &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/", &
+				"Accept-Language: en-us", &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/", &
+				"Accept-Language: en-us", &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/poweredby.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/", &
+				"Accept-Language: en-us", &
+				"If-None-Match: W/~<22>2722-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 1360
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore/shop/index.do HTTP/1.0" ON 3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080"}
+
+	Load Response_Info Header on 3		&
+		Into cookie_3_0	&
+		,WITH "Set-Cookie,JSESSIONID"
+
+	WAIT 156
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 46
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/dogs_icon.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>468-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/fish_icon.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>439-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cats_icon.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>408-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/reptiles_icon.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>669-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 46
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/birds_icon.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>471-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/splash.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>36097-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS " &
+			"HTTP/1.0" ON 4 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/index.do", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 94
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 78
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02 " &
+			"HTTP/1.0" ON 3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 94
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 109
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_add_to_cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>481-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI &
+		"http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8 HTTP/1.0" ON 3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-PO-02", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 157
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_remove.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>1189-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_update_cart.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>489-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_checkout.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-8", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>534-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01 " &
+			"HTTP/1.0" ON 3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewCategory.do?categoryId=DOGS", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 100
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 78
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_add_to_cart.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>481-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI &
+		"http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10 HTTP/1.0" ON 4 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 156
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_remove.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>1189-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_update_cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>489-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_checkout.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-10", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>534-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI &
+		"http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9 HTTP/1.0" ON 4 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewProduct.do?productId=K9-DL-01", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 203
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_remove.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>1189-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_update_cart.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>489-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_checkout.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>534-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do HTTP/1.0" ON 3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/addItemToCart.do?workingItemId=EST-9", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 156
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_continue.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>1275-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do HTTP/1.0" ON 3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/checkout.do", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 78
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 109
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-in.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>257-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_submit.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>636-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_register_now.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>1115-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY POST URI "http://" + TEST_URL + ":8080/jpetstore/shop/signon.do HTTP/1.0" ON 4 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+			"Accept-Language: en-us", &
+			"Content-Type: application/x-www-form-urlencoded", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Content-Length: 103", &
+			"Pragma: no-cache", &
+			"Cookie: "+cookie_3_0}	 &
+		,BODY "forwardAction=%2Fjpetstore%2Fshop%2FnewOrderForm.do&username=j2ee&password=j2ee&update.x=37&up" &
+			"date.y=12"
+
+	WAIT 63
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do HTTP/1.0" ON 3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Pragma: no-cache", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 125
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-out.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>290-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/my_account.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>455-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_submit.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>636-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY POST URI "http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do HTTP/1.0" ON 3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrderForm.do", &
+			"Accept-Language: en-us", &
+			"Content-Type: application/x-www-form-urlencoded", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Content-Length: 299", &
+			"Pragma: no-cache", &
+			"Cookie: "+cookie_3_0}	 &
+		,BODY "order.cardType=Visa&order.creditCard=999+9999+9999+9999&order.expiryDate=12%2F03&order.billToF" &
+			"irstName=ABC&order.billToLastName=XYX&order.billAddress1=901+San+Antonio+Road&order.billAddress" &
+			"2=MS+UCUP02-206&order.billCity=Palo+Alto&order.billState=CA&order.billZip=94303&order.billCount" &
+			"ry=USA&x=25&y=4"
+
+	WAIT 157
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-out.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>290-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/my_account.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>455-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/button_continue.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>1275-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI "http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true HTTP/1.0" &
+		 ON 4 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 218
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-out.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>290-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/my_account.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>455-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 63
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI &
+		"http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28 HTTP/1.0" ON &
+		3 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/newOrder.do?confirmed=true", &
+			"Accept-Language: en-us", &
+			"Connection: Keep-Alive", &
+			"Host: " + TEST_URL + ":8080", &
+			"Cookie: "+cookie_3_0}
+
+	WAIT 100
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/bkg-topbar.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>959-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 62
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/logo-topbar.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>3808-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/cart.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>96-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/separator.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>46-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 16
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/my_account.gif HTTP/1.0" ON 3 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>455-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 31
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sign-out.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>290-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/search.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>323-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		DISCONNECT FROM 3
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/help.gif HTTP/1.0" ON 5 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>134-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 47
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_fish.gif HTTP/1.0" ON 5 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>271-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_dogs.gif HTTP/1.0" ON 4 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>306-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 46
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_reptiles.gif HTTP/1.0" ON 5 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>398-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		DISCONNECT FROM 4
+
+		WAIT 32
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_cats.gif HTTP/1.0" ON 6 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>289-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 15
+
+		GET URI "http://" + TEST_URL + ":8080/jpetstore/images/sm_birds.gif HTTP/1.0" ON 5 &
+			HEADER DEFAULT_HEADERS	 &
+			,WITH {"Accept: */*", &
+				"Referer: http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28", &
+				"Accept-Language: en-us", &
+				"Cookie: "+cookie_3_0, &
+				"If-None-Match: W/~<22>251-1135730436000~<22>", &
+				"Host: " + TEST_URL + ":8080", &
+				"Connection: Keep-Alive"}
+
+		WAIT 100
+
+	PRIMARY GET URI &
+		"http://" + TEST_URL + ":8080/jpetstore/shop/viewOrder.do?webservice=true&orderId=28&slowDBOp=1 " &
+			"HTTP/1.0" ON 6 &
+		HEADER DEFAULT_HEADERS &
+		,WITH {"Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, " &
+				"application/x-shockwave-flash, */*", &
+			"Accept-Language: en-us", &
+			"Cookie: "+cookie_3_0, &
+			"Host: " + TEST_URL + ":8080", &
+			"Connection: Keep-Alive"}
+
+	DISCONNECT FROM 5
+
+	SYNCHRONIZE REQUESTS
+
+	End Timer T_JPS_MULTIPLE_ISSUES
+Exit
+
+ERR_LABEL:
+
+	If (MESSAGE <> "") Then
+		Report MESSAGE
+	Endif
+
+Exit

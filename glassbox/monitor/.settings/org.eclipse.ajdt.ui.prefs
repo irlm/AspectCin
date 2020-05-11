@@ -1,0 +1,6 @@
+#Mon Jun 12 10:09:48 PDT 2006
+eclipse.preferences.version=1
+glassbox.test.TestExceptionHandling=SAMPLE_14
+glassbox.test.ajmock.VirtualDynamicMock.MockProcessing=SAMPLE_14
+glassbox.test.ajmock.VirtualMockAspect=SAMPLE_14
+glassbox.util.logging.api.LogManagement=SAMPLE_13

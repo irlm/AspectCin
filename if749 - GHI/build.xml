@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<project name="project" default="default">
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" description="--> description">
+        <exec executable="idlj"><arg value="-fall"/><arg value="-td"/><arg value="src"/><arg value="idl/helloWorld.idl"/></exec>
+    </target>
+
+</project>
