@@ -1,5 +1,0 @@
-<div class="problemtype">
-    <div class="probtypeinfo">Your $display.operationData.operationShortName operation made the following calls to the database:</div>
-    <br/>
-    #parse("/common/sql_call_table.vm")
-</div>

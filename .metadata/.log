@@ -6310,3 +6310,205 @@ org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
 !SUBENTRY 1 org.eclipse.team.core 4 0 2020-05-11 18:26:32.839
 !MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Server.
+!SESSION 2020-05-11 18:38:23.510 -----------------------------------------------
+eclipse.buildId=4.15.0.I20200305-0155
+java.version=14.0.1
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -keyring /Users/irlm/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -data /Users/irlm/Projects/GitHub/AspectCin -product org.eclipse.epp.package.java.product -keyring /Users/irlm/.eclipse_keyring
+
+!ENTRY org.eclipse.mylyn.bugzilla.core 4 0 2020-05-11 18:38:24.559
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.mylyn.bugzilla.core [265]
+  Unresolved requirement: Require-Bundle: org.eclipse.mylyn.commons.xmlrpc; bundle-version="[3.8.0,4.0.0)"
+    -> Bundle-SymbolicName: org.eclipse.mylyn.commons.xmlrpc; bundle-version="3.24.2.v20180904-2231"; singleton:="true"
+       org.eclipse.mylyn.commons.xmlrpc [282]
+         Unresolved requirement: Require-Bundle: org.apache.xmlrpc; bundle-version="[3.0.0,4.0.0)"
+           -> Bundle-SymbolicName: org.apache.xmlrpc; bundle-version="3.0.0.v20100427-1100"
+              org.apache.xmlrpc [54]
+                Unresolved requirement: Import-Package: javax.xml.bind
+  Unresolved requirement: Require-Bundle: org.apache.xmlrpc
+    -> Bundle-SymbolicName: org.apache.xmlrpc; bundle-version="3.0.0.v20100427-1100"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.mylyn.bugzilla.ui 4 0 2020-05-11 18:38:24.560
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.mylyn.bugzilla.ui [267]
+  Unresolved requirement: Require-Bundle: org.eclipse.mylyn.bugzilla.core; bundle-version="[3.8.0,4.0.0)"
+    -> Bundle-SymbolicName: org.eclipse.mylyn.bugzilla.core; bundle-version="3.24.2.v20180905-0003"; singleton:="true"
+       org.eclipse.mylyn.bugzilla.core [265]
+         Unresolved requirement: Require-Bundle: org.eclipse.mylyn.commons.xmlrpc; bundle-version="[3.8.0,4.0.0)"
+           -> Bundle-SymbolicName: org.eclipse.mylyn.commons.xmlrpc; bundle-version="3.24.2.v20180904-2231"; singleton:="true"
+              org.eclipse.mylyn.commons.xmlrpc [282]
+                Unresolved requirement: Require-Bundle: org.apache.xmlrpc; bundle-version="[3.0.0,4.0.0)"
+                  -> Bundle-SymbolicName: org.apache.xmlrpc; bundle-version="3.0.0.v20100427-1100"
+                     org.apache.xmlrpc [54]
+                       Unresolved requirement: Import-Package: javax.xml.bind
+         Unresolved requirement: Require-Bundle: org.apache.xmlrpc
+           -> Bundle-SymbolicName: org.apache.xmlrpc; bundle-version="3.0.0.v20100427-1100"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.mylyn.commons.xmlrpc 4 0 2020-05-11 18:38:24.561
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.mylyn.commons.xmlrpc [282]
+  Unresolved requirement: Require-Bundle: org.apache.xmlrpc; bundle-version="[3.0.0,4.0.0)"
+    -> Bundle-SymbolicName: org.apache.xmlrpc; bundle-version="3.0.0.v20100427-1100"
+       org.apache.xmlrpc [54]
+         Unresolved requirement: Import-Package: javax.xml.bind
+
+	at org.eclipse.osgi.container.Module.start(Module.java:462)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1844)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1837)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1778)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1742)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1664)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.core.resources 2 10035 2020-05-11 18:38:25.379
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.core.net 1 0 2020-05-11 18:38:26.392
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.mylyn.tasks.core 4 0 2020-05-11 18:38:28.338
+!MESSAGE Unexpected error while loading repository template extensions
+!SUBENTRY 1 org.eclipse.mylyn.tasks.core 4 0 2020-05-11 18:38:28.338
+!MESSAGE Could not load repository template extension contributed by 'org.eclipse.mylyn.bugzilla.ide' with connectorKind 'bugzilla'
+
+!ENTRY org.eclipse.team.core 4 0 2020-05-11 18:38:31.646
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCIn.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCIn.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:200)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:267)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:542)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:96)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:102)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:101)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:178)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1547)
+	at org.eclipse.core.internal.resources.File.refreshLocal(File.java:314)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2020-05-11 18:38:31.646
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCIn.
+
+!ENTRY org.eclipse.team.core 4 0 2020-05-11 18:38:31.661
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Common.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Common.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:200)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:267)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:542)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:96)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:102)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:101)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:178)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1547)
+	at org.eclipse.core.internal.resources.File.refreshLocal(File.java:314)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2020-05-11 18:38:31.661
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Common.
+
+!ENTRY org.eclipse.team.core 4 0 2020-05-11 18:38:31.662
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Server.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Server.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:200)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:267)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:542)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:96)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:102)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:101)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:178)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1547)
+	at org.eclipse.core.internal.resources.File.refreshLocal(File.java:314)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2020-05-11 18:38:31.662
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Server.
+
+!ENTRY org.eclipse.team.core 4 0 2020-05-11 18:38:31.670
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Client Aspect.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Client Aspect.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:200)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:267)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:542)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:96)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:102)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:101)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:178)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1547)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2020-05-11 18:38:31.670
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Client Aspect.
+
+!ENTRY org.eclipse.team.core 4 0 2020-05-11 18:38:31.673
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Client.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Client.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:200)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:267)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:542)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:96)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:102)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:101)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:178)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1547)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2020-05-11 18:38:31.673
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project aspectCin Test Client.
+
+!ENTRY org.eclipse.team.core 4 0 2020-05-11 18:38:31.679
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project Arquitetura AspectCIn.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project Arquitetura AspectCIn.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:200)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:267)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:542)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:96)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:102)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:101)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:178)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1547)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2020-05-11 18:38:31.680
+!MESSAGE Could not instantiate provider org.eclipse.team.cvs.core.cvsnature for project Arquitetura AspectCIn.

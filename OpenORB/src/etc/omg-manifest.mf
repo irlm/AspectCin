@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: @@OMG_MAIN_CLASS@@
-Class-Path: @@OMG_MANIFEST_CLASSPATH@@
-

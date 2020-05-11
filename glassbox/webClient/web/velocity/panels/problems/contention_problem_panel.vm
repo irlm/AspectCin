@@ -1,6 +1,0 @@
-<br/>
-<div class="probtypeinfo">Lock name = $problemItem.problem.descriptor.threadState.lockName</div>
-<br/>
-<div class="probtypeinfo">$problemItem.problemTypeInfo</div>
-<br/>
-#parse("/common/stacktrace_panel.vm")

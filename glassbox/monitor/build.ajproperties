@@ -1,3 +1,0 @@
-src.includes = src/,\
-               testsrc/,\
-               etc/

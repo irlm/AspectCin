@@ -1,8 +1,0 @@
-bin
-.generated.lst
-scratch
--d
-junit*.properties
-ajcore.*
-*.log
-*.log.*

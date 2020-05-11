@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Created-By: OpenORB Project
-Extension-Name: openorb-utilities
-Specification-Vendor: OpenORB Community Project
-Specification-Version: 1.0
-Implementation-Vendor-Id: OpenORB Community Project
-Implementation-Version: 1.0

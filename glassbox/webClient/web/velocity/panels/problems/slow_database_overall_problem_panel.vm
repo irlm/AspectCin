@@ -1,9 +1,0 @@
-<div class="problemtype">
-    
-    <div class="probtypeinfo">$problemItem.problemDescription</div>
-    <br/>
-    #if($problemItem.problem.distinctCalls.size() >= 1)  
-    <div class="probtypeinfo">$problemItem.problemTypeInfo</div>
-    #parse("/common/summary_sql_call_table.vm")
-    #end
-</div>

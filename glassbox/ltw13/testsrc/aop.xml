@@ -1,6 +1,0 @@
-<aspectj>
-    <weaver options="-verbose -showWeaveInfo"/>
-    <aspects>
-        <aspect name="test.ltw13.TestAspect"/>
-    </aspects>
-</aspectj>

@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: @@TEST_MAIN_CLASS@@
-Class-Path: @@TEST_MANIFEST_CLASSPATH@@
-

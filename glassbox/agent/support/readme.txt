@@ -1,2 +1,0 @@
-This folder is used to hold files that support the build process, such as launch configurations for running programs and common ways of running junit and ant.
-It also holds snapshots of crosscutting structure (to see where advice has changed). We might want to have that be scripted & captured automatically.

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-<comment>Configurações</comment>
-<entry key="port">12346</entry>
-<entry key="targetPort">12347</entry>
-<entry key="targetHost">localhost</entry>
-</properties>

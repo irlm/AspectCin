@@ -1,1 +1,0 @@
-jconsole "-J-Djava.class.path=%JAVA_HOME%\lib\jconsole.jar;%JAVA_HOME%\lib\tools.jar;c:\devel\glassbox\dist\dist\agent.jar;c:\devel\glassbox\dist\dist\glassboxMonitor.jar;c:\devel\aspectj\1.5.2\lib\aspectjrt.jar" service:jmx:rmi:///jndi/rmi://localhost:7232/GlassboxTroubleshooter
